@@ -56,6 +56,12 @@ Skills under `skills/` are auto-discovered by Copilot Chat. For any project, cop
 
 No dependencies. Skills are self-contained Markdown + scripts. Copy `skills/<name>/` into any project to use.
 
+## Acknowledgments
+
+- [AI-Research-SKILLs](https://github.com/Orchestra-Research/AI-Research-SKILLs/) — Orchestra Research's AI research skill collection
+- [research-writing-skill](https://github.com/alfonso0512/research-writing-skill/) — Alfonso's research writing skill for coding agents
+- [superpowers](https://github.com/obra/superpowers) — Superpowers-level conciseness conventions for AI agent skills
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) and [CLAUDE.md](CLAUDE.md).
