@@ -33,14 +33,14 @@ Every level commits to git.
 
 ## Polish Mode
 
-When polishing an existing draft:
+When polishing an existing draft, HLS documents MUST be generated — not just discussed verbally.
 
-1. **If no L0/L1 exists** — read the draft → extract the implicit HLS (6 points, Section flow chains) → present to user: "Here's what I extracted. Is this accurate? What needs to change?" → discuss until L0/L1 are confirmed
-2. **If L0/L1 exist** — critical review: are the 6 points still valid? Do flow chains match what was actually written? → discuss changes → update L0/L1
-3. **Invoke L2** — parallel revision of each Section following the (revised) flow chains and writing guide
-4. **Invoke L3** — consistency check. Polish is complete when all 6 checks pass.
+1. **If no L0/L1 exists** — read draft → extract implicit HLS → **critical think silently** (identify issues, form 2-3 suggestions) → present to user with issues + suggestions → discuss → **write `stream-L0.md` and `stream-L1.md`** → commit
+2. **If L0/L1 exist** — critical review: points still valid? chains match draft? → **critical think** (2-3 issues + suggestions) → present → discuss → update L0/L1
+3. **Invoke L2** — parallel revision following (revised) flow chains + writing guide
+4. **Invoke L3** — consistency check. Polish complete when all 6 checks pass.
 
-**Polish-lite (language only):** User says "just polish the language" → read the draft → identify existing structure → use writing guide for voice/pitfalls → L2 revise prose → L3 consistency. Do NOT challenge core ideas or restructure unless asked.
+**Polish-lite (language only):** User says "just polish the language" → use writing guide for voice/pitfalls → L2 revise prose → L3 consistency. Do NOT restructure.
 
 ## Write Mode (Full HLS)
 
@@ -49,11 +49,13 @@ Standard flow: L0 → L1 → L2 → L3. Start from ideas, end with paper.
 ## Hard Gates
 
 <HARD-GATE-L0>
-Do NOT proceed to L1 until: target venue determined, 6 core points written to `docs/systematic-research/plans/YYYY-MM-DD-<topic>-stream-L0.md`, each point judged and NOT rejected, user approved.
+Do NOT proceed to L1 until: target venue determined, 6 core points written to `docs/systematic-research/plans/YYYY-MM-DD-<topic>-stream-L0.md`, each point discussed ONE AT A TIME and judged PASS, NOT rejected, user confirmed each point individually.
+Do NOT batch all 6 points into a single message. Ask one → judge → user confirms → next.
 </HARD-GATE-L0>
 
 <HARD-GATE-L1>
-Do NOT proceed to L2 until: 2-3 custom structures proposed and discussed, ONE confirmed with A→B→C flow chains, L1 document written and user approved.
+Do NOT proceed to L2 until: each Section proposed ONE AT A TIME, name confirmed, A→B→C flow chain defined and confirmed, figures placed, L1 document accumulated incrementally and user approved.
+Do NOT present all Sections at once. Propose Section N → discuss → confirm name → define chain → confirm chain → next Section.
 </HARD-GATE-L1>
 
 <HARD-GATE-L2>

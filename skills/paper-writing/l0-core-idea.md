@@ -6,15 +6,80 @@
 
 | Mode | Starting Point | Action |
 |------|---------------|--------|
-| **Write** | No draft | Ask 6-point questions. Judge each. Loop until PASS. |
-| **Polish** | Existing draft | Read draft → extract implicit 6 points → present: "Here's what I extracted. Accurate? What needs to change?" → discuss → refine |
-| **Polish (L0 exists)** | Existing `stream-L0.md` | Critical review: points still valid? Match what was written? → discuss changes |
+| **Write** | No draft | Ask 6-point questions ONE AT A TIME. Judge each before next. Loop each until PASS. |
+| **Polish** | Existing draft | Read draft → extract implicit 6 points → **critical think** (identify 2-3 issues + suggestions) → present issues ONE AT A TIME → discuss each → **write `stream-L0.md`** → commit |
+| **Polish (L0 exists)** | Existing `stream-L0.md` | Critical review → **critical think** (2-3 issues + suggestions) → present issues ONE AT A TIME → discuss each → update L0 |
+
+<HARD-GATE-L0-STEPWISE>
+**ONE point at a time.** Ask → judge → user confirms → NEXT point.
+Do NOT batch all 6 points into one message.
+Do NOT ask user to confirm everything at once.
+Each point MUST reach PASS before moving to the next.
+</HARD-GATE-L0-STEPWISE>
+
+## Critical Think (Polish Mode)
+
+Before presenting to the user, silently review and identify:
+
+1. **Weak points** — which of the 6 points is underdeveloped in the draft?
+2. **Contradictions** — does the draft make claims that conflict with each other?
+3. **Missing evidence** — where does the draft assert without data?
+4. **Scope mismatch** — does the page budget (from blueprint) support the claimed contributions?
+
+Present issues **ONE AT A TIME**. For each issue: "Issue: [X]. Suggestion: [Y]. Agree?" Wait for user before next issue.
 
 ## Checklist
 
 1. **Determine venue** — ask first. Dictates page budget -> blueprint -> skeleton.
 2. **Discover blueprint** — list `templates/`, load `BLUEPRINT.md` matching venue field + page count.
-3. **Judge core points** — write: ask one at a time. Polish: extract from draft then judge. PASS / WEAK / REJECT. Loop until all PASS.
+3. **Judge core points** — ONE AT A TIME. Ask point N → judge → user confirms → next. PASS / WEAK / REJECT. Loop current point until PASS, then move on.
+
+## Step-by-Step Interaction Protocol
+
+```dot
+digraph l0_flow {
+    rankdir=TB;
+    "Ask venue" [shape=box];
+    "User confirms venue?" [shape=diamond];
+    "Discover blueprint" [shape=box];
+    "Point 1: Big Background" [shape=box];
+    "Judge → PASS?" [shape=diamond];
+    "Point 2: Small Background" [shape=box];
+    "Judge → PASS?" [shape=diamond];
+    "Point 3: Challenges" [shape=box];
+    "Judge → PASS?" [shape=diamond];
+    "Point 4: Key Idea" [shape=box];
+    "Judge → PASS?" [shape=diamond];
+    "Point 5: Design Points" [shape=box];
+    "Judge → PASS?" [shape=diamond];
+    "Point 6: System & Exp" [shape=box];
+    "Judge → PASS?" [shape=diamond];
+    "Write L0 doc + commit" [shape=oval];
+
+    "Ask venue" -> "User confirms venue?";
+    "User confirms venue?" -> "Ask venue" [label="no"];
+    "User confirms venue?" -> "Discover blueprint" [label="yes"];
+    "Discover blueprint" -> "Point 1: Big Background";
+    "Point 1: Big Background" -> "Judge → PASS?";
+    "Judge → PASS?" -> "Point 1: Big Background" [label="no"];
+    "Judge → PASS?" -> "Point 2: Small Background" [label="yes"];
+    "Point 2: Small Background" -> "Judge → PASS?";
+    "Judge → PASS?" -> "Point 2: Small Background" [label="no"];
+    "Judge → PASS?" -> "Point 3: Challenges" [label="yes"];
+    "Point 3: Challenges" -> "Judge → PASS?";
+    "Judge → PASS?" -> "Point 3: Challenges" [label="no"];
+    "Judge → PASS?" -> "Point 4: Key Idea" [label="yes"];
+    "Point 4: Key Idea" -> "Judge → PASS?";
+    "Judge → PASS?" -> "Point 4: Key Idea" [label="no"];
+    "Judge → PASS?" -> "Point 5: Design Points" [label="yes"];
+    "Point 5: Design Points" -> "Judge → PASS?";
+    "Judge → PASS?" -> "Point 5: Design Points" [label="no"];
+    "Judge → PASS?" -> "Point 6: System & Exp" [label="yes"];
+    "Point 6: System & Exp" -> "Judge → PASS?";
+    "Judge → PASS?" -> "Point 6: System & Exp" [label="no"];
+    "Judge → PASS?" -> "Write L0 doc + commit" [label="yes"];
+}
+```
 
 ## Core Points
 
