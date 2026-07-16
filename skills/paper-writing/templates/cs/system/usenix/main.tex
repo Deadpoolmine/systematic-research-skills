@@ -1,0 +1,102 @@
+% ============================================================
+% USENIX Conference Paper — Skeleton
+%
+% Style files in this directory:
+%   usenix2019_v3.sty           — USENIX style
+%   usenixbadges.sty            — artifact evaluation badges
+%   usenixbadges-*.pdf          — badge graphics
+%
+% Sections:   sections/*.tex (generated during L2)
+% Figures:    figs/
+% Drawings:   draw/ (draw.io sources)
+% References: references.bib
+% ============================================================
+
+\documentclass[letterpaper,twocolumn,10pt]{article}
+\usepackage{usenix2019_v3}
+
+% ---- Packages ----
+\usepackage{tikz}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{multirow}
+\usepackage{makecell}
+\usepackage{multicol}
+\usepackage[explicit]{titlesec}
+\usepackage[hang,flushmargin]{footmisc}
+\usepackage{enumitem}
+\usepackage{soul}
+\usepackage{hyperref}
+\usepackage[misc]{ifsym}
+\usepackage{listings}
+\usepackage{float}
+
+% ---- Code listing ----
+\lstset{basicstyle=\ttfamily,
+  showstringspaces=false,
+  commentstyle=\color{red},
+  keywordstyle=\color{blue},
+  breaklines=true}
+
+% ---- URL break ----
+\def\UrlBreaks{%
+	\do\/\do\a\do\b\do\c\do\d\do\e\do\f\do\g\do\h\do\i\do\j\do\k\do\l%
+	\do\m\do\n\do\o\do\p\do\q\do\r\do\s\do\t\do\u\do\v\do\w\do\x\do\y\do\z%
+	\do\A\do\B\do\C\do\D\do\E\do\F\do\G\do\H\do\I\do\J\do\K\do\L%
+	\do\M\do\N\do\O\do\P\do\Q\do\R\do\S\do\T\do\U\do\V\do\W\do\X\do\Y\do\Z%
+	\do0\do1\do2\do3\do4\do5\do6\do7\do8\do9\do=\do/\do.\do:%
+	\do\*\do\-\do\~\do\'\do\"\do\-}
+\Urlmuskip=0mu plus 0.1mu
+
+% ---- Spacing ----
+\titlespacing*{\section}{0pt}{2mm}{0ex}
+\titlespacing*{\subsection}{0pt}{1mm}{0ex}
+\titlespacing*{\subsubsection}{0pt}{0mm}{0ex}
+\titlespacing*{\paragraph}{0pt}{0mm}{4pt}
+
+% ---- Artifact evaluation badges (optional) ----
+% \usepackage[available,functional,reproduced]{usenixbadges}
+
+\date{}
+
+\begin{document}
+
+% ============================================================
+% TITLE & AUTHORS
+% ============================================================
+\title{}
+
+% \author{
+% 	\fontsize{11}{13}\selectfont
+% 	...\\
+% 	\fontsize{11}{13}\selectfont ...
+% }
+
+\maketitle
+\pagestyle{empty}
+
+% ============================================================
+% ABSTRACT
+% ============================================================
+\begin{abstract}
+\end{abstract}
+
+% ============================================================
+% SECTIONS — \input during L2
+% ============================================================
+
+% ============================================================
+% BIBLIOGRAPHY
+% ============================================================
+% \bibliographystyle{plain}
+% \bibliography{references}
+
+% ============================================================
+% APPENDIX
+% ============================================================
+% \input{appendix}
+% \input{artifacts}
+
+\end{document}

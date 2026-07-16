@@ -1,0 +1,104 @@
+% ============================================================
+% ACM SigConf Paper — Skeleton
+%
+% Style files in this directory:
+%   acmart.cls                — document class
+%   ACM-Reference-Format.bst  — bibliography style
+%   acmauthoryear.bbx/cbx     — author-year BibLaTeX style
+%   acmnumeric.bbx/cbx        — numeric BibLaTeX style
+%   acmdatamodel.dbx          — data model
+%
+% Usage:
+%   Submission:  \documentclass[sigconf,10pt,review,anonymous,screen]{acmart}
+%   Camera-ready: \documentclass[sigconf,10pt]{acmart}
+%
+% Sections: sections/*.tex (generated during L2)
+% Figures:  figs/
+% References: references.bib, software.bib
+% ============================================================
+
+\documentclass[sigconf,10pt,review,anonymous,screen]{acmart}
+
+% ---- ACM housekeeping ----
+\renewcommand\footnotetextcopyrightpermission[1]{}
+\settopmatter{printacmref=false}
+\AtBeginDocument{\providecommand\BibTeX{{Bib\TeX}}}
+
+% ---- Rights (camera-ready) ----
+% \setcopyright{acmlicensed}
+% \copyrightyear{2026}
+% \acmYear{2026}
+% \acmDOI{}
+
+% ---- Conference ----
+\acmConference[Abbrev]{Full Name}{Dates}{City, Country}
+% \acmBooktitle{...}
+% \acmISBN{}
+
+% ---- Packages ----
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{pifont}
+\usepackage{soul}
+\usepackage[explicit]{titlesec}
+\usepackage{microtype}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{makecell}
+\usepackage{listings}
+\usepackage{xurl}
+
+% ---- URL break ----
+\def\UrlBreaks{%
+  \do\/\do\a\do\b\do\c\do\d\do\e\do\f\do\g\do\h\do\i\do\j\do\k\do\l%
+  \do\m\do\n\do\o\do\p\do\q\do\r\do\s\do\t\do\u\do\v\do\w\do\x\do\y\do\z%
+  \do\A\do\B\do\C\do\D\do\E\do\F\do\G\do\H\do\I\do\J\do\K\do\L%
+  \do\M\do\N\do\O\do\P\do\Q\do\R\do\S\do\T\do\U\do\V\do\W\do\X\do\Y\do\Z%
+  \do0\do1\do2\do3\do4\do5\do6\do7\do8\do9\do=\do/\do.\do:%
+  \do\*\do\-\do\~\do\'\do\"\do\-}
+\Urlmuskip=0mu plus 0.1mu
+
+% ---- Spacing ----
+\titlespacing*{\section}{0pt}{1mm}{0mm}
+\titlespacing*{\subsection}{0pt}{1mm}{0mm}
+\titlespacing*{\subsubsection}{0pt}{1mm}{0ex}
+\titlespacing*{\paragraph}{0pt}{0mm}{4pt}
+
+\begin{document}
+
+% ============================================================
+% TITLE & AUTHORS
+% ============================================================
+\title{}
+
+% \author{}
+% \email{}
+% \affiliation{\institution{}\city{}\country{}}
+% \renewcommand{\shortauthors}{}
+
+% ============================================================
+% ABSTRACT
+% ============================================================
+\begin{abstract}
+\end{abstract}
+
+\maketitle
+
+% ============================================================
+% SECTIONS — \input during L2
+% ============================================================
+
+% ============================================================
+% BIBLIOGRAPHY
+% ============================================================
+% \bibliographystyle{ACM-Reference-Format}
+% \bibliography{references,software}
+
+% ============================================================
+% APPENDIX
+% ============================================================
+% \appendix
+% \input{appendix}
+
+\end{document}
