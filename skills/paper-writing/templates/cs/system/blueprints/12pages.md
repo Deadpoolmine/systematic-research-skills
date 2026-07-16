@@ -8,6 +8,8 @@
 
 ## Page Budget
 
+**All page limits exclude references.** The 12 pages are for main content only. References, appendices, and acknowledgments are extra.
+
 | Section | Pages | Key Constraint |
 |---------|-------|---------------|
 | Abstract | ~0.25 | 150-250 words, 5 sentences |
@@ -18,7 +20,7 @@
 | S5 Evaluation | 3-4 | Every conclusion stated 3× (hypothesis, result, caption) |
 | S6 Related Work | 1 | Grouped by methodology, not paper-by-paper |
 | S7 Conclusion | 0.5 | 3-sentence formula |
-| **Total** | **~12** | References unlimited |
+| **Total** | **~12 + refs** | References unlimited |
 
 ---
 

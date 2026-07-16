@@ -8,6 +8,8 @@
 
 ## Page Budget
 
+**All page limits exclude references.** The 8 pages are for main content only. References, appendices, and acknowledgments are extra.
+
 | Section | Pages | Key Constraint |
 |---------|-------|---------------|
 | Abstract | ~0.2 | 100-150 words, 3-4 sentences |
@@ -18,7 +20,7 @@
 | S5 Evaluation | 2-2.5 | Setup + end-to-end only; microbenchmarks only if space permits |
 | S6 Related Work | 0.5 | One paragraph grouping by methodology |
 | S7 Conclusion | 0.3 | 2-3 sentence summary |
-| **Total** | **~8** | References unlimited |
+| **Total** | **~8 + refs** | References unlimited |
 
 ---
 

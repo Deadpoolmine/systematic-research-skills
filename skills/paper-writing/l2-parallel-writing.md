@@ -2,7 +2,7 @@
 
 **Load when:** executing L2 (write or polish). One subagent per Section, dispatched in parallel.
 
-**REQUIRED BACKGROUND:** L1 complete. Reference: [dispatching-parallel-agents](../../../superpowers/skills/dispatching-parallel-agents/SKILL.md).
+**REQUIRED BACKGROUND:** L1 complete. Each Section dispatched via `runSubagent` in parallel — see process flow below.
 
 <HARD-GATE-L2-PARALLEL>
 Every Section = its own subagent. ALL dispatched in ONE response (parallel).
@@ -45,8 +45,8 @@ digraph l2_flow {
 ## Step 1: Prep
 
 1. Copy skeleton to `paper/` (explore `templates/` → match venue)
-2. Load `writing-guide.md` + `BLUEPRINT.md`
-3. From L1: extract each Section's name, A→B→C chain, figure placeholders, page budget
+2. Load `writing-guide.md` + `BLUEPRINT.md` + `style.md`
+3. From L1: extract each Section's name, A→B→C chain, figure/table placeholders, page budget
 
 ## Step 2: Build Subagent Prompts
 
@@ -57,7 +57,7 @@ Write Section <N>: <Name> for a <venue> paper.
 
 **L0 Core Idea:** <Big/Small background, Key Idea, Design Points>
 
-**Blueprint Constraint (BINDING):**
+**Blueprint Constraint (BINDING — page limits exclude references):**
 - Section structure: <from blueprint>
 - Paragraph budget: <N> paragraphs total, each 3-5 sentences max
 - Page allocation: ~<X>% of paper
@@ -68,14 +68,25 @@ A. <step> → B. <step> → C. <step> → ...
 **Writing Guide (copy-paste exact excerpt for this Section type):**
 <Paste from writing-guide.md — do NOT summarize>
 
+**Style Reference (copy-paste from style.md for the figure/table types in this Section):**
+<Paste the relevant `\begin{figure}...`, `\begin{table}...` templates from style.md>
+
 **Universal rules:**
-- **Paragraph structure:** Every paragraph = topic sentence → 2-4 supporting sentences → concluding/transition sentence (总分总). Minimum: topic → support (总分). The first sentence declares the paragraph's point; the last sentence either concludes or bridges to the next paragraph.
-- Vocabulary: standard ML terms only. No obscure words (ameliorate, delineate, elucidate, heretofore). Plain English.
-- Paragraph length: 3-5 sentences. Max 8. One idea per paragraph.
+- **Paragraph = one idea = one chain step.** Each step in your flow chain (A, B, C...) maps to exactly ONE paragraph. Do not merge steps. Do not split one step into multiple paragraphs. If a chain step needs more than 5 sentences, the step itself is too broad — split the step in L1.
+- **Paragraph structure:** Topic sentence → 2-3 supporting sentences → concluding/transition (总分总). First sentence declares the point. Last sentence concludes or bridges.
+- **Paragraph length: 3-5 sentences. Hard cap: 6.** If it runs longer, split at the nearest logical break. Short paragraphs are better than dense ones.
+- **Sentence length: 10-25 words.** Hard cap: 30 words. No run-on sentences. Split long sentences ruthlessly.
+- Vocabulary: standard ML terms only. No obscure words (ameliorate, delineate, elucidate, heretofore, utilize, leverage as verb). Plain English.
 - `[TODO: actual number]` as plain text or `% [TODO: ...]` LaTeX comment. NEVER inside `$$` or `$`.
 - Define notation before use. Evidence-backed claims. "we". Specific > vague.
 
-**Figures:** `[Figure: <desc>. figs/<name>.pdf]` at chain step <letter>.
+**Figures & Tables:** Insert complete LaTeX environments — NOT bare `[Figure: ...]` markers. Use the exact templates from style.md:
+- Single-column: `\begin{figure}[t]...\end{figure}`
+- Double-column: `\begin{figure*}[t]...\end{figure*}`
+- Tables: `\begin{table}[t]...` with `booktabs` (`\toprule`, `\midrule`, `\bottomrule`). No vertical rules.
+- Draft numbers: `[TODO: value]` in table cells.
+- Place at the chain step specified. Every figure/table needs: `\caption{}` (bold title + `\small` description) + `\label{}`.
+- Must-have: architecture overview figure (Method Section) + main results table (Experiments Section).
 
 **Output:** `paper/sections/<filename>.tex`. Complete LaTeX. Follow chain + blueprint exactly. `\cite{}` as venue requires. Do NOT write other Sections' content.
 
@@ -111,9 +122,10 @@ User requests changes → **re-dispatch** affected Section subagent. Don't revis
 
 ## Step 5: Finalize
 
-1. Add references → `[Figure: ...]` → full `\begin{figure}` → `[TODO]` markers
-2. **Write Abstract** — 5-sentence formula from blueprint. Must be consistent with all drafted Sections. Dispatch as a subagent if needed.
-3. Compile check — ensure `main.tex` compiles
+1. Add references to `paper/references.bib`
+2. Verify all figures/tables: proper `\begin{figure/table}...\end{figure/table}` (not bare `[Figure: ...]`), `\caption{}` present, `\label{}` present, `booktabs` for tables, no `\hline`
+3. **Write Abstract** — 5-sentence formula from blueprint. Must be consistent with all drafted Sections. Dispatch as a subagent if needed.
+4. Compile check — ensure `main.tex` compiles without errors
 
 Commit: `L2: draft for <topic>`. Proceed to L3.
 
@@ -125,3 +137,5 @@ Commit: `L2: draft for <topic>`. Proceed to L3.
 | "Write Sections 1-3" in one agent | One agent = one Section |
 | Summarize writing guide | Copy-paste exact excerpt |
 | Revise inline | Re-dispatch subagent |
+| `[Figure: desc]` text marker | `\begin{figure}[t]...\end{figure}` from style.md |
+| `\hline` in tables | `\toprule`/`\midrule`/`\bottomrule` (booktabs) |

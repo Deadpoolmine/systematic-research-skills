@@ -26,19 +26,20 @@ All 7 checks must pass. Checks 1-6 validate **structure**; Check 7 validates **p
 <HARD-GATE-L3-PROSE>
 Check 7 MUST be performed by reading the full paper from abstract to conclusion, in order.
 Do NOT check by Section in isolation — read across Section boundaries.
+After sub-checks 7a-7g pass, perform a SECOND dedicated pass for length only: split every paragraph > 6 sentences and every sentence > 30 words.
 </HARD-GATE-L3-PROSE>
 
 | Sub-Check | What to Verify | Fix Action |
 |-----------|---------------|------------|
-| **7a. Conciseness** | Every sentence earns its place. Remove: filler words, redundant clauses, "it is worth noting that...", "interestingly..." | Cut or merge |
-| **7b. Paragraph structure** | Every paragraph = topic → support → conclude/transition (总分 or 总分总). First sentence declares point. | Restructure if topic sentence buried or missing |
-| **7c. Inter-paragraph flow** | Each paragraph's last sentence bridges to the next paragraph's topic. No jarring jumps. | Add transition sentence or reorder paragraphs |
-| **7d. Vocabulary** | No obscure words. Replace: ameliorate→improve, delineate→describe, elucidate→explain, heretofore→previously, utilize→use, facilitate→help/enable, leverage→use. | Replace in-place |
-| **7e. Sentence variety** | Mix short (8-12 words) and long (18-25 words). No 3+ long sentences in a row. | Split or combine |
-| **7f. Pronoun clarity** | Every "this", "it", "they" has an unambiguous antecedent within the same or previous sentence. | Replace with explicit noun |
-| **7g. Redundancy** | No sentence repeats what the previous sentence already said in different words. | Delete the weaker version |
+| **7a. Sentence length** | Hard cap: 30 words. Flag every sentence > 25 words. No run-ons. | Split at nearest clause boundary |
+| **7b. Paragraph length** | Hard cap: 6 sentences. Flag every paragraph > 5 sentences. One idea = one chain step. | Split at logical break; if impossible, the L1 chain step is too broad |
+| **7c. Conciseness** | Every sentence earns its place. Remove: filler ("it is worth noting", "interestingly", "in particular"), redundant clauses, hedging ("may potentially", "could possibly"). | Cut in-place |
+| **7d. Paragraph structure** | Every paragraph = topic → support → conclude/transition (总分总). First sentence declares point. | Restructure if topic sentence buried |
+| **7e. Inter-paragraph flow** | Each paragraph's last sentence bridges to next paragraph's topic. No jumps. | Add transition or reorder |
+| **7f. Vocabulary** | No obscure words. Replace: ameliorate→improve, delineate→describe, elucidate→explain, heretofore→previously, utilize→use, facilitate→help, leverage→use, mitigate→reduce, paradigm→approach, efficacy→effectiveness. | Replace in-place |
+| **7g. Pronoun clarity** | Every "this", "it", "they" has an unambiguous antecedent in same or previous sentence. | Replace with explicit noun |
 
-**Execution:** Read linearly. Fix each issue immediately before moving to the next sentence. After full pass, re-read once more to verify fixes didn't break flow.
+**Execution:** Read linearly. Fix each issue immediately before moving to next sentence. After full pass, do a dedicated second pass checking ONLY 7a + 7b — split long sentences and paragraphs ruthlessly. Then re-read once more to verify fixes didn't break flow.
 
 ## Draft Mode (Check #4)
 
@@ -61,13 +62,13 @@ For each issue: identify **root cause** (L0 omission? L1 gap? L2 drift?). Fix at
 - Check 2: DP2 not covered → root: L1 Design chain omitted DP2 → fix L1, re-draft L2
 
 ### ✅ Prose Quality (Check 7)
-- 7a: 12 filler phrases removed
-- 7b: 3 paragraphs restructured (topic sentence buried)
-- 7c: 2 transitions added between Sections
-- 7d: 8 obscure words replaced
-- 7e: 5 long sentences split
-- 7f: 4 ambiguous pronouns clarified
-- 7g: 2 redundant sentences deleted
+- 7a: 5 sentences > 30 words split
+- 7b: 3 paragraphs > 6 sentences split
+- 7c: 12 filler phrases removed
+- 7d: 2 paragraphs restructured (topic sentence buried)
+- 7e: 4 transitions added between paragraphs
+- 7f: 10 obscure words replaced
+- 7g: 6 ambiguous pronouns clarified
 ```
 
 ## Transition

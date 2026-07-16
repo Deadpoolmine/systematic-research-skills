@@ -94,8 +94,8 @@ digraph hls {
     "User OK?" -> "Commit L1" [label="yes"]; "Commit L1" -> "L2: Build\n[l2-parallel-writing.md]";
     "L2: Build\n[l2-parallel-writing.md]" -> "User OK?"; "User OK?" -> "L2: Build\n[l2-parallel-writing.md]" [label="no"];
     "User OK?" -> "Commit L2" [label="yes"]; "Commit L2" -> "L3: Audit\n[l3-consistency-check.md]";
-    "L3: Audit\n[l3-consistency-check.md]" -> "6 checks pass?"; "6 checks pass?" -> "L2: Build\n[l2-parallel-writing.md]" [label="no"];
-    "6 checks pass?" -> "Commit final" [label="yes"]; "Commit final" -> "Done";
+    "L3: Audit\n[l3-consistency-check.md]" -> "7 checks pass?"; "7 checks pass?" -> "L2: Build\n[l2-parallel-writing.md]" [label="no"];
+    "7 checks pass?" -> "Commit final" [label="yes"]; "Commit final" -> "Done";
 }
 ```
 

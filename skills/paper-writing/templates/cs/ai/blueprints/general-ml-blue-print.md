@@ -24,16 +24,18 @@
 
 ## Page Budget
 
+**All page limits below are for MAIN CONTENT ONLY. References do NOT count toward the page limit at ANY venue listed.** Appendices are also unlimited (reviewers not required to read).
+
 | Conference | Submission | Camera-Ready | Notes |
 |-----------|-----------|--------------|-------|
-| NeurIPS | 9 pages | +0 | Mandatory checklist, lay summary |
-| ICML | 8 pages | +1 | Broader Impact Statement |
-| ICLR | 9 pages | +1 | LLM disclosure |
-| ACL | 8 pages (long) | varies | Limitations mandatory |
-| AAAI | 7 pages | +1 | Strict style adherence |
-| COLM | 9 pages | +1 | LM focus |
+| NeurIPS | 9 pages + refs | +0 | Mandatory checklist, lay summary |
+| ICML | 8 pages + refs | +1 | Broader Impact Statement |
+| ICLR | 9 pages + refs | +1 | LLM disclosure |
+| ACL | 8 pages (long) + refs | varies | Limitations mandatory |
+| AAAI | 7 pages + refs | +1 | Strict style adherence |
+| COLM | 9 pages + refs | +1 | LM focus |
 
-References unlimited. Appendices unlimited but reviewers not required to read.
+When allocating paragraph budget, only count the main-content pages — references are extra.
 
 ---
 
@@ -58,12 +60,12 @@ Spend **equal time** on each:
 | Abstract | 1 (5 sentences) | 3% | 5-sentence formula, no generic opening |
 | Introduction | 7-8 | 18% | Ends with contribution bullets |
 | Related Work | 5-6 | 13% | Thematic grouping, not paper-by-paper |
-| Preliminaries | 4-5 | 10% | Only what's needed; not a textbook |
-| Method | 10-12 | 26% | Architecture figure + 2-3 subsections |
+| Method | 12-14 | 30% | Architecture figure + 2-3 subsections |
 | Experiments | 10-12 | 26% | Setup, main results, ablations, analysis |
-| Discussion/Conclusion | 3-4 | 4% | Limitations specific, future work concrete |
+| Discussion and Limitations | 3-4 | 7% | Specific limitations, failure modes, future work |
+| Conclusion | 1-2 | 3% | 3-5 sentence summary, no new information |
 
-Scale proportionally for 8-9 page venues. Never exceed 3-5 sentences per paragraph. Maximum 8 sentences.
+Scale proportionally for 8-9 page venues. Never exceed 3-5 sentences per paragraph. Maximum 6 sentences.
 
 ### Abstract (5-Sentence Formula — Sebastian Farquhar)
 
@@ -78,9 +80,13 @@ Delete generic openings like "Large language models have achieved remarkable suc
 ### Introduction (1-1.5 pages max)
 
 Must include:
-- 2-4 bullet contribution list (max 1-2 lines each in two-column format)
 - Clear problem statement with evidence
 - Brief approach overview
+- **Contributions (bullet list, END of Introduction):** 2-3 bullets max. One line each. Pattern:
+  1. **Identify** problem
+  2. **Propose** insight/technique (merge if possible)
+  3. **Demonstrate** results
+- Paper Organization paragraph (1-2 sentences, optional — omit if space tight)
 - Methods should start by page 2-3
 
 ### Figure 1 (Draft Before Writing)
@@ -122,12 +128,33 @@ Organize by methodology, not paper-by-paper:
 
 Cite generously — reviewers likely authored relevant papers.
 
-### Limitations (REQUIRED)
+### Discussion and Limitations (REQUIRED)
 
-Honesty helps:
+**Discussion:**
+- Honest reflection on what worked and what didn't
+- Broader implications of the results
+
+**Limitations:**
+- Be specific. "Requires 8×A100 GPUs for training" not "computationally expensive"
+- Failure modes: when doesn't it work? Show a concrete example.
 - Reviewers instructed not to penalize honest limitation acknowledgment
 - Pre-empt criticisms by identifying weaknesses first
 - Explain why limitations don't undermine core claims
+
+**Future work:** 2-3 concrete directions that naturally extend this work. Not a different paper.
+
+### Conclusion
+
+**Purpose:** Remind the reader what they learned. No new information.
+
+**Structure:**
+1. Task and gap (1 sentence)
+2. Key insight (1 sentence)
+3. What you proposed (1 sentence)
+4. Key result (1 sentence)
+5. Closing remark (1 sentence — optional)
+
+**Pitfalls:** Introducing new claims, repeating the abstract, "Future work includes..." (belongs in Discussion).
 
 ---
 
@@ -185,5 +212,6 @@ Honesty helps:
 - [ ] Every experiment states what claim it supports
 - [ ] Error bars with methodology stated
 - [ ] Limitations section present and specific
+- [ ] Conclusion separate from Discussion, no new claims
 - [ ] Related work grouped by methodology
 - [ ] All citations verified (no hallucinated references)
