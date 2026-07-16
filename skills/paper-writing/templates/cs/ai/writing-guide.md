@@ -12,6 +12,7 @@
 - **Evidence-driven.** Claims are backed by experiments, ablations, or theoretical analysis. Avoid hand-waving about "learning meaningful representations."
 - **Honest about scope.** A method that works on 3 datasets is not "state-of-the-art across all benchmarks." A method that requires 8×A100s should say so.
 - **First person** ("we") is standard.
+- **Paragraph structure.** Topic sentence → 2-4 supporting sentences → concluding/transition sentence (总分总). Minimum: topic → support (总分). First sentence = what this paragraph argues. Last sentence = why it matters or what comes next.
 - **Paragraph length.** 3-5 sentences. Never exceed 8. Short paragraphs > wall-of-text. One idea per paragraph.
 - **Vocabulary.** Standard ML terminology. No obscure words ("ameliorate", "delineate", "elucidate", "heretofore", "aforementioned", "thusly"). Use plain English: "improve" not "ameliorate", "describe" not "delineate", "explain" not "elucidate".
 - **Blueprint is binding.** The section structure, paragraph count, and page budget from the blueprint are HARD constraints — not suggestions. Every paragraph must serve the blueprint's specified purpose.
@@ -32,30 +33,24 @@
 ### Purpose
 Establish the task, identify the gap in current methods, present your insight, preview results.
 
-### Structure & Advice
+### Structure (1-1.5 pages max)
 
-**Big Background (1 paragraph):** Name the AI trend or capability. "Large vision-language models have demonstrated..." Be specific about scale and recency.
+| Step | Sentences | Content |
+|------|-----------|---------|
+| Big Background | 2-3 | Name the AI trend. Specific scale + recency. |
+| Small Background | 2-3 | Narrow to task. Cite 2-3 SOTA works. |
+| Gap | 3-4 | What SOTA misses + evidence + root cause. **Most critical step.** |
+| Key Idea | 2-3 | ONE insight. Why it works, not what you built. |
+| Method Preview | 3-4 | 2-3 contributions, 1 sentence each. Tie to key idea. |
+| Experiment Summary | 2-3 | Benchmarks + baselines + headline number. |
 
-**Small Background (1 paragraph):** Narrow to your specific task. What is the current state of the art? What architecture or paradigm dominates? Cite 2-3 representative works.
-
-**Gap (1 paragraph):** The most important move. What does SOTA miss? Three elements:
-1. **What** limitation — computational cost? data efficiency? specific failure mode?
-2. **Evidence** — numbers or qualitative examples. "SOTA fails on 40% of long-tail instances" or "Training costs $50K in compute."
-3. **Root cause** — WHY does this limitation exist? A one-sentence diagnosis.
-
-**Key Idea (1 paragraph):** ONE insight. "Our insight is that cross-modal alignment can be achieved through..." This should feel both novel and obvious in retrospect. Not "we propose a new architecture" but WHY the architecture works.
-
-**Method Preview (1 paragraph):** Name your 2-3 technical contributions. Each gets 1-2 sentences. Connect each to the key idea.
-
-**Experiment Summary (2-3 sentences):** What benchmarks? What baselines? What is the headline number? "Outperforms SOTA by 2.1 points on benchmark X while using 3× less compute."
-
-**Contributions (bullet list):** 3-4 bullets. Distinguish between conceptual contributions (insights, frameworks) and technical ones (architectures, algorithms).
+**Contributions (bullet list):** 2-3 bullets max. One line each. Conceptual (insight) vs technical (method). No sub-bullets.
 
 ### Pitfalls
-- "Recently, there has been growing interest in..." — wasted words
-- Claiming SOTA without specifying the benchmark suite
-- The method preview that reads like a table of contents ("We propose module A, then B, then C") without connecting to the insight
-- Overclaiming ("We solve the problem of X")
+- Generic opening ("Recently, there has been growing interest in...")
+- Claiming SOTA without naming the benchmark
+- Method preview = table of contents ("Module A, then B, then C") — connect to WHY
+- Overclaiming ("We solve X")
 
 ---
 

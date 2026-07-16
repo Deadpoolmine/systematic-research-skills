@@ -69,6 +69,7 @@ A. <step> → B. <step> → C. <step> → ...
 <Paste from writing-guide.md — do NOT summarize>
 
 **Universal rules:**
+- **Paragraph structure:** Every paragraph = topic sentence → 2-4 supporting sentences → concluding/transition sentence (总分总). Minimum: topic → support (总分). The first sentence declares the paragraph's point; the last sentence either concludes or bridges to the next paragraph.
 - Vocabulary: standard ML terms only. No obscure words (ameliorate, delineate, elucidate, heretofore). Plain English.
 - Paragraph length: 3-5 sentences. Max 8. One idea per paragraph.
 - `[TODO: actual number]` as plain text or `% [TODO: ...]` LaTeX comment. NEVER inside `$$` or `$`.
@@ -110,7 +111,9 @@ User requests changes → **re-dispatch** affected Section subagent. Don't revis
 
 ## Step 5: Finalize
 
-Add references → `[Figure: ...]` → full `\begin{figure}` → `[TODO]` markers → compile check.
+1. Add references → `[Figure: ...]` → full `\begin{figure}` → `[TODO]` markers
+2. **Write Abstract** — 5-sentence formula from blueprint. Must be consistent with all drafted Sections. Dispatch as a subagent if needed.
+3. Compile check — ensure `main.tex` compiles
 
 Commit: `L2: draft for <topic>`. Proceed to L3.
 

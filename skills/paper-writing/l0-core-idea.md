@@ -17,6 +17,30 @@ Do NOT ask user to confirm everything at once.
 Each point MUST reach PASS before moving to the next.
 </HARD-GATE-L0-STEPWISE>
 
+## Interaction Pattern
+
+**At every confirmation point, present clickable options. Do NOT ask the user to type free-text responses.**
+
+Use structured choices for all interactions. The user should click, not type.
+
+| Interaction | Option Pattern |
+|-------------|---------------|
+| **Venue selection** | List discovered venues as clickable options (e.g., "NeurIPS (9pg)", "ICML (8pg)", "AAAI (7pg)") |
+| **Point judgment** | "PASS — [reason]" / "WEAK — [what's missing]" / "REJECT — [why]" as selectable options. Mark agent's recommendation |
+| **Polish issue** | "Accept suggestion" / "Revise — [counter-proposal]" / "Skip — not relevant" |
+| **Proceed to next** | "Confirmed → next point" / "Let me revise this point" |
+
+**Every prompt to the user MUST end with a set of clickable options.** Example:
+
+> **Point 1: Big Background.** Your answer: "The rise of large vision-language models has..."
+>
+> **Judgment: WEAK** — too generic, needs a specific tech shift with timeline.
+>
+> Options:
+> - PASS — accept as-is
+> - WEAK — revise with more specific trend + year range
+> - REJECT — this doesn't work, start over
+
 ## Critical Think (Polish Mode)
 
 Before presenting to the user, silently review and identify:
@@ -83,18 +107,28 @@ digraph l0_flow {
 
 ## Core Points
 
-Minimum: points 1-3 + (Key Idea OR Design Points). Key Idea recommended but skip if challenge-driven (3 challenges -> 3 designs, no single insight).
+Minimum: points 1-3 + (Key Idea OR Design Points). Key Idea recommended but skip if challenge-driven (3 challenges → 3 designs, no single insight).
 
 | # | Point | Req | Question | Reject If |
 |---|-------|-----|----------|-----------|
 | 1 | **Big Background** | Yes | Macro trend / tech shift? | Vague, no academic relevance |
 | 2 | **Small Background** | Yes | Specific domain? | Not concrete, no link to big |
-| 3 | **Existing Challenges** | Yes | Problem + data + severity? | No data, trivial, unsubstantiated |
-| 4 | **Key Idea** | Rec | ONE insight that solves it? | Doesn't address challenge |
-| 5 | **Design Points (2-3)** | Yes* | Contributions? | <2 or >3, don't address challenges |
+| 3 | **Existing Challenges (2-3)** | Yes | Problem + data + severity? | No data, trivial, unsubstantiated |
+| 4 | **Key Idea** | Rec | ONE insight that solves all challenges? | Doesn't address each challenge |
+| 5 | **Design Points (2-3)** | Yes* | Each addresses which challenge? | <2 or >3, doesn't map to challenges |
 | 6 | **System & Experiments** | Yes | Built? Experimental plan? | No system AND no plan |
 
 > *Required if no Key Idea. Experiments: plan accepted (prototype + benchmarks + baselines + expected ranges OK).
+
+<HARD-GATE-L0-COHESION>
+**Challenges, Key Idea, and Design Points MUST form a closed loop.**
+- Each challenge (C1, C2, C3) must directly motivate the Key Idea — "because of C1/C2/C3, the Key Idea is necessary"
+- Each Design Point (DP1, DP2, DP3) must address a specific challenge — state which one
+- The loop: Challenge → Key Idea solves it → Design Point implements the solution → Challenge resolved
+- Reject scattered designs that don't trace back to a challenge. Reject challenges that the Key Idea doesn't address.
+
+At Point 5 (Design Points), explicitly verify: DP1 addresses C<N> by <mechanism>. DP2 addresses C<N> by <mechanism>. All challenges covered.
+</HARD-GATE-L0-COHESION>
 
 ## Output
 

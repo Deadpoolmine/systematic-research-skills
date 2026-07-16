@@ -11,6 +11,18 @@ Do NOT ask user to confirm the entire structure in one go.
 Each Section must be confirmed (name + flow chain) before moving to the next.
 </HARD-GATE-L1-STEPWISE>
 
+## Interaction Pattern
+
+**At every confirmation point, present clickable options. Do NOT ask the user to type free-text responses.**
+
+| Interaction | Option Pattern |
+|-------------|---------------|
+| **Section name proposal** | 2-3 name options as clickable choices, mark recommendation |
+| **Flow chain confirmation** | "Accept chain" / "Reorder steps" / "Add step" / "Remove step" / "Revise — [suggestion]" |
+| **Figure placement** | "Accept placements" / "Move figure X to step Y" / "Add figure at step Z" |
+| **Polish issue** | "Accept suggestion" / "Revise — [counter]" / "Skip" |
+| **Proceed to next Section** | "Confirmed → next Section" / "Let me revise this Section" |
+
 ## Mode: Write vs Polish
 
 | Mode | Starting Point | Action |
@@ -95,14 +107,27 @@ Each chain item is a **logical step** — what the reader must understand before
 
 ## Per-Section Interaction Template
 
-For EACH Section, follow this exact sequence:
+For EACH Section, present clickable options at every step:
 
-1. **Propose name + purpose** — "Section N: `<name>`. Purpose: `<1 sentence>`. Maps to L0 point `<#N>`. OK?"
-2. **Wait for user.** If rejected, revise. If accepted, proceed.
-3. **Define flow chain** — "Chain: A. `<step>` → B. `<step>` → C. `<step>`. OK?"
-4. **Wait for user.** If rejected, revise chain. If accepted, proceed.
-5. **Propose figures** — "Figures in this Section: `[Figure: <desc>. figs/<name>.pdf]`. OK?"
-6. **Append to L1 document.** Then move to next Section.
+1. **Propose name + purpose** — present 2-3 name options with brief purpose. Mark recommendation. User clicks one.
+2. **Wait for selection.** If none accepted, propose alternatives. If accepted, proceed.
+3. **Define flow chain** — present A→B→C chain. Offer options: "Accept chain" / "Reorder steps" / "Add a step" / "Remove a step".
+4. **Wait for selection.** Revise per user's choice. Loop until "Accept chain".
+5. **Propose figures** — list placements. Options: "Accept placements" / "Move/Add figure".
+6. **Append confirmed Section to L1 document.** Then offer: "Confirmed → next Section" / "Revise this Section".
+
+Example interaction:
+
+> **Section 1: Introduction**
+>
+> Purpose: Establish task, identify gap, present insight, preview results.
+>
+> Options:
+> - Introduction (standard)
+> - Introduction & Background (merged)
+> - Introduction with Motivation
+
+User clicks → then chain → then figures. Each step = clickable choices, no typing.
 
 ## Output
 

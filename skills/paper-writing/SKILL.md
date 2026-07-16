@@ -59,12 +59,12 @@ Do NOT present all Sections at once. Propose Section N → discuss → confirm n
 </HARD-GATE-L1>
 
 <HARD-GATE-L2>
-Do NOT proceed to L3 until: skeleton copied to `paper/`, every Section drafted by its OWN subagent (dispatched in parallel, one per Section, same response), each Section follows its L1 flow chain, user reviewed each Section.
+Do NOT proceed to L3 until: skeleton copied to `paper/`, every Section drafted by its OWN subagent (dispatched in parallel, one per Section, same response), each Section follows its L1 flow chain, abstract written (5-sentence formula, consistent with all Sections), user reviewed each Section.
 Do NOT write Sections sequentially in main agent. Dispatch all Section subagents in ONE response.
 </HARD-GATE-L2>
 
 <HARD-GATE-L3>
-Paper NOT complete until: all 6 consistency checks pass, report shows zero issues.
+Paper NOT complete until: all 7 consistency checks pass (6 structural + 1 fine-grained line-by-line prose polish), report shows zero issues.
 </HARD-GATE-L3>
 
 ## Process Flow
@@ -105,7 +105,7 @@ digraph hls {
 |-------|--------|-----------|-----|
 | L0 | `*-stream-L0.md` | Venue + judge 6 points, reject until clear | [l0](l0-core-idea.md) |
 | L1 | `*-stream-L1.md` | Propose 2-3 custom structures, define A→B→C chains | [l1](l1-chapter-structure.md) |
-| L2 | `paper/` dir | Write: draft Sections. Polish: revise Sections following writing guide | [l2](l2-parallel-writing.md) |
+| L2 | `paper/` dir | Write: draft Sections + abstract. Polish: revise Sections + abstract following writing guide | [l2](l2-parallel-writing.md) |
 | L3 | Consistency report | Run 6 checks, fix root causes. Polish-lite also runs L3 | [l3](l3-consistency-check.md) |
 
 ## Git
