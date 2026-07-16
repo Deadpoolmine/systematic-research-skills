@@ -59,7 +59,8 @@ Do NOT present all Sections at once. Propose Section N → discuss → confirm n
 </HARD-GATE-L1>
 
 <HARD-GATE-L2>
-Do NOT proceed to L3 until: skeleton copied to `paper/`, every Section drafted following its L1 flow chain, user reviewed each Section.
+Do NOT proceed to L3 until: skeleton copied to `paper/`, every Section drafted by its OWN subagent (dispatched in parallel, one per Section, same response), each Section follows its L1 flow chain, user reviewed each Section.
+Do NOT write Sections sequentially in main agent. Dispatch all Section subagents in ONE response.
 </HARD-GATE-L2>
 
 <HARD-GATE-L3>

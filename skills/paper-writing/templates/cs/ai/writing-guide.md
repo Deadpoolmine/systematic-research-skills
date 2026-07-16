@@ -12,12 +12,18 @@
 - **Evidence-driven.** Claims are backed by experiments, ablations, or theoretical analysis. Avoid hand-waving about "learning meaningful representations."
 - **Honest about scope.** A method that works on 3 datasets is not "state-of-the-art across all benchmarks." A method that requires 8×A100s should say so.
 - **First person** ("we") is standard.
+- **Paragraph length.** 3-5 sentences. Never exceed 8. Short paragraphs > wall-of-text. One idea per paragraph.
+- **Vocabulary.** Standard ML terminology. No obscure words ("ameliorate", "delineate", "elucidate", "heretofore", "aforementioned", "thusly"). Use plain English: "improve" not "ameliorate", "describe" not "delineate", "explain" not "elucidate".
+- **Blueprint is binding.** The section structure, paragraph count, and page budget from the blueprint are HARD constraints — not suggestions. Every paragraph must serve the blueprint's specified purpose.
+- **`[TODO]` markers:** Use `% [TODO: actual number]` as a LaTeX comment, or inline text like `[TODO: actual number]`. NEVER wrap in `$$` or `$`. Math mode renders TODO as an equation — wrong.
 
 | ✅ Good | ❌ Bad |
 |---------|--------|
 | "On ImageNet-1K, our method achieves 85.2% top-1 accuracy, a 1.3 point improvement over ViT-B/16 (83.9%)." | "Our method achieves superior performance." |
 | "Training requires 512 GPU-days on 8×A100 (80GB)." | (no compute requirements mentioned) |
 | "The improvement is most pronounced on long-tail classes (Figure 4), suggesting the auxiliary loss regularizes rare categories." | "The auxiliary loss helps." |
+| `% [TODO: actual number]` or `[TODO: actual number]` | `$$[TODO: actual number]$$` (never math mode!) |
+| "While effective, our method degrades on fine-grained classes (Table 5)." | "Our method ameliorates the delineated challenges heretofore unaddressed." |
 
 ---
 

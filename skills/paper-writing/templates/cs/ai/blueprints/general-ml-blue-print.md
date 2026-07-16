@@ -51,6 +51,20 @@ Spend **equal time** on each:
 
 ## Per-Section Plans
 
+### Paragraph Budget (BINDING — 7-page paper, 2-column)
+
+| Section | Paragraphs | % of Paper | Notes |
+|---------|-----------|------------|-------|
+| Abstract | 1 (5 sentences) | 3% | 5-sentence formula, no generic opening |
+| Introduction | 7-8 | 18% | Ends with contribution bullets |
+| Related Work | 5-6 | 13% | Thematic grouping, not paper-by-paper |
+| Preliminaries | 4-5 | 10% | Only what's needed; not a textbook |
+| Method | 10-12 | 26% | Architecture figure + 2-3 subsections |
+| Experiments | 10-12 | 26% | Setup, main results, ablations, analysis |
+| Discussion/Conclusion | 3-4 | 4% | Limitations specific, future work concrete |
+
+Scale proportionally for 8-9 page venues. Never exceed 3-5 sentences per paragraph. Maximum 8 sentences.
+
 ### Abstract (5-Sentence Formula — Sebastian Farquhar)
 
 1. **What you achieved:** "We introduce/prove/demonstrate..."
