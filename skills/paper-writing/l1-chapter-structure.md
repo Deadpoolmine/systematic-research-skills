@@ -2,16 +2,24 @@
 
 **Load when:** executing L1. Defines the discussion-driven process for custom Section/Subsection structures.
 
-**REQUIRED BACKGROUND:** paper-writing SKILL.md hard gates. L0 must be complete with venue.
+**REQUIRED BACKGROUND:** SKILL.md hard gates. L0 complete with venue.
+
+## Mode: Write vs Polish
+
+| Mode | Starting Point | Action |
+|------|---------------|--------|
+| **Write** | L0 only (no draft) | Propose 2-3 custom structures. Define chains from scratch. |
+| **Polish** | L0 + existing draft | Read draft → extract implicit structure → present: "Here's the structure I see. Does this match your intent? What Sections need reordering, splitting, or merging?" → discuss → revise |
+| **Polish (L1 exists)** | Existing `stream-L1.md` | Critical review: flow chains still accurate? Figures in right places? → discuss changes |
 
 ## Checklist
 
-1. **Re-read L0.** Venue known. Answer: primary contribution? What must reader understand first? What evidence needed?
-2. **Discover blueprint.** Explore `templates/` → find field category → load `BLUEPRINT.md` → match blueprint by page count. Blueprint provides page budget — constrain scope.
-3. **Propose 2-3 custom structures.** NOT from a template. Derived from THIS paper's story. Present trade-offs. Recommend one.
-4. **Define A→B→C flow chains** — one Section at a time, in discussion. Propose each chain, user confirms/rejects.
-5. **Propose figure placeholders** — at natural flow chain steps: `[Figure: <description>. File: figs/<name>.pdf]`. User confirms each.
-6. **Write L1 document.** Every Section name, Subsection name, chain item = product of discussion.
+1. **Re-read L0.** Venue known.
+2. **Discover blueprint.** Explore `templates/` → load `BLUEPRINT.md` → match by page count. Page budget constrains scope.
+3. **Propose structure.** Write: 2-3 custom options. Polish: extract from draft + propose modifications. Present trade-offs. User confirms.
+4. **Define A→B→C flow chains** — one Section at a time, in discussion. Write: build chains. Polish: review existing chains, revise.
+5. **Propose figure placeholders** — `[Figure: <description>. File: figs/<name>.pdf]`. Polish: check existing figures against flow chains.
+6. **Write L1 document.** Every Section/Subsection/chain = product of discussion.
 
 ## Flow Chain Rules
 

@@ -1,12 +1,20 @@
 # L0 — Core Idea Stream
 
-**Load when:** executing L0 of paper-writing.
+**Load when:** executing L0 of paper-writing (write or polish mode).
+
+## Mode: Write vs Polish
+
+| Mode | Starting Point | Action |
+|------|---------------|--------|
+| **Write** | No draft | Ask 6-point questions. Judge each. Loop until PASS. |
+| **Polish** | Existing draft | Read draft → extract implicit 6 points → present: "Here's what I extracted. Accurate? What needs to change?" → discuss → refine |
+| **Polish (L0 exists)** | Existing `stream-L0.md` | Critical review: points still valid? Match what was written? → discuss changes |
 
 ## Checklist
 
 1. **Determine venue** — ask first. Dictates page budget -> blueprint -> skeleton.
 2. **Discover blueprint** — list `templates/`, load `BLUEPRINT.md` matching venue field + page count.
-3. **Judge core points** — one question at a time. PASS / WEAK / REJECT per answer. Loop until all PASS.
+3. **Judge core points** — write: ask one at a time. Polish: extract from draft then judge. PASS / WEAK / REJECT. Loop until all PASS.
 
 ## Core Points
 

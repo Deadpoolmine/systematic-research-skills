@@ -1,24 +1,50 @@
 ---
 name: paper-writing
-description: Use when writing academic papers, research articles, or technical reports. Use when the user mentions writing a paper, system paper, AI paper, academic writing, or needs hierarchical logic flow to ensure consistency from core thesis to final manuscript.
+description: Use when writing or polishing academic papers. Use when the user mentions writing a paper, system paper, AI paper, polishing a draft, academic writing, or needs hierarchical logic flow for consistency.
 ---
 
 # Paper Writing — Hierarchical Logic Stream (HLS)
 
+## When to Use
+
+| Scenario | Mode | Path |
+|----------|------|------|
+| Starting a paper from scratch | **Write** | Full HLS: L0 → L1 → L2 → L3 |
+| Polishing an existing draft (no HLS) | **Polish** | Extract L0/L1 from draft → critical review → L2/L3 |
+| Polishing an existing draft (HLS exists) | **Polish** | Critical review L0/L1 → L2/L3 |
+| Language polish only (draft is structurally sound) | **Polish-lite** | Skip L0/L1. Use existing structure, run L2/L3 for prose |
+
+**Core principle:** Write mode builds from ideas. Polish mode builds from a draft. Both use the same HLS levels — the difference is the starting point.
+
 ## Overview
 
-4-level top-down refinement. Each level validates before descending. No skipping. No merging.
+4-level refinement. Each level validates before descending. No skipping. No merging.
 
 | Level | Role | Reference |
 |-------|------|-----------|
 | **L0** | **Judge** — pressure-test thesis, determine venue | [l0-core-idea.md](l0-core-idea.md) |
 | **L1** | **Architect** — design custom Section flow chains | [l1-chapter-structure.md](l1-chapter-structure.md) |
-| **L2** | **Builder** — draft Sections from skeleton | [l2-parallel-writing.md](l2-parallel-writing.md) |
+| **L2** | **Builder** — draft/revise Sections | [l2-parallel-writing.md](l2-parallel-writing.md) |
 | **L3** | **Auditor** — cross-validate L0↔L1↔L2 | [l3-consistency-check.md](l3-consistency-check.md) |
 
-**Venue-driven discovery:** Target venue determined at L0. All resources (skeleton, blueprint, writing guide) auto-discovered by exploring `templates/` — never hardcoded. Categories may include `cs/`, `ee/`, etc. Agent explores to find the matching field and format.
+**Venue-driven discovery:** Target venue determined at L0. All resources (skeleton, blueprint, writing guide) auto-discovered by exploring `templates/` — never hardcoded.
 
-Every level commits to git before the next begins.
+Every level commits to git.
+
+## Polish Mode
+
+When polishing an existing draft:
+
+1. **If no L0/L1 exists** — read the draft → extract the implicit HLS (6 points, Section flow chains) → present to user: "Here's what I extracted. Is this accurate? What needs to change?" → discuss until L0/L1 are confirmed
+2. **If L0/L1 exist** — critical review: are the 6 points still valid? Do flow chains match what was actually written? → discuss changes → update L0/L1
+3. **Invoke L2** — parallel revision of each Section following the (revised) flow chains and writing guide
+4. **Invoke L3** — consistency check. Polish is complete when all 6 checks pass.
+
+**Polish-lite (language only):** User says "just polish the language" → read the draft → identify existing structure → use writing guide for voice/pitfalls → L2 revise prose → L3 consistency. Do NOT challenge core ideas or restructure unless asked.
+
+## Write Mode (Full HLS)
+
+Standard flow: L0 → L1 → L2 → L3. Start from ideas, end with paper.
 
 ## Hard Gates
 
@@ -76,8 +102,8 @@ digraph hls {
 |-------|--------|-----------|-----|
 | L0 | `*-stream-L0.md` | Venue + judge 6 points, reject until clear | [l0](l0-core-idea.md) |
 | L1 | `*-stream-L1.md` | Propose 2-3 custom structures, define A→B→C chains | [l1](l1-chapter-structure.md) |
-| L2 | `paper/` dir | Copy skeleton → follow writing guide → draft | [l2](l2-parallel-writing.md) |
-| L3 | Consistency report | Run 6 checks, fix root causes | [l3](l3-consistency-check.md) |
+| L2 | `paper/` dir | Write: draft Sections. Polish: revise Sections following writing guide | [l2](l2-parallel-writing.md) |
+| L3 | Consistency report | Run 6 checks, fix root causes. Polish-lite also runs L3 | [l3](l3-consistency-check.md) |
 
 ## Git
 

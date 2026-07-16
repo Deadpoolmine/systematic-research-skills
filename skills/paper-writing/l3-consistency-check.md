@@ -1,8 +1,8 @@
 # L3 — Consistency Check Stream (The Auditor Phase)
 
-**Load when:** executing L3. Systematic cross-validation protocol.
+**Load when:** executing L3 (write or polish). Systematic cross-validation protocol.
 
-**REQUIRED BACKGROUND:** SKILL.md hard gates. L2 must be complete.
+**REQUIRED BACKGROUND:** SKILL.md hard gates. L2 complete.
 
 ## Checklist
 
