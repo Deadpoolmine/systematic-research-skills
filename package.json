@@ -1,0 +1,20 @@
+{
+  "name": "systematic-research-skills",
+  "version": "0.1.0",
+  "description": "Systematic research methodology skills for coding agents - empowering agents with structured research, analysis, and knowledge synthesis capabilities",
+  "type": "module",
+  "keywords": [
+    "skills",
+    "research",
+    "systematic-review",
+    "knowledge-synthesis",
+    "agent-framework",
+    "methodology"
+  ],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": ""
+  }
+}

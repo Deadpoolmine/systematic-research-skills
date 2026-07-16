@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/settings.json
+.idea/
+
+# Build artifacts
+dist/
+build/
+
+# Environment
+.env
+.env.local
+
+# Logs
+*.log
+
+# Test artifacts
+coverage/
+
+# Temp files
+temp_*/

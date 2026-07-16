@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+# SessionStart hook for systematic-research-skills plugin
+
+set -euo pipefail
+
+# Determine plugin root directory
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+PLUGIN_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
+
+# Read using-research-skills content (placeholder for now)
+using_research_skills_content="You have systematic research skills enabled. Use the 'Skill' tool to invoke relevant research skills when performing research tasks."
+
+# Escape string for JSON embedding using bash parameter substitution.
+escape_for_json() {
+    local s="$1"
+    s="${s//\\/\\\\}"
+    s="${s//\"/\\\"}"
+    s="${s//$'\n'/\\n}"
+    s="${s//$'\r'/\\r}"
+    s="${s//$'\t'/\\t}"
+    printf '%s' "$s"
+}
+
+using_research_escaped=$(escape_for_json "$using_research_skills_content")
+session_context="<EXTREMELY_IMPORTANT>\nYou have systematic research skills enabled.\n\n${using_research_escaped}\n</EXTREMELY_IMPORTANT>"
+
+# Output context injection as JSON.
+if [ -n "${CURSOR_PLUGIN_ROOT:-}" ]; then
+  printf '{\n  "additional_context": "%s"\n}\n' "$session_context" | cat
+elif [ -n "${CLAUDE_PLUGIN_ROOT:-}" ] && [ -z "${COPILOT_CLI:-}" ]; then
+  printf '{\n  "hookSpecificOutput": {\n    "hookEventName": "SessionStart",\n    "additionalContext": "%s"\n  }\n}\n' "$session_context" | cat
+else
+  printf '{\n  "additionalContext": "%s"\n}\n' "$session_context" | cat
+fi
+
+exit 0

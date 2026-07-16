@@ -1,0 +1,12 @@
+# Auto-detect text files, normalise line endings
+* text=auto
+
+# Shell scripts must use LF
+*.sh text eol=lf
+*.cmd text eol=crlf
+
+# Batch files must use CRLF
+*.bat text eol=crlf
+
+# Markdown
+*.md text
