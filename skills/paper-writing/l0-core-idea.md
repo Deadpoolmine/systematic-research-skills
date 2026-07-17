@@ -30,9 +30,9 @@ Before presenting to the user, silently review and identify:
 1. **Weak points** — which of the 7+ points is underdeveloped in the draft?
 2. **Contradictions** — does the draft make claims that conflict with each other?
 3. **Missing evidence** — where does the draft assert without data?
-4. **Missing root cause** — are challenges analysed at symptom level only? What fundamental bottleneck is unexamined?
-5. **Coherence chain** — do Challenges → Root Cause → Key Idea → Design Points form a self-consistent logical chain? Does Root Cause directly motivate Key Idea? Do all DPs revolve around Key Idea? Is each DP traceable to a specific challenge?
-6. **Clarity** — are Challenges, Root Cause, Key Idea, and Design Points all stated plainly and easy to understand? Any mystifying / buzzword-laden language?
+4. **Missing root cause** — are problems analysed at symptom level only? What fundamental bottleneck is unexamined?
+5. **Coherence chain** — do Problems → Root Cause → Key Idea → Design Points form a self-consistent logical chain? Does Root Cause directly motivate Key Idea? Do all DPs revolve around Key Idea? Is each DP traceable to a specific problem?
+6. **Clarity** — are Problems, Root Cause, Key Idea, and Design Points all stated plainly and easy to understand? Any mystifying / buzzword-laden language?
 7. **Scope mismatch** — does the page budget (from blueprint) support the claimed contributions?
 
 Present issues **ONE AT A TIME**. For each issue: "Issue: [X]. Suggestion: [Y]. Agree?" Wait for user before next issue.
@@ -55,7 +55,7 @@ digraph l0_flow {
     "Judge → PASS?" [shape=diamond];
     "Point 2: Small Background" [shape=box];
     "Judge → PASS?" [shape=diamond];
-    "Point 3: Challenges" [shape=box];
+    "Point 3: Problems" [shape=box];
     "Judge → PASS?" [shape=diamond];
     "Point 4: Root Cause" [shape=box];
     "Judge → PASS?" [shape=diamond];
@@ -76,9 +76,9 @@ digraph l0_flow {
     "Judge → PASS?" -> "Point 2: Small Background" [label="yes"];
     "Point 2: Small Background" -> "Judge → PASS?";
     "Judge → PASS?" -> "Point 2: Small Background" [label="no"];
-    "Judge → PASS?" -> "Point 3: Challenges" [label="yes"];
-    "Point 3: Challenges" -> "Judge → PASS?";
-    "Judge → PASS?" -> "Point 3: Challenges" [label="no"];
+    "Judge → PASS?" -> "Point 3: Problems" [label="yes"];
+    "Point 3: Problems" -> "Judge → PASS?";
+    "Judge → PASS?" -> "Point 3: Problems" [label="no"];
     "Judge → PASS?" -> "Point 4: Root Cause" [label="yes"];
     "Point 4: Root Cause" -> "Judge → PASS?";
     "Judge → PASS?" -> "Point 4: Root Cause" [label="no"];
@@ -97,35 +97,35 @@ digraph l0_flow {
 
 ## Core Points
 
-Minimum: points 1-3 + (Key Idea OR Design Points). Root Cause (Point 4) strongly recommended — synthesises the deeper pattern behind all challenges. Key Idea recommended but skip if challenge-driven (3 challenges → 3 designs, no single insight).
+Minimum: points 1-3 + (Key Idea OR Design Points). Root Cause (Point 4) strongly recommended — synthesises the deeper pattern behind all problems. Key Idea recommended but skip if problem-driven (1-3 problems → 1-4 designs, no single insight).
 
 | # | Point | Req | Question | Reject If |
 |---|-------|-----|----------|-----------|
 | 1 | **Big Background** | Yes | Macro trend / tech shift? | Vague, no academic relevance |
 | 2 | **Small Background** | Yes | Specific domain? | Not concrete, no link to big |
-| 3 | **Existing Challenges (2-3)** | Yes | Problem + data + severity? | No data, trivial, unsubstantiated, mystifying |
-| 4 | **Root Cause** | Rec | What deeper pattern underlies ALL these challenges? What fundamental bottleneck do they share? | Symptom-level only, no synthesis, mystifying |
+| 3 | **Existing Problems (1-3)** | Yes | Problem + data + severity? | No data, trivial, unsubstantiated, mystifying |
+| 4 | **Root Cause** | Rec | What deeper pattern underlies ALL these problems? What fundamental bottleneck do they share? | Symptom-level only, no synthesis, mystifying |
 | 5 | **Key Idea** | Rec | ONE insight that addresses the root cause? | Doesn't address root cause, mystifying / not easy to understand |
-| 6 | **Design Points (2-4)** | Yes* | Each addresses which challenge? | <2 or >4, doesn't map to challenges, mystifying |
+| 6 | **Design Points (2-4)** | Yes* | Each addresses which problem? | <2 or >4, doesn't map to problems, mystifying |
 | 7 | **System & Experiments** | Yes | Built? Experimental plan? | No system AND no plan |
 
 > *Required if no Key Idea. Experiments: plan accepted (prototype + benchmarks + baselines + expected ranges OK).
 
 <HARD-GATE-L0-CLARITY>
-**Challenges, Root Cause, Key Idea, and Design Points MUST be plain and easy to understand.**
+**Problems, Root Cause, Key Idea, and Design Points MUST be plain and easy to understand.**
 No buzzwords. No mystification. A first-year PhD student in the field should grasp each point in one read. If a point sounds profound but no one can explain it back — REJECT.
 </HARD-GATE-L0-CLARITY>
 
 <HARD-GATE-L0-COHESION>
-**Challenges, Root Cause, Key Idea, and Design Points MUST form a closed loop.**
-- Root Cause is an overview — one deeper pattern / fundamental bottleneck that explains why ALL challenges persist
+**Problems, Root Cause, Key Idea, and Design Points MUST form a closed loop.**
+- Root Cause is an overview — one deeper pattern / fundamental bottleneck that explains why ALL problems persist
 - The Root Cause must directly motivate the Key Idea — "because the root cause is <X>, the Key Idea is necessary"
-- Each Design Point (DP1, DP2, ..., DP4) must address a specific challenge — state which one
-- The loop: Challenges → Root Cause (overview) → Key Idea solves it → Design Point implements the solution → Challenge resolved
-- Reject scattered designs that don't trace back to a challenge. Reject root cause that the Key Idea doesn't address.
+- Each Design Point (DP1, DP2, ..., DP4) must address a specific problem — state which one
+- The loop: Problems → Root Cause (overview) → Key Idea solves it → Design Point implements the solution → Problem resolved
+- Reject scattered designs that don't trace back to a problem. Reject root cause that the Key Idea doesn't address.
 
 At Point 4 (Root Cause), explicitly state: The fundamental bottleneck is <X>. Prior work failed because <reason>.
-At Point 6 (Design Points), explicitly verify: DP1 addresses C<N> by <mechanism>. DP2 addresses C<N> by <mechanism>. ... All challenges covered. All DPs revolve around the Key Idea.
+At Point 6 (Design Points), explicitly verify: DP1 addresses P<N> by <mechanism>. DP2 addresses P<N> by <mechanism>. ... All problems covered. All DPs revolve around the Key Idea.
 </HARD-GATE-L0-COHESION>
 
 ## Output
@@ -137,14 +137,14 @@ At Point 6 (Design Points), explicitly verify: DP1 addresses C<N> by <mechanism>
 
 ## 1. Big Background
 ## 2. Small Background
-## 3. Existing Challenges
-- C1: <desc> | Data: <evidence> | Severity: <high/medium>
-- C2/C3: ...
+## 3. Existing Problems
+- P1: <desc> | Data: <evidence> | Severity: <high/medium>
+- P2/P3: ...
 ## 4. Root Cause
-<ONE deeper pattern / fundamental bottleneck underlying ALL challenges. Why prior work failed to solve them.>
-## 5. Key Idea *(skip if challenge-driven)*
+<ONE deeper pattern / fundamental bottleneck underlying ALL problems. Why prior work failed to solve them.>
+## 5. Key Idea *(skip if problem-driven)*
 ## 6. Design Points
-- DP1: <desc> -> addresses C<N> by <mechanism>
+- DP1: <desc> -> addresses P<N> by <mechanism>
 - DP2/DP3/DP4: ...
 ## 7. System & Experiments
 **System:** <status> | **Benchmarks:** <plan> | **Expected:** <ranges OK>
