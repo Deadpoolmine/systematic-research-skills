@@ -2,71 +2,113 @@
 
 **Load when:** writing/polishing systems papers (OSDI, SOSP, EuroSys, ASPLOS, ATC, FAST, NSDI, SIGMOD).
 
----
-
-## Overall Voice
-
-- **Confident, measured.** State what you did. No marketing ("revolutionary", "game-changing").
-- **Precise.** Numbers have units. Claims name baseline + metric.
-- **Honest.** Acknowledge limitations. Credibility > perfection.
-- **"we"**. First person. Avoid passive where it obscures actor.
-- **Minimal intervention.** Fix what's broken; leave what works.
-- **Paragraph structure.** Topic → 2-3 support → conclude/transition (总分总). One idea = one chain step.
-- **Paragraph length.** 3-5 sentences. Hard cap: 6. Sentence hard cap: 30 words.
-- **Vocabulary.** Plain English. No: ameliorate, delineate, elucidate, heretofore, utilize, leverage.
-- **Blueprint is binding.** Section structure + paragraph count + page budget are HARD constraints.
-- **Preserve LaTeX.** Never break `\ref{}`, `\cite{}`, `\includegraphics{}`, math mode.
-
-| ✅ | ❌ |
-|----|----|
-| "2.3× higher throughput than Ext4 on Varmail." | "Dramatically outperforms existing solutions." |
-| "Does not address network-attached storage." | No limitations. |
-| "Figure 3: latency drops 40% with feature X." | "Feature X improves latency." |
+**General voice, vocabulary, and style rules:** see [style.md](../style.md). This guide covers **systems-specific** writing patterns only.
 
 ---
 
-## Introduction (1-1.5pg max)
+## System-Specific Introduction Patterns
+
+Funnel: **big background → small background → gap → insight → design preview → contributions** (1-1.5pg max).
 
 | Step | Rule |
 |------|------|
-| Big Background | Name trend. Specific: "CXL-attached memory" not "new hardware". Cite 2-3. |
-| Small Background | Narrow to domain. Who cares, why. |
-| Challenge | Problem (1 sent) + evidence (data, not hand-waving) + root cause. |
-| Key Idea | ONE insight. Not "we built X" but "X merges with Y, eliminating Z." |
-| Design Preview | 2-3 design points, 1-2 sent each. Tie to key idea. |
+| Big Background | Name the trend. Specific, not generic. Cite 2-3. |
+| Small Background | Narrow to your domain. Name the system category. |
+| Gap | Problem (1 sentence) + quantitative evidence + root cause. |
+| Key Insight | ONE insight. "X merges with Y, eliminating Z." Not "we built X." |
+| Design Preview | 2-3 design points, 1-2 sentences each. Name the system. |
+| Contributions | 2-3 bullets. Pattern: (1) identify problem → (2) propose technique → (3) demonstrate results. |
 
-**Contributions (END of Intro):** 2-3 bullets, 1 line each. Pattern: (1) Identify problem → (2) Propose insight/technique → (3) Demonstrate results. Optional: Paper Organization after.
+**System-specific patterns:**
 
-**Pitfalls:** Generic opening. Laundry-list contributions. Hiding insight behind system description.
+- **Classify prior work.** "Existing systems follow two approaches. The first kind... The second kind..." — positions your contribution in the design space.
+- **Separate model from system.** Give the abstraction a name distinct from the prototype (e.g., "Model X" is the concept; "System Y" is the implementation).
+- **State design goals upfront.** 2-3 enumerated goals before presenting the system.
+- **Economic motivation.** If applicable, open with a cost table (hardware $/GiB).
+
+**Pitfalls:** Generic opening. Laundry-list contributions (>3 bullets). Hiding insight behind system description. Vague gap without numbers.
+
+---
 
 ## Background & Motivation
 
-Background: only what's needed. Motivation: real hardware, real workloads, fair baselines. Lead inexorably to "we need a new approach." No textbook teaching.
+**Background:** Only what's needed. Define key terms concisely. No textbook teaching.
 
-## Design
+**Motivation — earn the right to propose a solution:**
 
-Design goals: 3-4 testable requirements ("<5% CPU overhead" not "low overhead"). Architecture figure (required). Per design point: what → why (name alternatives) → how it serves key idea → trade-off acknowledged.
+- **Named observations.** Label each finding: `Observation #1:` or `Motivation 1.` Each has quantitative evidence → implication for design.
+- **Ideal baseline.** Include a theoretical upper bound to make the gap concrete.
+- **Real hardware, real workloads.** State platform and config even in motivation.
+- **Quantify everything.** Not "X is slow" but "X suffers Y% throughput loss at Z workload."
+- **Show breakdowns.** A stacked bar of where time goes reveals the true bottleneck.
+- **Two-layer structure (optional).** "Understanding X" (broad measurement) → "Analyzing X" (root cause drill-down). Bridge: "This raises one question: *why does X happen?*"
 
-**Pitfalls:** Orphan design points. Describing WHAT without WHY. Figure never walked through.
+**Pitfalls:** Textbook exposition. No Ideal baseline. Hand-waving. Charts without prose.
+
+---
+
+## Design (System-Specific Patterns)
+
+### Goals-to-Techniques Mapping
+
+After Architecture Overview, add a paragraph explicitly mapping each technique to each design goal. Reviewers check this.
+
+### Key Patterns
+
+- **Operation-to-abstraction table.** Map N operations to M primitives in a table (columns: Op, Primitive, How). Proves completeness without enumerating in prose.
+- **Progressive unveiling.** For multi-layer optimizations, present variants as an incremental journey: "Our first attempt was X (Y% improvement). However... We thus propose Z (W% over X)."
+- **Formalize the problem.** When decisions depend on I/O patterns, define notation first (`I/O = (offset, length)`), then enumerate cases with formal conditions.
+- **Explicit scope.** State what you do NOT address: "This paper does not aim to redesign X since Y is already well-studied."
+
+**Pitfalls:** Orphan design points. Describing WHAT without WHY. Figure never referenced. No trade-off acknowledged. No goals-to-techniques mapping.
+
+---
 
 ## Implementation
 
-Platform: language, LOC, OS, hardware. Key structures only. Engineering challenges: what broke, how you fixed it. Don't repeat Design.
+- **Platform:** Language, LOC, OS/kernel version, hardware. Name the base system(s).
+- **Key data structures only.** Layout, field sizes, why those sizes matter.
+- **Engineering challenges.** What broke, how you fixed it. Builds credibility.
+- **Don't repeat Design.** Implementation = *how*; Design = *what* and *why*.
 
-## Evaluation
+---
 
-**Setup:** hardware, software, workloads (why?), baselines (how tuned?), methodology (warm-up, runs, error bars, cache state). **Macro:** headline + why wins + why loses. **Micro:** isolate each design point. **Sensitivity:** vary key params. **Draft:** `[TODO: number]`. Setup/methodology fully specified.
+## Evaluation (Systems-Specific)
 
-**Pitfalls:** Normalizing to self. No error bars. Graphs without WHY. Missing baseline configs.
+### Structure
+
+1. **Questions-driven opening.** 4-6 questions, each anchoring a subsection with `\ref{}`.
+2. **Setup & Methodology** (before any results):
+   - Testbed, competitors (explain missing baselines), workloads (table), methodology (threads, runs, stddev <5%).
+   - **For crash consistency:** injection points, 1000+ random tests, result.
+3. **Macro:** Headline + why wins + why loses. Red improvement % above bars.
+4. **Micro:** Isolate each design point. Show *why*, not just *that*.
+5. **Sensitivity:** Vary key parameters.
+6. **Platform generalization (optional):** "Does the design generalize beyond current hardware?"
+
+**Pitfalls:** Normalizing to self. No error bars. Graphs without WHY. Missing baseline configs. Silent about missing baselines. Hiding technique limitations.
+
+---
 
 ## Related Work
 
-Group by theme (3-4 categories). Per category: what's done → how you differ. Be fair — authors review your paper. No paper dumps.
+- **Opening:** "To the best of our knowledge, [System] is the first to [unique contribution]."
+- **Structure:** 3-4 thematic categories. Per category: what existing work does → how you differ.
+- **Be fair.** Authors may review your paper. No paper dumps — group and compare.
+- **Name the double-overhead problem** if your system integrates with existing layers.
 
-## Discussion / Limitations
+---
 
-Specific: "No distributed support" not "May not scale." Distinguish implementation vs design limits. 2-3 concrete future directions.
+## Discussion & Defense Patterns (System-Specific)
+
+- **Be concrete.** "Currently evaluated up to N threads; beyond this, X dominates" — not "May not scale."
+- **Distinguish design vs. implementation limits.**
+- **"Shall we..." questions.** Frame alternatives, answer with data, explain the trade-off.
+- **"Why do prior systems..." defense.** Explain historical context for design choices you're departing from.
+- **"We do acknowledge..." concession.** When rejecting an alternative, acknowledge its merit.
+- **"We fail to run X despite our best efforts."** — honesty about missing baselines builds credibility.
+- **2-3 future directions.** Each names a specific approach + what makes it non-trivial.
 
 ## Conclusion
 
-5 sentences: problem → insight → what built → key result → closing. No new claims. No "Future work" (→ Discussion).
+**5 sentences max:** problem → insight → what built → key result → closing. No new claims. No bullet points. No "Future work."

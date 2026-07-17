@@ -64,28 +64,36 @@ Write Section <N>: <Name> for a <venue> paper.
 **Your Flow Chain (L1):**
 A. <step> → B. <step> → C. <step> → ...
 
-**Writing Guide (copy-paste exact excerpt for this Section type):**
+**Writing Guide:**
 <Paste the absolute path to writing-guide.md for reference>
 
-**Style Reference (copy-paste from style.md for the figure/table types in this Section):**
+**Style Reference:**
 <Paste the absolute path to style.md for reference>
 
 **Universal rules:**
-- **Paragraph = one idea = one chain step.** Each step in your flow chain (A, B, C...) maps to exactly ONE paragraph. However, if a paragraph is too long, you can decide to seperate them. 
-- **Paragraph structure:** Topic sentence → 2-3 supporting sentences → concluding/transition (总分总). First sentence declares the point. Last sentence concludes or bridges. Try use `\paragraph{}` lable to stress and summarize the topic sentence/phrase. 
-- **Paragraph length: 3-5 sentences. Hard cap: 6.** If it runs longer, split at the nearest logical break. Short paragraphs are better than dense ones.
-- **Sentence length: 10-25 words.** Hard cap: 30 words. No run-on sentences. Split long sentences ruthlessly.
-- **Vocabulary**: standard academic terms only. No obscure words (ameliorate, delineate, elucidate, heretofore, utilize, leverage as verb). Plain English.
-- `[TODO: actual number]` as plain text or `% [TODO: ...]` LaTeX comment. NEVER inside `$$` or `$`.
-- Define notation before use. Evidence-backed claims. "we". Specific > vague.
+    - **Paragraph = one idea = one chain step.** Each step (A, B, C...) maps to at least one paragraph. If a step has too much content, split it into multiple paragraphs — all still belong to that step. One step never maps to zero paragraphs.
+    - **Paragraph structure:** Topic sentence → 2-3 supporting sentences → concluding/transition. First sentence declares the point. Use `\paragraph{}` to label and summarize the topic sentence.
+    - **Paragraph length: 3-5 sentences. Hard cap: 6.** Split at the nearest logical break.
+    - **Sentence length: 10-25 words. Hard cap: 30 words.** Split long sentences.
+    - **Open with the point, not the context.** The reader must know what the paragraph is about from the first sentence. ❌ "The growing use of... has created increasing demand for..." → ✅ "X relies on Y." Context comes second.
+    - **Cut setup verbs.** ❌ "has emerged as a promising approach" → ✅ "reduces this overhead". ❌ "facilitated" → ✅ "enables" or just state what happens. Verbs that add syllables without meaning: emerged, enabled, facilitated, leveraged (as verb).
+    - **Em dash for causal connection.** Connect cause to effect sharply with `---` in LaTeX: "X directly exposes Y — bringing up to Z% degradation." Beats two separate sentences.
+    - **Underline the punchline.** One `\ul{}` per section marks the finding everything else supports. Max one per section.
+    - **Honest conjecture.** When you have a hypothesis but not proof: "We conjecture the reasons are that... This motivates us to think: Can we achieve X?"
+    - **Integrate contributions naturally.** State what you did in the narrative flow. No "In summary, this paper makes the following contributions:" bullet lists.
+    - **Kill the last sentence.** Most paragraphs end with a weak restatement of the point. Delete it. The second-to-last sentence is usually the strongest ending.
+    - **Use LaTeX comments as scaffolding.** `% reasoning`, `% alternative: X`, `% TODO: verify number`. Keep thinking visible during drafting. Clean before submission.
+    - **Vocabulary:** standard academic terms only. No obscure words (ameliorate, delineate, elucidate, heretofore, utilize, leverage as verb). Plain English.
+    - **[TODO: actual number]** as plain text or `% [TODO: ...]` LaTeX comment. NEVER inside `$$` or `$`.
+    - **Define notation before use.** Evidence-backed claims. "we". Specific > vague.
 
 **Figures & Tables:** Insert complete LaTeX environments — NOT bare `[Figure: ...]` markers. Use the exact templates from `style.md`:
-- Single-column: `\begin{figure}[t]...\end{figure}`
-- Double-column: `\begin{figure*}[t]...\end{figure*}`
-- Tables: `\begin{table}[t]...` with `booktabs` (`\toprule`, `\midrule`, `\bottomrule`). No vertical rules.
-- Draft numbers: `[TODO: value]` in table cells.
-- Place at the chain step specified. Every figure/table needs: `\caption{}` (bold title + `\small` description) + `\label{}`.
-- Must-have: architecture overview figure (Method Section) + main results table (Experiments Section).
+    - Single-column: `\begin{figure}[t]...\end{figure}`
+    - Double-column: `\begin{figure*}[t]...\end{figure*}`
+    - Tables: `\begin{table}[t]...` with `booktabs` (`\toprule`, `\midrule`, `\bottomrule`). No vertical rules.
+    - Draft numbers: `[TODO: value]` in table cells.
+    - Place at the chain step specified. Every figure/table needs: `\caption{}` (bold title + `\small` description) + `\label{}`.
+    - Must-have: architecture overview figure (Method Section) + main results table (Experiments Section).
 
 **Output:** `paper/sections/<filename>.tex`. Complete LaTeX. Follow chain + blueprint exactly. `\cite{}` as venue requires. Do NOT write other Sections' content.
 

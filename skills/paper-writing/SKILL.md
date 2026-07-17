@@ -31,14 +31,30 @@ description: Use when writing or polishing academic papers. Use when the user me
 
 Every level commits to git.
 
-### Polish Mode
+## Universal Interaction Protocol
+
+**All L0/L1 confirmations use clickable options — never free-text.** The user clicks, does not type.
+
+| Interaction | Option Pattern |
+|-------------|---------------|
+| **Venue selection** | List discovered venues as clickable options (e.g., "NeurIPS (9pg)", "ICML (8pg)", "AAAI (7pg)", "OSDI (12pg)"), mark recommendation |
+| **Point judgment** | "PASS — [reason]" / "WEAK — [what's missing]" / "REJECT — [why]" as selectable options |
+| **Section name** | 2-3 name options with purpose, mark recommendation |
+| **Flow chain** | Accept / Reorder / Add step / Remove step / Revise |
+| **Figure placement** | Accept / Move X to step Y / Add at step Z |
+| **Polish issue** | "Accept suggestion" / "Revise — [counter-proposal]" / "Skip — not relevant" |
+| **Proceed** | "Confirmed → next" / "Let me revise this" |
+
+**Every prompt to the user MUST end with a set of clickable options.** L0 and L1 each specify which options apply at which step.
+
+## Polish Mode
 
 When polishing an existing draft, HLS documents MUST be generated — not just discussed verbally.
 
 1. **If no L0/L1 exists** — read draft → extract implicit HLS → **critical think silently** (identify issues, form 2-3 suggestions) → present to user with issues + suggestions → discuss → **write `docs/systematic-research/plans/stream-L0.md` and `stream-L1.md`** → commit
 2. **If L0/L1 exist** — critical review: points still valid? chains match draft? → **critical think** (2-3 issues + suggestions) → present → discuss → update L0/L1
 3. **Invoke L2** — parallel revision following (revised) flow chains + writing guide
-4. **Invoke L3** — consistency check. Polish complete when all 6 checks pass.
+4. **Invoke L3** — consistency check. Polish complete when all 7 checks pass.
 
 **Polish-lite (language only):** User says "just polish the language" → use writing guide for voice/pitfalls → L2 revise prose → L3 consistency. Do NOT restructure.
 
@@ -83,7 +99,7 @@ digraph hls {
     "User OK?" [shape=diamond];
     "Commit L2" [shape=box];
     "L3: Audit\n[l3-consistency-check.md]" [shape=box];
-    "6 checks pass?" [shape=diamond];
+    "7 checks pass?" [shape=diamond];
     "Commit final" [shape=box];
     "Done" [shape=oval];
 
@@ -106,7 +122,7 @@ digraph hls {
 | L0 | `docs/systematic-research/plans/stream-L0.md` | Venue + judge 6 points, reject until clear | [l0](l0-core-idea.md) |
 | L1 | `docs/systematic-research/plans/stream-L1.md` | Propose 2-3 custom structures, define A→B→C chains | [l1](l1-chapter-structure.md) |
 | L2 | `paper/` dir | Write: draft Sections + abstract. Polish: revise Sections + abstract following writing guide | [l2](l2-parallel-writing.md) |
-| L3 | Consistency report | Run 6 checks, fix root causes. Polish-lite also runs L3 | [l3](l3-consistency-check.md) |
+| L3 | Consistency report | Run 7 checks (6 structural + 1 prose), fix root causes. Polish-lite also runs L3 | [l3](l3-consistency-check.md) |
 
 ## Git
 

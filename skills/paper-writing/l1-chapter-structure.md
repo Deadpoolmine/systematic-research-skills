@@ -1,152 +1,139 @@
 # L1 — Chapter Structure Stream (The Architect Phase)
 
-**Load when:** executing L1. Defines the discussion-driven process for custom Section/Subsection structures.
+**Load when:** L1 phase. Design custom Section/Subsection flow chains.
 
-**REQUIRED BACKGROUND:** SKILL.md hard gates. L0 complete with venue.
+**Prerequisites:** SKILL.md hard gates. L0 complete, venue known.
 
-<HARD-GATE-L1-STEPWISE>
-**ONE Section at a time.** Propose → discuss → user confirms → define chain → NEXT Section.
-Do NOT present all Sections at once.
-Do NOT ask user to confirm the entire structure in one go.
-Each Section must be confirmed (name + flow chain) before moving to the next.
-</HARD-GATE-L1-STEPWISE>
+**Interaction protocol:** See [SKILL.md](SKILL.md#universal-interaction-protocol) for clickable options format. L1 uses: section name, flow chain, figure placement, polish issue, proceed.
 
-## Interaction Pattern
+---
 
-**At every confirmation point, present clickable options. Do NOT ask the user to type free-text responses.**
+## Hard Gate
 
-| Interaction | Option Pattern |
-|-------------|---------------|
-| **Section name proposal** | 2-3 name options as clickable choices, mark recommendation |
-| **Flow chain confirmation** | "Accept chain" / "Reorder steps" / "Add step" / "Remove step" / "Revise — [suggestion]" |
-| **Figure placement** | "Accept placements" / "Move figure X to step Y" / "Add figure at step Z" |
-| **Polish issue** | "Accept suggestion" / "Revise — [counter]" / "Skip" |
-| **Proceed to next Section** | "Confirmed → next Section" / "Let me revise this Section" |
+<HARD-GATE>
+ONE Section at a time. Propose → confirm name → define chain → confirm chain → place figures → NEXT.
+Never present all Sections at once. Every confirmation uses clickable options — never free-text.
+</HARD-GATE>
 
-## Mode: Write vs Polish
+---
 
-| Mode | Starting Point | Action |
-|------|---------------|--------|
-| **Write** | L0 only (no draft) | Propose Sections ONE AT A TIME. For each: propose name → discuss → define A→B→C chain → user confirms → next. |
-| **Polish** | L0 + existing draft | Extract implicit structure → **critical think** (identify 2-3 issues + suggestions) → present issues ONE AT A TIME → discuss each → **write `docs/systematic-research/plans/stream-L1.md`** |
-| **Polish (L1 exists)** | Existing `docs/systematic-research/plans/stream-L1.md` | Critical review → **critical think** (2-3 issues + suggestions) → present issues ONE AT A TIME → discuss each → update |
-
-## Critical Think (Polish Mode)
-
-Before presenting to the user, silently review:
-
-1. **Structural flow** — do Sections build on each other logically? Are there gaps or redundancies?
-2. **Chain fidelity** — does the draft actually follow the extracted A→B→C flow, or does it wander?
-3. **Page budget fit** — does each Section's depth match its page allocation from the blueprint?
-4. **Figure placement** — are figures at natural breakpoints in the flow? Any missing visual anchors?
-
-Present issues **ONE AT A TIME**. For each: "Issue: [X]. Suggestion: [Y]. Agree?" Wait for user before next issue.
-
-## Checklist
-
-1. **Re-read L0.** Venue known.
-2. **Discover blueprint.** Explore `templates/` → load `BLUEPRINT.md` → match by page count. Page budget constrains scope.
-3. **Propose Section 1** — name, purpose, how it maps to L0. User confirms. Then define its A→B→C chain. User confirms chain.
-4. **Propose Section 2** — same process. Then Section 3, Section 4... ONE AT A TIME.
-5. **Propose figure placeholders** — after each Section's chain is confirmed: "Here's where figures go in this Section: [list]. OK?"
-6. **Write L1 document.** Accumulate incrementally — append each confirmed Section to `docs/systematic-research/plans/stream-L1.md` as you go.
-
-## Step-by-Step Interaction Protocol
+## Process Flow
 
 ```dot
-digraph l1_flow {
+digraph l1 {
     rankdir=TB;
-    "Re-read L0" [shape=box];
-    "Discover blueprint" [shape=box];
-    "Propose Section 1 name" [shape=box];
-    "User confirms name?" [shape=diamond];
-    "Define Section 1 chain" [shape=box];
-    "User confirms chain?" [shape=diamond];
-    "Propose figures for S1" [shape=box];
-    "Propose Section 2 name" [shape=box];
-    "User confirms name?" [shape=diamond];
-    "Define Section 2 chain" [shape=box];
-    "User confirms chain?" [shape=diamond];
-    "Propose figures for S2" [shape=box];
-    "...Section N" [shape=box];
-    "Write L1 doc + commit" [shape=oval];
+    "Re-read L0 + discover blueprint" [shape=box];
+    "Propose Section N name (2-3 options)" [shape=box];
+    "User accepts name?" [shape=diamond];
+    "Define A→B→C flow chain" [shape=box];
+    "User accepts chain?" [shape=diamond];
+    "Place figures" [shape=box];
+    "User accepts placements?" [shape=diamond];
+    "Append to stream-L1.md" [shape=box];
+    "More Sections?" [shape=diamond];
+    "Commit L1 → proceed to L2" [shape=oval];
 
-    "Re-read L0" -> "Discover blueprint";
-    "Discover blueprint" -> "Propose Section 1 name";
-    "Propose Section 1 name" -> "User confirms name?";
-    "User confirms name?" -> "Propose Section 1 name" [label="no"];
-    "User confirms name?" -> "Define Section 1 chain" [label="yes"];
-    "Define Section 1 chain" -> "User confirms chain?";
-    "User confirms chain?" -> "Define Section 1 chain" [label="no"];
-    "User confirms chain?" -> "Propose figures for S1" [label="yes"];
-    "Propose figures for S1" -> "Propose Section 2 name";
-    "Propose Section 2 name" -> "User confirms name?";
-    "User confirms name?" -> "Propose Section 2 name" [label="no"];
-    "User confirms name?" -> "Define Section 2 chain" [label="yes"];
-    "Define Section 2 chain" -> "User confirms chain?";
-    "User confirms chain?" -> "Define Section 2 chain" [label="no"];
-    "User confirms chain?" -> "Propose figures for S2" [label="yes"];
-    "Propose figures for S2" -> "...Section N";
-    "...Section N" -> "Write L1 doc + commit";
+    "Re-read L0 + discover blueprint" -> "Propose Section N name (2-3 options)";
+    "Propose Section N name (2-3 options)" -> "User accepts name?";
+    "User accepts name?" -> "Propose Section N name (2-3 options)" [label="no"];
+    "User accepts name?" -> "Define A→B→C flow chain" [label="yes"];
+    "Define A→B→C flow chain" -> "User accepts chain?";
+    "User accepts chain?" -> "Define A→B→C flow chain" [label="no"];
+    "User accepts chain?" -> "Place figures" [label="yes"];
+    "Place figures" -> "User accepts placements?";
+    "User accepts placements?" -> "Place figures" [label="no"];
+    "User accepts placements?" -> "Append to stream-L1.md" [label="yes"];
+    "Append to stream-L1.md" -> "More Sections?";
+    "More Sections?" -> "Propose Section N name (2-3 options)" [label="yes"];
+    "More Sections?" -> "Commit L1 → proceed to L2" [label="no"];
 }
 ```
 
-## Flow Chain Rules
+---
 
-Each chain item is a **logical step** — what the reader must understand before the next. One idea per step. Ordered by dependency. Descriptive ("Why existing solutions fail"), not numbered ("Step 3").
+## Core Loop
 
-## Figure Placeholders
+For EACH Section, 4 steps. Loop within each step until user accepts.
 
-| Type | When | Typical Placement |
-|------|------|------------------|
-| Architecture/Pipeline overview | Design/Method — reader needs big picture first | Before component descriptions |
-| Motivation graph | Background — data proving the problem | Within challenge/gap step |
-| Main result graph/table | Evaluation — headline comparison | Macro-benchmarks |
-| Ablation/breakdown | Evaluation — isolate contributions | Micro-benchmarks |
-| Qualitative example | Analysis — what output looks like | After quantitative results |
-
-## Per-Section Interaction Template
-
-For EACH Section, present clickable options at every step:
-
-1. **Propose name + purpose** — present 2-3 name options with brief purpose. Mark recommendation. User clicks one.
-2. **Wait for selection.** If none accepted, propose alternatives. If accepted, proceed.
-3. **Define flow chain** — present A→B→C chain. Offer options: "Accept chain" / "Reorder steps" / "Add a step" / "Remove a step".
-4. **Wait for selection.** Revise per user's choice. Loop until "Accept chain".
-5. **Propose figures** — list placements. Options: "Accept placements" / "Move/Add figure".
-6. **Append confirmed Section to L1 document.** Then offer: "Confirmed → next Section" / "Revise this Section".
-
-Example interaction:
+### Step 1: Propose Name
+2-3 name options with purpose. Mark recommendation. User clicks one.
 
 > **Section 1: Introduction**
->
 > Purpose: Establish task, identify gap, present insight, preview results.
->
-> Options:
-> - Introduction (standard)
+> - Introduction (standard) ← recommended
 > - Introduction & Background (merged)
 > - Introduction with Motivation
 
-User clicks → then chain → then figures. Each step = clickable choices, no typing.
+### Step 2: Define Flow Chain
+A→B→C chain. Each item = one logical dependency. Descriptive names ("Why existing solutions fail"), not numbers ("Step 3").
+
+### Step 3: Place Figures
+List where figures belong in this Section.
+
+### Step 4: Confirm & Proceed
+Append confirmed Section to L1 document. Offer: Next Section / Revise this Section.
+
+---
+
+## L1 Mode Differences
+
+| Mode | L1 Action |
+|------|----------|
+| **Write** | Core Loop from scratch for each Section |
+| **Polish (no L1)** | Extract implicit structure from draft → Critical Think → Core Loop → write `stream-L1.md` |
+| **Polish (L1 exists)** | Critical review existing L1 → Critical Think → update |
+| **Polish-lite** | Skip L1 entirely |
+
+---
+
+## Critical Think (Polish Only)
+
+Silently review before presenting to user:
+
+- **Structural flow** — Sections build logically? Gaps or redundancies?
+- **Chain fidelity** — Draft follows its extracted chain, or wanders?
+- **Page budget** — Section depth matches blueprint allocation?
+- **Figure placement** — At natural breakpoints? Missing visual anchors?
+
+Present issues ONE AT A TIME: "Issue: [X]. Suggestion: [Y]. Agree?"
+
+---
+
+## Challenge-Design Pattern
+
+When a Section pairs Challenges with Design points:
+
+- **Derive from Key Idea.** Ask: what does the Key Idea break or require? → orthogonal dimensions, each = one challenge.
+- **Pair strictly.** Challenge → immediately following Design solves it. Reader never wonders which solves which.
+- **Cover all.** If only 2 internal challenges, add a 3rd external (memory, consistency, compatibility).
+
+---
+
+## Figure Placement
+
+- **Architecture/Pipeline overview** — Before component descriptions
+- **Motivation graph** — Within challenge/gap step
+- **Main result** — Macro-benchmarks
+- **Ablation/breakdown** — Micro-benchmarks
+- **Qualitative example** — After quantitative results
+
+---
 
 ## Output
 
-`docs/systematic-research/plans/stream-L1.md` — built incrementally, one Section at a time:
+`docs/systematic-research/plans/stream-L1.md` — built incrementally:
 
 ```markdown
-# L1 Chapter Structure Stream: <Topic> | Venue: <venue> | Date: YYYY-MM-DD
+# L1 Structure: <Topic> | <venue> | YYYY-MM-DD
 
-## Section 1: <Name from discussion>
-A. <step> 
-B. <step> 
-C. <step> 
-...
+## Section 1: <Name>
+A. <step>
+B. <step>
+*Figures: <list>*
 
-## Section 2: <Name from discussion>
+## Section 2: <Name>
 ### Subsection 2.1: <Name>
-A. <step> 
-B. <step> 
-C. <step>
+A. <step>
 ```
 
-Commit with `L1: structure for <topic>`. Proceed to L2.
+Commit: `L1: structure for <topic>`. Proceed to L2.

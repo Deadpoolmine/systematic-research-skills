@@ -2,44 +2,26 @@
 
 **Load when:** executing L0 of paper-writing (write or polish mode).
 
+**Interaction protocol:** See [SKILL.md](SKILL.md#universal-interaction-protocol) for clickable options format. L0 uses: venue selection, point judgment, polish issue, proceed.
+
 ## Mode: Write vs Polish
 
 | Mode | Starting Point | Action |
 |------|---------------|--------|
 | **Write** | No draft | Ask 6-point questions ONE AT A TIME. Judge each before next. Loop each until PASS. |
 | **Polish** | Existing draft | Read draft → extract implicit 6 points → **critical think** (identify 2-3 issues + suggestions) → present issues ONE AT A TIME → discuss each → **write `docs/systematic-research/plans/stream-L0.md`** → commit |
-| **Polish (L0 exists)** | Existing `docs/systematic-research/plans/stream-L0.md` | Critical review → **critical think** (2-3 issues + suggestions) → present issues ONE AT A TIME → discuss each → update L0 |
+| **Polish (L0 exists)** | Existing `stream-L0.md` | Critical review → **critical think** (2-3 issues + suggestions) → present issues ONE AT A TIME → discuss each → update L0 |
 
 <HARD-GATE-L0-STEPWISE>
-**ONE point at a time.** Ask → judge → user confirms → NEXT point.
-Do NOT batch all 6 points into one message.
-Do NOT ask user to confirm everything at once.
-Each point MUST reach PASS before moving to the next.
+**ONE point at a time.** Ask → judge → user confirms → NEXT point. Each point MUST reach PASS before moving to the next. Do NOT batch.
 </HARD-GATE-L0-STEPWISE>
 
-## Interaction Pattern
-
-**At every confirmation point, present clickable options. Do NOT ask the user to type free-text responses.**
-
-Use structured choices for all interactions. The user should click, not type.
-
-| Interaction | Option Pattern |
-|-------------|---------------|
-| **Venue selection** | List discovered venues as clickable options (e.g., "NeurIPS (9pg)", "ICML (8pg)", "AAAI (7pg)") |
-| **Point judgment** | "PASS — [reason]" / "WEAK — [what's missing]" / "REJECT — [why]" as selectable options. Mark agent's recommendation |
-| **Polish issue** | "Accept suggestion" / "Revise — [counter-proposal]" / "Skip — not relevant" |
-| **Proceed to next** | "Confirmed → next point" / "Let me revise this point" |
-
-**Every prompt to the user MUST end with a set of clickable options.** Example:
-
+**Example interaction pattern:**
 > **Point 1: Big Background.** Your answer: "The rise of large vision-language models has..."
 >
 > **Judgment: WEAK** — too generic, needs a specific tech shift with timeline.
 >
-> Options:
-> - PASS — accept as-is
-> - WEAK — revise with more specific trend + year range
-> - REJECT — this doesn't work, start over
+> Options: PASS / WEAK — revise with more specific trend + year range / REJECT
 
 ## Critical Think (Polish Mode)
 

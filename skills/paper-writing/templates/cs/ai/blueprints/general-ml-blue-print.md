@@ -2,7 +2,7 @@
 
 **Load this reference when:** writing an ML/AI paper targeting NeurIPS, ICML, ICLR, ACL, AAAI, or COLM. Provides page budget, per-section paragraph plans, and the narrative framework distilled from leading ML researchers (Nanda, Farquhar, Lipton, Steinhardt, Perez).
 
-**Skeleton:** varies by venue — see `templates/ai/BLUEPRINT.md` for skeleton mapping.
+**Skeleton:** varies by venue — see `BLUEPRINT.md` in this directory for skeleton mapping.
 
 ---
 

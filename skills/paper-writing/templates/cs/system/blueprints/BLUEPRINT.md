@@ -8,9 +8,9 @@ The skill auto-identifies the blueprint from the target venue's page limit:
 
 | Target Venue | Pages | Blueprint | Skeleton |
 |-------------|-------|-----------|----------|
-| OSDI, SOSP, FAST, NSDI, ATC, EuroSys, ASPLOS | 12 | [12pages](blueprints/12pages.md) | `templates/cs/system/usenix/` or `acm/` |
-| HotStorage, HotOS, short papers | 8 | [8pages](blueprints/8pages.md) | `templates/cs/system/usenix/` |
-| *(generic — venue not yet listed)* | *ask user* | — | `templates/cs/system/ieee/` |
+| OSDI, SOSP, FAST, NSDI, ATC, EuroSys, ASPLOS | 12 | [12pages](12pages.md) | `../usenix/` or `../acm/` |
+| HotStorage, HotOS, short papers | 8 | [8pages](8pages.md) | `../usenix/` |
+| *(generic — venue not yet listed)* | *ask user* | — | `../ieee/` |
 
 **Rule:** The page count determines the blueprint. The venue determines the skeleton (USENIX vs ACM vs IEEE format).
 
@@ -18,8 +18,8 @@ The skill auto-identifies the blueprint from the target venue's page limit:
 
 | Blueprint | Page Budget | Typical Venues |
 |-----------|------------|----------------|
-| [12pages](blueprints/12pages.md) | 12 pages | OSDI, SOSP, FAST, NSDI, ATC, EuroSys, ASPLOS |
-| [8pages](blueprints/8pages.md) | 8 pages | HotStorage, HotOS, short/position papers |
+| [12pages](12pages.md) | 12 pages | OSDI, SOSP, FAST, NSDI, ATC, EuroSys, ASPLOS |
+| [8pages](8pages.md) | 8 pages | HotStorage, HotOS, short/position papers |
 
 ## How to Use
 

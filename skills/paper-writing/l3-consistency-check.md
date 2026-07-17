@@ -47,7 +47,18 @@ If L0 #6 status = "In progress": verify setup matches L0, [TODO] markers present
 
 ## Resolution Protocol
 
-For each issue: identify **root cause** (L0 omission? L1 gap? L2 drift?). Fix at earliest level. Re-run all 6 checks after fixes.
+For each issue: identify **root cause** (L0 omission? L1 gap? L2 drift?). Fix at earliest level. Re-run all 7 checks after fixes.
+
+## User Review
+
+Present the consistency report to the user. For each issue found:
+
+> **Issue:** Check 2 failed — DP2 not covered in L2.
+> **Root cause:** L1 Design chain omitted DP2.
+> **Fix:** Update L1 → re-dispatch L2 agent for that Section.
+> Options: Apply fix / Skip (explain why) / Discuss
+
+After all issues resolved and report shows zero issues → user approves → commit.
 
 ## Report Format
 
