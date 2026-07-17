@@ -84,9 +84,10 @@ Use for: architecture overview, pipeline diagrams, method illustrations. Placed 
 
 **Rules:**
 - `[t]` placement by default. Use `[ht]` only if top placement causes ordering issues.
-- `\textwidth` for full column width. Use `0.95\textwidth` if caption needs breathing room.
+- **Width:** Choose fraction based on role. Never default to `\textwidth` — ask: "Does this figure need the full column?"
 - Caption: **bold title** + `\small` description. Always state the takeaway, not just "Architecture of X."
-- Figure file: vector PDF/EPS. Place in `figs/`. Name descriptively: `figs/architecture-overview.pdf`.
+- **Drafting:** Use `example-image-a` (mwe package) as placeholder. Replace with real figures before submission.
+- Figure file: vector PDF/EPS in `figs/`. Name descriptively: `figs/architecture-overview.pdf`.
 
 ---
 
