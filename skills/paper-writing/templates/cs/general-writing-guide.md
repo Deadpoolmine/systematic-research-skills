@@ -1,6 +1,6 @@
-# Writing Style Reference
+# General Writing Guide
 
-**Load when:** writing or polishing any academic paper (L2/L3). Covers voice, vocabulary, paragraph/sentence rules, and LaTeX figure/table templates.
+**Load when:** writing or polishing any academic paper (L2/L3). Covers voice, vocabulary, paragraph/sentence rules, natural language conventions, and LaTeX figure/table templates.
 
 ---
 
@@ -24,11 +24,54 @@ Act as an academic editor. Make prose precise, evidence-driven, and venue-approp
 - **Paragraph structure:** Topic sentence → 2-3 supporting sentences → concluding/transition. First sentence declares the point. Use `\paragraph{}` to label and summarize the topic sentence.
 - **Open with the point, not the context.** ❌ "The growing use of... has created increasing demand for..." → ✅ "X relies on Y."
 - **Cut setup verbs.** ❌ "has emerged as a promising approach" → ✅ "reduces this overhead". Verbs that add syllables without meaning: emerged, enabled, facilitated, leveraged (as verb).
-- **Em dash for causal connection.** `---` in LaTeX: "X directly exposes Y --- bringing up to Z% degradation."
 - **Underline the punchline.** One `\ul{}` per section marks the finding everything else supports.
 - **Kill the last sentence.** Most paragraphs end with a weak restatement. The second-to-last sentence is usually the strongest ending.
 - **Use LaTeX comments as scaffolding.** `% reasoning`, `% alternative: X`, `% TODO: verify number`. Clean before submission.
 - **Define notation before use.** Evidence-backed claims. Specific > vague.
+
+---
+
+## Natural Language Conventions
+
+These rules keep prose sounding like a human wrote it — not a template.
+
+### Banned Words & Replacements
+
+| ❌ Banned | ✅ Use Instead | Why |
+|-----------|---------------|-----|
+| gap (as in "research gap", "performance gap") | challenges, existing problems, limitations, bottlenecks, unsolved issues | "Gap" is overused template-speak. Name the actual problem. |
+| --- (em dash for causal connection) | rewrite as two sentences, or use "—" sparingly for parenthetical asides only | Em dash chaining makes prose feel breathless and formulaic. Prefer clear sentence boundaries. |
+| closed loop | that form an efficient, effective XX approach; a self-reinforcing cycle; a complete workflow | "Closed loop" is jargon. Describe what the loop actually achieves. |
+| paradigm | approach, method, framework | Overblown. |
+| leverage (as verb) | use, apply, exploit, take advantage of | Corporate-speak. |
+| utilize | use | "Utilize" never adds meaning over "use". |
+| facilitate | help, enable, support | Vague. Say how. |
+| ameliorate | improve, reduce, cut | Pretentious. |
+| delineate | describe, outline | Pretentious. |
+| elucidate | explain, show | Pretentious. |
+| heretofore | previously, so far | Archaic. |
+| efficacy | effectiveness | "Efficacy" is clinical-trial language. |
+
+### Abstract Rules
+
+- **5 sentences, hard cap 8.** Formula: (1) problem + why it matters → (2) key challenge or existing problem → (3) core insight → (4) what you built + how it works → (5) main result + impact.
+- **No citations in abstract** unless venue requires it.
+- **No undefined acronyms.**
+- **Match the intro's funnel** — same insight wording, same contribution framing.
+- **Cut adjectives.** "Extensive experiments" → state the number of benchmarks. "Significant improvements" → state the numbers.
+
+### Em Dash Policy
+
+- **Avoid `---` as a causal connector.** ❌ "X directly exposes Y --- bringing up to Z% degradation." → ✅ "X directly exposes Y, which causes up to Z% degradation." Or split: "X directly exposes Y. This brings up to Z% degradation."
+- **Allow `---` only for parenthetical asides** (like this one), and even then, prefer commas or parentheses.
+- **Never chain multiple em dashes** in one paragraph.
+
+### "Closed Loop" Replacement Pattern
+
+- ❌ "X and Y form a closed loop." / "This creates a closed-loop system."
+- ✅ "X and Y form an efficient, self-reinforcing approach: X improves Y, and the improved Y in turn refines X."
+- ✅ "This creates a complete workflow where each component feeds into the next."
+- **Rule:** Always explain what the loop *does*, not just that it exists.
 
 ### Vocabulary
 

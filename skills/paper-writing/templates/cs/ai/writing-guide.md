@@ -2,19 +2,19 @@
 
 **Load when:** writing/polishing AI/ML papers (NeurIPS, ICML, ICLR, CVPR, ACL, AAAI, COLM).
 
-**General voice, vocabulary, and style rules:** see [style.md](../style.md). This guide covers **AI/ML-specific** writing patterns only.
+**General voice, vocabulary, and style rules:** see [general-writing-guide.md](../general-writing-guide.md). This guide covers **AI/ML-specific** writing patterns only.
 
 ---
 
 ## AI-Specific Introduction Patterns
 
-Funnel: **big background → small background → gap → insight → design preview → contributions** (1-1.5pg max).
+Funnel: **big background → small background → challenges / existing problems → insight → design preview → contributions** (1-1.5pg max).
 
 | Step | Rule |
 |------|------|
 | Big Background | Name the trend. Specific, not generic. Cite 2-3. |
 | Small Background | Narrow to your domain. Name the approach category. |
-| Gap | Problem (1 sent) + quantitative evidence + root cause. |
+| Challenges | Problem (1 sent) + quantitative evidence + root cause. Name the actual problem, not "gap". |
 | Key Insight | ONE insight. Why it works, not what you built. |
 | Design Preview | 2-3 design points, 1-2 sentences each. Name the method. |
 | Contributions | 2-3 bullets. Pattern: (1) identify problem → (2) propose technique → (3) demonstrate results. |
@@ -22,7 +22,7 @@ Funnel: **big background → small background → gap → insight → design pre
 **AI-specific patterns:**
 
 - **Two-sentence opening.** Avoid "X has achieved remarkable success." Start: what problem + why it matters NOW.
-- **"Fortunately" pivot.** After gap: "Fortunately, our observations show that neither overhead should be paid: (1)... (2)..." Turns problem into opportunity.
+- **"Fortunately" pivot.** After stating the challenges: "Fortunately, our observations show that neither overhead should be paid: (1)... (2)..." Turns problem into opportunity.
 - **Encapsulate insights.** "We encapsulate our findings into **N core insights**: (1)... (2)..." Keep the SAME insights verbatim across abstract, intro, and conclusion.
 - **Place diagnostic figures early.** Right after abstract or within intro. Visual evidence before method.
 - **Classify prior work.** "Existing approaches follow N directions. The first... The second..." — positions your contribution in the design space.
@@ -41,7 +41,7 @@ Funnel: **big background → small background → gap → insight → design pre
 - **Named observations.** Label each: `Observation #1:` or `Motivation 1.` Each: quantitative evidence → implication for design.
 - **Controlled experiment for root cause.** When degradation has multiple possible causes, isolate each with a variant that changes only one factor. Measure which dominates.
 - **Concrete case study.** One representative failure example → quantify mismatch with a diagnostic metric → bold root-cause sentence → explain why existing methods fail → pivot to new objective.
-- **Ideal baseline.** Include a theoretical upper bound to make the gap concrete.
+- **Ideal baseline.** Include a theoretical upper bound to make the existing limitations concrete.
 - **Insight formalization.** Name the insight memorably. Support with a predictive-power figure (correlation between your proxy and ground truth). Enumerate advantages: ①, ②.
 - **End with challenges.** Close with: "Nevertheless, building X is non-trivial, as reflected in N questions: (1)... (2)... We address these in the next section." Bridges to method.
 

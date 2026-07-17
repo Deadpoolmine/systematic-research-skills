@@ -2,19 +2,19 @@
 
 **Load when:** writing/polishing systems papers (OSDI, SOSP, EuroSys, ASPLOS, ATC, FAST, NSDI, SIGMOD).
 
-**General voice, vocabulary, and style rules:** see [style.md](../style.md). This guide covers **systems-specific** writing patterns only.
+**General voice, vocabulary, and style rules:** see [general-writing-guide.md](../general-writing-guide.md). This guide covers **systems-specific** writing patterns only.
 
 ---
 
 ## System-Specific Introduction Patterns
 
-Funnel: **big background → small background → gap → insight → design preview → contributions** (1-1.5pg max).
+Funnel: **big background → small background → challenges / existing problems → insight → design preview → contributions** (1-1.5pg max).
 
 | Step | Rule |
 |------|------|
 | Big Background | Name the trend. Specific, not generic. Cite 2-3. |
 | Small Background | Narrow to your domain. Name the system category. |
-| Gap | Problem (1 sentence) + quantitative evidence + root cause. |
+| Challenges | Problem (1 sentence) + quantitative evidence + root cause. Name the actual problem, not "gap". |
 | Key Insight | ONE insight. "X merges with Y, eliminating Z." Not "we built X." |
 | Design Preview | 2-3 design points, 1-2 sentences each. Name the system. |
 | Contributions | 2-3 bullets. Pattern: (1) identify problem → (2) propose technique → (3) demonstrate results. |
@@ -26,7 +26,7 @@ Funnel: **big background → small background → gap → insight → design pre
 - **State design goals upfront.** 2-3 enumerated goals before presenting the system.
 - **Economic motivation.** If applicable, open with a cost table (hardware $/GiB).
 
-**Pitfalls:** Generic opening. Laundry-list contributions (>3 bullets). Hiding insight behind system description. Vague gap without numbers.
+**Pitfalls:** Generic opening. Laundry-list contributions (>3 bullets). Hiding insight behind system description. Vague problem statement without numbers.
 
 ---
 
@@ -37,7 +37,7 @@ Funnel: **big background → small background → gap → insight → design pre
 **Motivation — earn the right to propose a solution:**
 
 - **Named observations.** Label each finding: `Observation #1:` or `Motivation 1.` Each has quantitative evidence → implication for design.
-- **Ideal baseline.** Include a theoretical upper bound to make the gap concrete.
+- **Ideal baseline.** Include a theoretical upper bound to make the existing limitations concrete.
 - **Real hardware, real workloads.** State platform and config even in motivation.
 - **Quantify everything.** Not "X is slow" but "X suffers Y% throughput loss at Z workload."
 - **Show breakdowns.** A stacked bar of where time goes reveals the true bottleneck.

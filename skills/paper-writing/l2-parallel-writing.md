@@ -45,7 +45,7 @@ digraph l2_flow {
 
 1. Copy skeleton to `paper/` (explore `templates/` → match venue)
 2. From L1: extract each Section's name, A→B→C chain, figure/table placeholders (column: single/double), page budget
-3. Note absolute paths to `writing-guide.md`, `style.md`, `BLUEPRINT.md` — subagents will read them directly
+3. Note absolute paths to `writing-guide.md`, `general-writing-guide.md`, `BLUEPRINT.md` — subagents will read them directly
 
 ## Step 2: Build Subagent Prompts
 
@@ -70,18 +70,18 @@ A. <step> → B. <step> → C. <step> → ...
 
 **Reference files — READ these before writing:**
 - Writing guide: <absolute-path-to>/writing-guide.md
-- Style + figure/table templates: <absolute-path-to>/style.md
+- Style + figure/table templates: <absolute-path-to>/general-writing-guide.md
 - Blueprint: <absolute-path-to>/BLUEPRINT.md
 
 **Prose rules (detailed in writing-guide.md):**
 - Paragraph = one idea = one chain step. Topic → support → conclude. 3-5 sentences, hard cap 6.
 - Sentence: 10-25 words, hard cap 30. Open with the point, not context.
-- Cut setup verbs (emerged/facilitated/leveraged). Em dash `---` for causal links.
+- Cut setup verbs (emerged/facilitated/leveraged). Avoid `---` for causal links — use clear sentence boundaries instead.
 - One `\ul{}` per section for the punchline. Kill the last sentence of paragraphs.
 - Vocabulary: standard academic terms. No obscure words. "we", specific > vague.
 - `[TODO: actual number]` as plain text, never inside `$$`.
 
-**Figures & Tables — read style.md for complete templates. Key rules:**
+**Figures & Tables — read general-writing-guide.md for complete templates. Key rules:**
 - Use `example-image-a` placeholder (mwe package), NEVER a non-existent file path.
 - **Width: always `width=\linewidth`.** Single column → `figure`/`table`. Double column → `figure*`/`table*`. Column choice from L1 spec above.
 - Figure before its first `\ref{}` in prose.
@@ -95,7 +95,7 @@ Return: 3-5 bullet summary + open questions.
 ```
 
 <HARD-GATE-PROMPT>
-Each prompt MUST include: L0 context + full L1 chain + L1 figure specs (col single/double, placeholder) + absolute paths to writing-guide.md, style.md, BLUEPRINT.md + exact output path.
+Each prompt MUST include: L0 context + full L1 chain + L1 figure specs (col single/double, placeholder) + absolute paths to writing-guide.md, general-writing-guide.md, BLUEPRINT.md + exact output path.
 One prompt = one Section. Never combine.
 </HARD-GATE-PROMPT>
 
