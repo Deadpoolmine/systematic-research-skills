@@ -155,17 +155,9 @@ Broad domain context
 - [ ] Starts with problem landscape, not solution
 - [ ] No `---` or `$\rightarrow$`
 - [ ] Italic lowercase for named components
-- [ ] `First, ... Second, ... Third, ...` if enumerating
 - [ ] Matches Introduction terminology
 
 ### Introduction
-- [ ] Para 1: Field context only
-- [ ] Para 2: Existing approaches
-- [ ] Para 3: Problems/symptoms (no root cause yet)
-- [ ] Para 4: Root cause
-- [ ] Para 5: Key insight (separate paragraph)
-- [ ] Para 6: Method preview (italic lowercase, First/Second/Third)
-- [ ] Para 7: Contributions (itemize, one line each)
 - [ ] No `---`, no `$\rightarrow$` in prose
 - [ ] No `instantiates` / `plateau` / `a new class of` / `closed loop`
 - [ ] No meaningless enumerations
