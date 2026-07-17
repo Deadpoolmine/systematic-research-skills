@@ -72,11 +72,11 @@ A→B→C chain. Each item = one logical dependency. Descriptive names ("Why exi
 For EACH figure in this Section, specify:
 
 1. **Purpose** — what story does this figure tell?
-2. **Width** — explicit fraction of `\textwidth` (e.g., `0.8\textwidth`, `0.6\textwidth`, `0.45\textwidth` for side-by-side). Never default to full `\textwidth` without justification.
+2. **Column** — single (`figure`) or double spanning (`figure*`)?
 3. **Placement** — which chain step (A/B/C) does it belong to?
 4. **Placeholder** — use `example-image-a` (from `mwe` package) during drafting. Never `\includegraphics{figs/nonexistent.png}`.
 
-Present figures ONE AT A TIME with clickable options: Accept / Resize / Move / Replace.
+Present figures ONE AT A TIME with clickable options: Accept / Change to double-column / Move / Replace.
 
 ### Step 4: Confirm & Proceed
 Append confirmed Section to L1 document. Offer: Next Section / Revise this Section.
@@ -127,23 +127,22 @@ When a Section pairs Challenges with Design points:
 - **Ablation/breakdown** — Micro-benchmarks
 - **Qualitative example** — After quantitative results
 
-### Size Guidelines
+### Column Selection
 
-| Figure Role | Typical Width | Rationale |
-|-------------|--------------|-----------|
-| Architecture/Pipeline overview | `0.85\textwidth`–`\textwidth` | Needs space for components + arrows |
-| Motivation graph (single plot) | `0.6\textwidth`–`0.8\textwidth` | One key trend, no overload |
-| Main results table | `\textwidth` (single) or `\textwidth` (double*) | Tables need full width for readability |
-| Ablation bar/line chart | `0.7\textwidth`–`0.85\textwidth` | Comparison across configurations |
-| Side-by-side comparison (2 figures) | `0.45\textwidth`–`0.48\textwidth` each | Equal weight, shared caption |
-| Qualitative example | `0.7\textwidth`–`0.9\textwidth` | Depends on content detail |
-| Attention/heatmap | `0.6\textwidth`–`0.8\textwidth` | Visual pattern, not precision |
+| Figure Role | Column | Rationale |
+|-------------|--------|-----------|
+| Architecture/Pipeline overview | double (`figure*`) | Needs full page width for components + arrows |
+| Motivation graph (single plot) | single (`figure`) | One key trend, column width sufficient |
+| Main results table (wide, 5+ columns) | double (`table*`) | Many columns need full page width |
+| Main results table (compact, ≤4 columns) | single (`table`) | Fits within column |
+| Ablation bar/line chart | single (`figure`) | Comparison within column |
+| Qualitative example | single (`figure`) | Visual detail fits column width |
+| Side-by-side subfigures | single (`figure`) | Use `\subfloat` within column |
 
 **Rules:**
-- Never default to `\textwidth` without justification. Ask: "Does this figure need the full column?"
-- For two figures side-by-side: `\includegraphics[width=0.45\textwidth]{...}` + `\hfill` + second figure.
-- During drafting, use `example-image-a` (from `mwe` package) as placeholder. The `mwe` package is standard in TeX distributions and provides `example-image-a`, `example-image-b`, `example-image-c` (letter-sized), `example-image-1x1`, `example-image-16x10`, `example-image-10x16` (aspect-ratio variants).
-- When specifying width, also note the expected aspect ratio: "`0.8\textwidth`, ~16:10 landscape" or "`0.5\textwidth`, ~1:1 square".
+- Default: single-column (`figure`/`table`). Use double (`figure*`/`table*`) only when content genuinely needs the full page.
+- All figures use `width=\linewidth` — no fraction tuning. The column choice determines the width.
+- During drafting, use `example-image-a` (from `mwe` package) as placeholder.
 
 ---
 
@@ -158,8 +157,8 @@ When a Section pairs Challenges with Design points:
 A. <step>
 B. <step>
 *Figures:*
-- Fig 1: <purpose> | width=0.8\textwidth | at step A | placeholder=example-image-a
-- Fig 2: <purpose> | width=0.45\textwidth | at step C | placeholder=example-image-b
+- Fig 1: <purpose> | col=double | at step A | placeholder=example-image-a
+- Fig 2: <purpose> | col=single | at step C | placeholder=example-image-b
 
 ## Section 2: <Name>
 ### Subsection 2.1: <Name>

@@ -76,7 +76,7 @@ Use for: architecture overview, pipeline diagrams, method illustrations. Placed 
 ```latex
 \begin{figure}[t]
     \centering
-    \includegraphics[width=\textwidth]{figs/filename.pdf}
+    \includegraphics[width=\linewidth]{figs/filename.pdf}
     \caption{\textbf{Caption title.} \small Description of what the figure shows and the key takeaway.}
     \label{fig:labelname}
 \end{figure}
@@ -84,7 +84,7 @@ Use for: architecture overview, pipeline diagrams, method illustrations. Placed 
 
 **Rules:**
 - `[t]` placement by default. Use `[ht]` only if top placement causes ordering issues.
-- **Width:** Choose fraction based on role. Never default to `\textwidth` — ask: "Does this figure need the full column?"
+- **Width: always `\linewidth`.** Single-column → `figure`/`table`; double-column spanning → `figure*`/`table*`.
 - Caption: **bold title** + `\small` description. Always state the takeaway, not just "Architecture of X."
 - **Drafting:** Use `example-image-a` (mwe package) as placeholder. Replace with real figures before submission.
 - Figure file: vector PDF/EPS in `figs/`. Name descriptively: `figs/architecture-overview.pdf`.
@@ -98,13 +98,13 @@ Use for: wide tables, large result charts, overview figures in two-column venues
 ```latex
 \begin{figure*}[t]
     \centering
-    \includegraphics[width=\textwidth]{figs/filename.pdf}
+    \includegraphics[width=\linewidth]{figs/filename.pdf}
     \caption{\textbf{Caption title.} \small Description of what the figure shows and the key takeaway.}
     \label{fig:labelname}
 \end{figure*}
 ```
 
-**Rules:** Same as single-column. Use `figure*` (not `figure`). In AAAI/ICLR `\textwidth` = full page width.
+**Rules:** Same as single-column. Use `figure*` (not `figure`) for full-page-width content.
 
 ---
 

@@ -44,7 +44,7 @@ digraph l2_flow {
 ## Step 1: Prep
 
 1. Copy skeleton to `paper/` (explore `templates/` → match venue)
-2. From L1: extract each Section's name, A→B→C chain, figure/table placeholders (width + aspect ratio), page budget
+2. From L1: extract each Section's name, A→B→C chain, figure/table placeholders (column: single/double), page budget
 3. Note absolute paths to `writing-guide.md`, `style.md`, `BLUEPRINT.md` — subagents will read them directly
 
 ## Step 2: Build Subagent Prompts
@@ -65,7 +65,8 @@ Write Section <N>: <Name> for a <venue> paper.
 A. <step> → B. <step> → C. <step> → ...
 
 **L1 Figure Specs (from stream-L1.md):**
-- Fig X: <purpose> | width=<N>\textwidth | aspect=<ratio> | at step <letter> | placeholder=example-image-a
+- Fig X: <purpose> | col=single | at step <letter> | placeholder=example-image-a
+- Fig Y: <purpose> | col=double | at step <letter> | placeholder=example-image-b
 
 **Reference files — READ these before writing:**
 - Writing guide: <absolute-path-to>/writing-guide.md
@@ -82,7 +83,8 @@ A. <step> → B. <step> → C. <step> → ...
 
 **Figures & Tables — read style.md for complete templates. Key rules:**
 - Use `example-image-a` placeholder (mwe package), NEVER a non-existent file path.
-- Width from L1 spec above. Figure before its first `\ref{}` in prose.
+- **Width: always `width=\linewidth`.** Single column → `figure`/`table`. Double column → `figure*`/`table*`. Column choice from L1 spec above.
+- Figure before its first `\ref{}` in prose.
 - Caption: `\caption{\textbf{<Bold title>.} \small <One-sentence takeaway.>}` — BOTH bold title AND `\small` description required.
 - Tables: `booktabs` only (`\toprule`/`\midrule`/`\bottomrule`), no `\hline`, no vertical rules.
 - Must-have: architecture overview (Method) + main results table (Experiments).
@@ -93,7 +95,7 @@ Return: 3-5 bullet summary + open questions.
 ```
 
 <HARD-GATE-PROMPT>
-Each prompt MUST include: L0 context + full L1 chain + L1 figure specs (width, aspect ratio, placeholder) + absolute paths to writing-guide.md, style.md, BLUEPRINT.md + exact output path.
+Each prompt MUST include: L0 context + full L1 chain + L1 figure specs (col single/double, placeholder) + absolute paths to writing-guide.md, style.md, BLUEPRINT.md + exact output path.
 One prompt = one Section. Never combine.
 </HARD-GATE-PROMPT>
 
@@ -120,7 +122,7 @@ User requests changes → **re-dispatch** affected Section subagent. Don't revis
    - `\label{}` present and matches `\ref{}` in prose
    - `booktabs` for tables (`\toprule`/`\midrule`/`\bottomrule`), no `\hline`, no vertical rules
    - Placeholder images use `example-image-a` (from `mwe`), not non-existent file paths
-   - Figure width matches L1 spec (not default `\textwidth` unless specified)
+   - All figures use `width=\linewidth`; column type (single/double) matches L1 spec
    - Prose references figure BEFORE it appears: `Figure~\ref{fig:label}`
 3. **Write Abstract** — 5-sentence formula from blueprint. Must be consistent with all drafted Sections. Dispatch as a subagent if needed.
 4. Compile check — ensure `main.tex` compiles without errors
@@ -138,5 +140,5 @@ Commit: `L2: draft for <topic>`. Proceed to L3.
 | `[Figure: desc]` text marker | `\begin{figure}[t]...\end{figure}` with `example-image-a` placeholder |
 | `\hline` in tables | `\toprule`/`\midrule`/`\bottomrule` (booktabs) |
 | `\caption{Architecture of X.}` | `\caption{\textbf{Architecture of X.} \small Description + takeaway.}` |
-| `\includegraphics{figs/nonexistent.png}` | `\includegraphics[width=<spec>]{example-image-a}` |
-| Default `\textwidth` for all figures | Explicit width from L1 spec |
+| `\includegraphics{figs/nonexistent.png}` | `\includegraphics[width=\linewidth]{example-image-a}` |
+| Tuning `\textwidth` fractions | Single/double column from L1, always `width=\linewidth` |
