@@ -31,25 +31,25 @@ description: Use when writing or polishing academic papers. Use when the user me
 
 Every level commits to git.
 
-## Polish Mode
+### Polish Mode
 
 When polishing an existing draft, HLS documents MUST be generated — not just discussed verbally.
 
-1. **If no L0/L1 exists** — read draft → extract implicit HLS → **critical think silently** (identify issues, form 2-3 suggestions) → present to user with issues + suggestions → discuss → **write `stream-L0.md` and `stream-L1.md`** → commit
+1. **If no L0/L1 exists** — read draft → extract implicit HLS → **critical think silently** (identify issues, form 2-3 suggestions) → present to user with issues + suggestions → discuss → **write `docs/systematic-research/plans/stream-L0.md` and `stream-L1.md`** → commit
 2. **If L0/L1 exist** — critical review: points still valid? chains match draft? → **critical think** (2-3 issues + suggestions) → present → discuss → update L0/L1
 3. **Invoke L2** — parallel revision following (revised) flow chains + writing guide
 4. **Invoke L3** — consistency check. Polish complete when all 6 checks pass.
 
 **Polish-lite (language only):** User says "just polish the language" → use writing guide for voice/pitfalls → L2 revise prose → L3 consistency. Do NOT restructure.
 
-## Write Mode (Full HLS)
+### Write Mode (Full HLS)
 
 Standard flow: L0 → L1 → L2 → L3. Start from ideas, end with paper.
 
 ## Hard Gates
 
 <HARD-GATE-L0>
-Do NOT proceed to L1 until: target venue determined, 6 core points written to `docs/systematic-research/plans/YYYY-MM-DD-<topic>-stream-L0.md`, each point discussed ONE AT A TIME and judged PASS, NOT rejected, user confirmed each point individually.
+Do NOT proceed to L1 until: target venue determined, 6 core points written to `docs/systematic-research/plans/stream-L0.md`, each point discussed ONE AT A TIME and judged PASS, NOT rejected, user confirmed each point individually.
 Do NOT batch all 6 points into a single message. Ask one → judge → user confirms → next.
 </HARD-GATE-L0>
 
@@ -59,8 +59,8 @@ Do NOT present all Sections at once. Propose Section N → discuss → confirm n
 </HARD-GATE-L1>
 
 <HARD-GATE-L2>
-Do NOT proceed to L3 until: skeleton copied to `paper/`, every Section drafted by its OWN subagent (dispatched in parallel, one per Section, same response), each Section follows its L1 flow chain, abstract written (5-sentence formula, consistent with all Sections), user reviewed each Section.
-Do NOT write Sections sequentially in main agent. Dispatch all Section subagents in ONE response.
+Do NOT proceed to L3 until: skeleton copied to `paper/`, every Section drafted by its OWN parallel agent (all dispatched simultaneously, one per Section), each Section follows its L1 flow chain, abstract written (5-sentence formula, consistent with all Sections), user reviewed each Section.
+Do NOT write Sections sequentially. Dispatch all Section agents at once.
 </HARD-GATE-L2>
 
 <HARD-GATE-L3>
@@ -103,16 +103,16 @@ digraph hls {
 
 | Level | Output | Key Action | Ref |
 |-------|--------|-----------|-----|
-| L0 | `*-stream-L0.md` | Venue + judge 6 points, reject until clear | [l0](l0-core-idea.md) |
-| L1 | `*-stream-L1.md` | Propose 2-3 custom structures, define A→B→C chains | [l1](l1-chapter-structure.md) |
+| L0 | `docs/systematic-research/plans/stream-L0.md` | Venue + judge 6 points, reject until clear | [l0](l0-core-idea.md) |
+| L1 | `docs/systematic-research/plans/stream-L1.md` | Propose 2-3 custom structures, define A→B→C chains | [l1](l1-chapter-structure.md) |
 | L2 | `paper/` dir | Write: draft Sections + abstract. Polish: revise Sections + abstract following writing guide | [l2](l2-parallel-writing.md) |
 | L3 | Consistency report | Run 6 checks, fix root causes. Polish-lite also runs L3 | [l3](l3-consistency-check.md) |
 
 ## Git
 
 ```bash
-git commit -m "L0: core idea for <topic>"   # docs/.../stream-L0.md
-git commit -m "L1: structure for <topic>"   # docs/.../stream-L1.md
+git commit -m "L0: core idea for <topic>"   # docs/systematic-research/plans/stream-L0.md
+git commit -m "L1: structure for <topic>"   # docs/systematic-research/plans/stream-L1.md
 git commit -m "L2: draft for <topic>"       # paper/
 git commit -m "L3: final for <topic>"       # paper/
 ```

@@ -2,12 +2,11 @@
 
 **Load when:** executing L2 (write or polish). One subagent per Section, dispatched in parallel.
 
-**REQUIRED BACKGROUND:** L1 complete. Each Section dispatched via `runSubagent` in parallel — see process flow below.
+**REQUIRED BACKGROUND:** L1 completed.
 
 <HARD-GATE-L2-PARALLEL>
-Every Section = its own subagent. ALL dispatched in ONE response (parallel).
-Do NOT: write sequentially, batch Sections, or dispatch one at a time.
-Use runSubagent with agentName="general-purpose".
+Every Section = its own parallel agent. ALL dispatched simultaneously.
+Do NOT: write sequentially, batch Sections, or dispatch agents one at a time.
 </HARD-GATE-L2-PARALLEL>
 
 ## Mode
@@ -66,21 +65,21 @@ Write Section <N>: <Name> for a <venue> paper.
 A. <step> → B. <step> → C. <step> → ...
 
 **Writing Guide (copy-paste exact excerpt for this Section type):**
-<Paste from writing-guide.md — do NOT summarize>
+<Paste the absolute path to writing-guide.md for reference>
 
 **Style Reference (copy-paste from style.md for the figure/table types in this Section):**
-<Paste the relevant `\begin{figure}...`, `\begin{table}...` templates from style.md>
+<Paste the absolute path to style.md for reference>
 
 **Universal rules:**
-- **Paragraph = one idea = one chain step.** Each step in your flow chain (A, B, C...) maps to exactly ONE paragraph. Do not merge steps. Do not split one step into multiple paragraphs. If a chain step needs more than 5 sentences, the step itself is too broad — split the step in L1.
-- **Paragraph structure:** Topic sentence → 2-3 supporting sentences → concluding/transition (总分总). First sentence declares the point. Last sentence concludes or bridges.
+- **Paragraph = one idea = one chain step.** Each step in your flow chain (A, B, C...) maps to exactly ONE paragraph. However, if a paragraph is too long, you can decide to seperate them. 
+- **Paragraph structure:** Topic sentence → 2-3 supporting sentences → concluding/transition (总分总). First sentence declares the point. Last sentence concludes or bridges. Try use `\paragraph{}` lable to stress and summarize the topic sentence/phrase. 
 - **Paragraph length: 3-5 sentences. Hard cap: 6.** If it runs longer, split at the nearest logical break. Short paragraphs are better than dense ones.
 - **Sentence length: 10-25 words.** Hard cap: 30 words. No run-on sentences. Split long sentences ruthlessly.
-- Vocabulary: standard ML terms only. No obscure words (ameliorate, delineate, elucidate, heretofore, utilize, leverage as verb). Plain English.
+- **Vocabulary**: standard academic terms only. No obscure words (ameliorate, delineate, elucidate, heretofore, utilize, leverage as verb). Plain English.
 - `[TODO: actual number]` as plain text or `% [TODO: ...]` LaTeX comment. NEVER inside `$$` or `$`.
 - Define notation before use. Evidence-backed claims. "we". Specific > vague.
 
-**Figures & Tables:** Insert complete LaTeX environments — NOT bare `[Figure: ...]` markers. Use the exact templates from style.md:
+**Figures & Tables:** Insert complete LaTeX environments — NOT bare `[Figure: ...]` markers. Use the exact templates from `style.md`:
 - Single-column: `\begin{figure}[t]...\end{figure}`
 - Double-column: `\begin{figure*}[t]...\end{figure*}`
 - Tables: `\begin{table}[t]...` with `booktabs` (`\toprule`, `\midrule`, `\bottomrule`). No vertical rules.
@@ -100,17 +99,9 @@ One prompt = one Section. Never combine.
 
 ## Step 3: Parallel Dispatch
 
-ALL `runSubagent` calls in ONE response = parallel. One per response = sequential.
+Dispatch ALL Section agents simultaneously — not one after another. Every Section agent receives its prompt and works independently in parallel.
 
-```
-runSubagent("general-purpose", "<Section 1 prompt>")
-runSubagent("general-purpose", "<Section 2 prompt>")
-runSubagent("general-purpose", "<Section N prompt>")
-```
-
-<HARD-GATE-DISPATCH>
-ALL Sections dispatched in same batch. None missed.
-</HARD-GATE-DISPATCH>
+When all agents return, proceed to Step 4.
 
 ## Step 4: Review
 

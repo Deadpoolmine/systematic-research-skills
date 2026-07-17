@@ -7,8 +7,8 @@
 | Mode | Starting Point | Action |
 |------|---------------|--------|
 | **Write** | No draft | Ask 6-point questions ONE AT A TIME. Judge each before next. Loop each until PASS. |
-| **Polish** | Existing draft | Read draft → extract implicit 6 points → **critical think** (identify 2-3 issues + suggestions) → present issues ONE AT A TIME → discuss each → **write `stream-L0.md`** → commit |
-| **Polish (L0 exists)** | Existing `stream-L0.md` | Critical review → **critical think** (2-3 issues + suggestions) → present issues ONE AT A TIME → discuss each → update L0 |
+| **Polish** | Existing draft | Read draft → extract implicit 6 points → **critical think** (identify 2-3 issues + suggestions) → present issues ONE AT A TIME → discuss each → **write `docs/systematic-research/plans/stream-L0.md`** → commit |
+| **Polish (L0 exists)** | Existing `docs/systematic-research/plans/stream-L0.md` | Critical review → **critical think** (2-3 issues + suggestions) → present issues ONE AT A TIME → discuss each → update L0 |
 
 <HARD-GATE-L0-STEPWISE>
 **ONE point at a time.** Ask → judge → user confirms → NEXT point.
@@ -132,7 +132,7 @@ At Point 5 (Design Points), explicitly verify: DP1 addresses C<N> by <mechanism>
 
 ## Output
 
-`docs/systematic-research/plans/YYYY-MM-DD-<topic>-stream-L0.md`:
+`docs/systematic-research/plans/stream-L0.md`:
 
 ```markdown
 # L0: <Topic> | Venue: <venue> | YYYY-MM-DD

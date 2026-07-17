@@ -28,8 +28,8 @@ Each Section must be confirmed (name + flow chain) before moving to the next.
 | Mode | Starting Point | Action |
 |------|---------------|--------|
 | **Write** | L0 only (no draft) | Propose Sections ONE AT A TIME. For each: propose name → discuss → define A→B→C chain → user confirms → next. |
-| **Polish** | L0 + existing draft | Extract implicit structure → **critical think** (identify 2-3 issues + suggestions) → present issues ONE AT A TIME → discuss each → **write `stream-L1.md`** |
-| **Polish (L1 exists)** | Existing `stream-L1.md` | Critical review → **critical think** (2-3 issues + suggestions) → present issues ONE AT A TIME → discuss each → update |
+| **Polish** | L0 + existing draft | Extract implicit structure → **critical think** (identify 2-3 issues + suggestions) → present issues ONE AT A TIME → discuss each → **write `docs/systematic-research/plans/stream-L1.md`** |
+| **Polish (L1 exists)** | Existing `docs/systematic-research/plans/stream-L1.md` | Critical review → **critical think** (2-3 issues + suggestions) → present issues ONE AT A TIME → discuss each → update |
 
 ## Critical Think (Polish Mode)
 
@@ -49,7 +49,7 @@ Present issues **ONE AT A TIME**. For each: "Issue: [X]. Suggestion: [Y]. Agree?
 3. **Propose Section 1** — name, purpose, how it maps to L0. User confirms. Then define its A→B→C chain. User confirms chain.
 4. **Propose Section 2** — same process. Then Section 3, Section 4... ONE AT A TIME.
 5. **Propose figure placeholders** — after each Section's chain is confirmed: "Here's where figures go in this Section: [list]. OK?"
-6. **Write L1 document.** Accumulate incrementally — append each confirmed Section to `stream-L1.md` as you go.
+6. **Write L1 document.** Accumulate incrementally — append each confirmed Section to `docs/systematic-research/plans/stream-L1.md` as you go.
 
 ## Step-by-Step Interaction Protocol
 
@@ -131,17 +131,22 @@ User clicks → then chain → then figures. Each step = clickable choices, no t
 
 ## Output
 
-`docs/systematic-research/plans/YYYY-MM-DD-<topic>-stream-L1.md` — built incrementally, one Section at a time:
+`docs/systematic-research/plans/stream-L1.md` — built incrementally, one Section at a time:
 
 ```markdown
 # L1 Chapter Structure Stream: <Topic> | Venue: <venue> | Date: YYYY-MM-DD
 
 ## Section 1: <Name from discussion>
-A. <step> → B. <step> → C. <step> → ...
+A. <step> 
+B. <step> 
+C. <step> 
+...
 
 ## Section 2: <Name from discussion>
 ### Subsection 2.1: <Name>
-A. <step> → B. <step> → C. <step>
+A. <step> 
+B. <step> 
+C. <step>
 ```
 
 Commit with `L1: structure for <topic>`. Proceed to L2.
