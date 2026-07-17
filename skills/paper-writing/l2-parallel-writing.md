@@ -76,7 +76,7 @@ A. <step> → B. <step> → C. <step> → ...
 **Prose rules (detailed in writing-guide.md):**
 - Paragraph = one idea = one chain step. Topic → support → conclude. 3-5 sentences, hard cap 6.
 - Sentence: 10-25 words, hard cap 30. Open with the point, not context.
-- Cut setup verbs (emerged/facilitated/leveraged). Avoid `---` for causal links — use clear sentence boundaries instead.
+- Cut filler verbs (emerged/facilitated/leveraged/utilized). Avoid `---` for causal links — use clear sentence boundaries. Avoid `$\rightarrow$` in prose.
 - One `\ul{}` per section for the punchline. Kill the last sentence of paragraphs.
 - Vocabulary: standard academic terms. No obscure words. "we", specific > vague.
 - `[TODO: actual number]` as plain text, never inside `$$`.
@@ -85,7 +85,7 @@ A. <step> → B. <step> → C. <step> → ...
 - Use `example-image-a` placeholder (mwe package), NEVER a non-existent file path.
 - **Width: always `width=\linewidth`.** Single column → `figure`/`table`. Double column → `figure*`/`table*`. Column choice from L1 spec above.
 - Figure before its first `\ref{}` in prose.
-- Caption: `\caption{\textbf{<Bold title>.} \small <One-sentence takeaway.>}` — BOTH bold title AND `\small` description required.
+- Caption: `\caption{\textbf{<Bold title>.} \small\emph{<One-sentence takeaway.>}}` — BOTH bold title AND `\small` description required.
 - Tables: `booktabs` only (`\toprule`/`\midrule`/`\bottomrule`), no `\hline`, no vertical rules.
 - Must-have: architecture overview (Method) + main results table (Experiments).
 
@@ -118,7 +118,7 @@ User requests changes → **re-dispatch** affected Section subagent. Don't revis
 1. Add references to `paper/references.bib`
 2. **Verify all figures/tables:**
    - Proper `\begin{figure/table}...\end{figure/table}` (not bare `[Figure: ...]`)
-   - `\caption{\textbf{...}. \small ...}` — bold title + `\small` description BOTH present
+   - `\caption{\textbf{...}. \small\emph{...}}` — bold title + `\small` description BOTH present
    - `\label{}` present and matches `\ref{}` in prose
    - `booktabs` for tables (`\toprule`/`\midrule`/`\bottomrule`), no `\hline`, no vertical rules
    - Placeholder images use `example-image-a` (from `mwe`), not non-existent file paths
@@ -139,6 +139,6 @@ Commit: `L2: draft for <topic>`. Proceed to L3.
 | Revise inline | Re-dispatch subagent |
 | `[Figure: desc]` text marker | `\begin{figure}[t]...\end{figure}` with `example-image-a` placeholder |
 | `\hline` in tables | `\toprule`/`\midrule`/`\bottomrule` (booktabs) |
-| `\caption{Architecture of X.}` | `\caption{\textbf{Architecture of X.} \small Description + takeaway.}` |
+| `\caption{Architecture of X.}` | `\caption{\textbf{Architecture of X.} \small\emph{Description + takeaway.}}` |
 | `\includegraphics{figs/nonexistent.png}` | `\includegraphics[width=\linewidth]{example-image-a}` |
 | Tuning `\textwidth` fractions | Single/double column from L1, always `width=\linewidth` |

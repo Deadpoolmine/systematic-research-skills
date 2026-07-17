@@ -65,7 +65,7 @@ For EACH Section, 4 steps. Loop within each step until user accepts.
 > - Introduction with Motivation
 
 ### Step 2: Define Flow Chain
-A→B→C chain. Each item = one logical dependency. Descriptive names ("Why existing solutions fail"), not numbers ("Step 3").
+A→B→C chain. Each item = one logical dependency. Use descriptive names ("Why existing solutions fail"), not numbers ("Step 3").
 
 ### Step 3: Place Figures
 
@@ -109,10 +109,10 @@ Present issues ONE AT A TIME: "Issue: [X]. Suggestion: [Y]. Agree?"
 
 ## Challenge-Design Pattern
 
-When a Section pairs Challenges with Design points:
+When a Section pairs Challenges with Designs:
 
-- **Derive from Key Idea.** Ask: what does the Key Idea break or require? → orthogonal dimensions, each = one challenge.
-- **Pair strictly.** Challenge → immediately following Design solves it. Reader never wonders which solves which.
+- **Derive from Key Idea.** What does the Key Idea break or require? → orthogonal dimensions, each = one challenge.
+- **Pair strictly.** Each Challenge is immediately followed by the Design that solves it. The reader never wonders which solves which.
 - **Cover all.** If only 2 internal challenges, add a 3rd external (memory, consistency, compatibility).
 
 ---

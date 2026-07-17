@@ -14,7 +14,7 @@ description: Use when writing or polishing academic papers. Use when the user me
 | Polishing an existing draft (HLS exists) | **Polish** | Critical review L0/L1 → L2/L3 |
 | Language polish only (draft is structurally sound) | **Polish-lite** | Skip L0/L1. Use existing structure, run L2/L3 for prose |
 
-**Core principle:** Write mode builds from ideas. Polish mode builds from a draft. Both use the same HLS levels — the difference is the starting point.
+**Core principle:** Write mode builds from ideas. Polish mode extracts structure from a draft. Both use the same HLS levels — only the starting point differs.
 
 ## Overview
 
@@ -51,10 +51,10 @@ Every level commits to git.
 
 When polishing an existing draft, HLS documents MUST be generated — not just discussed verbally.
 
-1. **If no L0/L1 exists** — read draft → extract implicit HLS → **critical think silently** (identify issues, form 2-3 suggestions) → present to user with issues + suggestions → discuss → **write `docs/systematic-research/plans/stream-L0.md` and `stream-L1.md`** → commit
+1. **If no L0/L1 exists** — read draft → extract implicit HLS → **critical think silently** (identify issues, form 2-3 suggestions) → present to user → discuss → **write `docs/systematic-research/plans/stream-L0.md` and `stream-L1.md`** → commit
 2. **If L0/L1 exist** — critical review: points still valid? chains match draft? → **critical think** (2-3 issues + suggestions) → present → discuss → update L0/L1
 3. **Invoke L2** — parallel revision following (revised) flow chains + writing guide
-4. **Invoke L3** — consistency check. Polish complete when all 7 checks pass.
+4. **Invoke L3** — consistency check (7 structural + prose checks). Polish complete when all checks pass.
 
 **Polish-lite (language only):** User says "just polish the language" → use writing guide for voice/pitfalls → L2 revise prose → L3 consistency. Do NOT restructure.
 

@@ -32,7 +32,7 @@ Before presenting to the user, silently review and identify:
 3. **Missing evidence** — where does the draft assert without data?
 4. **Missing root cause** — are problems analysed at symptom level only? What fundamental bottleneck is unexamined?
 5. **Coherence chain** — do Problems → Root Cause → Key Idea → Design Points form a self-consistent logical chain? Does Root Cause directly motivate Key Idea? Do all DPs revolve around Key Idea? Is each DP traceable to a specific problem?
-6. **Clarity** — are Problems, Root Cause, Key Idea, and Design Points all stated plainly and easy to understand? Any mystifying / buzzword-laden language?
+6. **Clarity** — are Problems, Root Cause, Key Idea, and Design Points all stated plainly and easy to understand? Any obscure or buzzword-heavy language?
 7. **Scope mismatch** — does the page budget (from blueprint) support the claimed contributions?
 
 Present issues **ONE AT A TIME**. For each issue: "Issue: [X]. Suggestion: [Y]. Agree?" Wait for user before next issue.
@@ -103,25 +103,25 @@ Minimum: points 1-3 + (Key Idea OR Design Points). Root Cause (Point 4) strongly
 |---|-------|-----|----------|-----------|
 | 1 | **Big Background** | Yes | Macro trend / tech shift? | Vague, no academic relevance |
 | 2 | **Small Background** | Yes | Specific domain? | Not concrete, no link to big |
-| 3 | **Existing Problems (1-3)** | Yes | Problem + data + severity? | No data, trivial, unsubstantiated, mystifying |
-| 4 | **Root Cause** | Rec | What deeper pattern underlies ALL these problems? What fundamental bottleneck do they share? | Symptom-level only, no synthesis, mystifying |
-| 5 | **Key Idea** | Rec | ONE insight that addresses the root cause? | Doesn't address root cause, mystifying / not easy to understand |
-| 6 | **Design Points (2-4)** | Yes* | Each addresses which problem? | <2 or >4, doesn't map to problems, mystifying |
+| 3 | **Existing Problems (1-3)** | Yes | Problem + data + severity? | No data, trivial, unsubstantiated, unclear |
+| 4 | **Root Cause** | Rec | What deeper pattern underlies ALL these problems? What fundamental bottleneck do they share? | Symptom-level only, no synthesis, unclear |
+| 5 | **Key Idea** | Rec | ONE insight that addresses the root cause? | Doesn't address root cause, unclear / not easy to understand |
+| 6 | **Design Points (2-4)** | Yes* | Each addresses which problem? | <2 or >4, doesn't map to problems, unclear |
 | 7 | **System & Experiments** | Yes | Built? Experimental plan? | No system AND no plan |
 
 > *Required if no Key Idea. Experiments: plan accepted (prototype + benchmarks + baselines + expected ranges OK).
 
 <HARD-GATE-L0-CLARITY>
 **Problems, Root Cause, Key Idea, and Design Points MUST be plain and easy to understand.**
-No buzzwords. No mystification. A first-year PhD student in the field should grasp each point in one read. If a point sounds profound but no one can explain it back — REJECT.
+No buzzwords. No obscurity. A first-year PhD student in the field should grasp each point in one read. If a point sounds profound but no one can explain it back — REJECT.
 </HARD-GATE-L0-CLARITY>
 
 <HARD-GATE-L0-COHESION>
-**Problems, Root Cause, Key Idea, and Design Points MUST form a closed loop.**
+**Problems, Root Cause, Key Idea, and Design Points MUST form a self-consistent logical chain.**
 - Root Cause is an overview — one deeper pattern / fundamental bottleneck that explains why ALL problems persist
 - The Root Cause must directly motivate the Key Idea — "because the root cause is <X>, the Key Idea is necessary"
 - Each Design Point (DP1, DP2, ..., DP4) must address a specific problem — state which one
-- The loop: Problems → Root Cause (overview) → Key Idea solves it → Design Point implements the solution → Problem resolved
+- The chain: Problems → Root Cause (overview) → Key Idea solves it → Design Point implements the solution → Problem resolved
 - Reject scattered designs that don't trace back to a problem. Reject root cause that the Key Idea doesn't address.
 
 At Point 4 (Root Cause), explicitly state: The fundamental bottleneck is <X>. Prior work failed because <reason>.

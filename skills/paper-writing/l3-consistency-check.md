@@ -26,20 +26,22 @@ All 7 checks must pass. Checks 1-6 validate **structure**; Check 7 validates **p
 <HARD-GATE-L3-PROSE>
 Check 7 MUST be performed by reading the full paper from abstract to conclusion, in order.
 Do NOT check by Section in isolation — read across Section boundaries.
-After sub-checks 7a-7g pass, perform a SECOND dedicated pass for length only: split every paragraph > 6 sentences and every sentence > 30 words.
+After sub-checks 7a-7i pass, perform a SECOND dedicated pass for length only: split every paragraph > 6 sentences and every sentence > 30 words.
 </HARD-GATE-L3-PROSE>
 
 | Sub-Check | What to Verify | Fix Action |
 |-----------|---------------|------------|
 | **7a. Sentence length** | Hard cap: 30 words. Flag every sentence > 25 words. No run-ons. | Split at nearest clause boundary |
 | **7b. Paragraph length** | Hard cap: 6 sentences. Flag every paragraph > 5 sentences. One idea = one chain step. | Split at logical break; if impossible, the L1 chain step is too broad |
-| **7c. Conciseness** | Every sentence earns its place. Remove: filler ("it is worth noting", "interestingly", "in particular"), redundant clauses, hedging ("may potentially", "could possibly"). | Cut in-place |
+| **7c. Conciseness** | Every sentence earns its place. Remove: filler ("it is worth noting", "interestingly", "in particular"), redundant clauses, hedging ("may potentially", "could possibly"), meaningless enumerations (if sentence works without the list, delete it), AI-smell phrases ("a new class of", "concrete challenges", "design points" → "designs"). | Cut in-place |
 | **7d. Paragraph structure** | Every paragraph = topic → support → conclude/transition (总分总). First sentence declares point. | Restructure if topic sentence buried |
 | **7e. Inter-paragraph flow** | Each paragraph's last sentence bridges to next paragraph's topic. No jumps. | Add transition or reorder |
-| **7f. Vocabulary** | No obscure words. Replace: ameliorate→improve, delineate→describe, elucidate→explain, heretofore→previously, utilize→use, facilitate→help, leverage→use, mitigate→reduce, paradigm→approach, efficacy→effectiveness. | Replace in-place |
+| **7f. Vocabulary** | No obscure words. No AI-smell words. Replace: ameliorate→improve, delineate→describe, elucidate→explain, heretofore→previously, utilize→use, facilitate→help, leverage→use, mitigate→reduce, paradigm→approach, efficacy→effectiveness, instantiates→realizes/achieves, plateau(verb)→stall/top out, "a new class of"→delete, "closed loop"→describe what the cycle achieves, "design points"→"designs". | Replace in-place |
 | **7g. Pronoun clarity** | Every "this", "it", "they" has an unambiguous antecedent in same or previous sentence. | Replace with explicit noun |
+| **7h. Symbol hygiene** | No `---` as causal connector (replace with period + new sentence). No `$\rightarrow$` in prose (use "from A to B, then C"). No internal notation leaking into text (e.g., "(DP1 → C1)" labels). | Rewrite in-place |
+| **7i. List formatting** | Inline enumerations use `First, ... Second, ... Third, ...` with `\textit{italic lowercase}` names. Standalone lists use `\begin{itemize}`, never `\begin{enumerate}`. Contribution bullets are single line — no subordinate clauses. | Reformat in-place |
 
-**Execution:** Read linearly. Fix each issue immediately before moving to next sentence. After full pass, do a dedicated second pass checking ONLY 7a + 7b — split long sentences and paragraphs ruthlessly. Then re-read once more to verify fixes didn't break flow.
+**Execution:** Read linearly. Fix each issue immediately before moving to next sentence. After full pass, do a dedicated second pass checking ONLY 7a + 7b — split long sentences and paragraphs ruthlessly. Then a third pass for 7h + 7i (symbol hygiene + list formatting). Then re-read once more to verify fixes didn't break flow.
 
 ## Draft Mode (Check #4)
 
@@ -78,8 +80,10 @@ After all issues resolved and report shows zero issues → user approves → com
 - 7c: 12 filler phrases removed
 - 7d: 2 paragraphs restructured (topic sentence buried)
 - 7e: 4 transitions added between paragraphs
-- 7f: 10 obscure words replaced
+- 7f: 10 obscure/AI-smell words replaced
 - 7g: 6 ambiguous pronouns clarified
+- 7h: 3 em-dash causal links rewritten, 2 arrow chains removed
+- 7i: 2 contribution bullets trimmed to single line
 ```
 
 ## Transition
