@@ -31,7 +31,9 @@ Before presenting to the user, silently review and identify:
 2. **Contradictions** — does the draft make claims that conflict with each other?
 3. **Missing evidence** — where does the draft assert without data?
 4. **Missing root cause** — are challenges analysed at symptom level only? What fundamental bottleneck is unexamined?
-5. **Scope mismatch** — does the page budget (from blueprint) support the claimed contributions?
+5. **Coherence chain** — do Challenges → Root Cause → Key Idea → Design Points form a self-consistent logical chain? Does Root Cause directly motivate Key Idea? Do all DPs revolve around Key Idea? Is each DP traceable to a specific challenge?
+6. **Clarity** — are Challenges, Root Cause, Key Idea, and Design Points all stated plainly and easy to understand? Any mystifying / buzzword-laden language?
+7. **Scope mismatch** — does the page budget (from blueprint) support the claimed contributions?
 
 Present issues **ONE AT A TIME**. For each issue: "Issue: [X]. Suggestion: [Y]. Agree?" Wait for user before next issue.
 
@@ -95,30 +97,35 @@ digraph l0_flow {
 
 ## Core Points
 
-Minimum: points 1-3 + (Key Idea OR Design Points). Root Cause (Point 4) strongly recommended — identifies fundamental bottlenecks behind each challenge. Key Idea recommended but skip if challenge-driven (3 challenges → 3 designs, no single insight).
+Minimum: points 1-3 + (Key Idea OR Design Points). Root Cause (Point 4) strongly recommended — synthesises the deeper pattern behind all challenges. Key Idea recommended but skip if challenge-driven (3 challenges → 3 designs, no single insight).
 
 | # | Point | Req | Question | Reject If |
 |---|-------|-----|----------|-----------|
 | 1 | **Big Background** | Yes | Macro trend / tech shift? | Vague, no academic relevance |
 | 2 | **Small Background** | Yes | Specific domain? | Not concrete, no link to big |
-| 3 | **Existing Challenges (2-3)** | Yes | Problem + data + severity? | No data, trivial, unsubstantiated |
-| 4 | **Root Cause** | Rec | Why does each challenge exist? What's the fundamental bottleneck? | No root cause, symptom-level only |
-| 5 | **Key Idea** | Rec | ONE insight that addresses the root causes? | Doesn't address each root cause |
-| 6 | **Design Points (2-3)** | Yes* | Each addresses which root cause / challenge? | <2 or >3, doesn't map to challenges |
+| 3 | **Existing Challenges (2-3)** | Yes | Problem + data + severity? | No data, trivial, unsubstantiated, mystifying |
+| 4 | **Root Cause** | Rec | What deeper pattern underlies ALL these challenges? What fundamental bottleneck do they share? | Symptom-level only, no synthesis, mystifying |
+| 5 | **Key Idea** | Rec | ONE insight that addresses the root cause? | Doesn't address root cause, mystifying / not easy to understand |
+| 6 | **Design Points (2-4)** | Yes* | Each addresses which challenge? | <2 or >4, doesn't map to challenges, mystifying |
 | 7 | **System & Experiments** | Yes | Built? Experimental plan? | No system AND no plan |
 
 > *Required if no Key Idea. Experiments: plan accepted (prototype + benchmarks + baselines + expected ranges OK).
 
-<HARD-GATE-L0-COHESION>
-**Challenges, Root Causes, Key Idea, and Design Points MUST form a closed loop.**
-- Each challenge (C1, C2, C3) must have a root cause (RC1, RC2, RC3) — "C1 exists because RC1: <fundamental bottleneck>"
-- Each root cause must directly motivate the Key Idea — "because of RC1/RC2/RC3, the Key Idea is necessary"
-- Each Design Point (DP1, DP2, DP3) must address a specific root cause / challenge — state which one
-- The loop: Challenge → Root Cause → Key Idea solves it → Design Point implements the solution → Challenge resolved
-- Reject scattered designs that don't trace back to a challenge. Reject challenges without root cause analysis. Reject root causes that the Key Idea doesn't address.
+<HARD-GATE-L0-CLARITY>
+**Challenges, Root Cause, Key Idea, and Design Points MUST be plain and easy to understand.**
+No buzzwords. No mystification. A first-year PhD student in the field should grasp each point in one read. If a point sounds profound but no one can explain it back — REJECT.
+</HARD-GATE-L0-CLARITY>
 
-At Point 4 (Root Cause), explicitly state: RC1 causes C1 because <mechanism>. RC2 causes C2 because <mechanism>.
-At Point 6 (Design Points), explicitly verify: DP1 addresses RC<N>/C<N> by <mechanism>. DP2 addresses RC<N>/C<N> by <mechanism>. All root causes covered.
+<HARD-GATE-L0-COHESION>
+**Challenges, Root Cause, Key Idea, and Design Points MUST form a closed loop.**
+- Root Cause is an overview — one deeper pattern / fundamental bottleneck that explains why ALL challenges persist
+- The Root Cause must directly motivate the Key Idea — "because the root cause is <X>, the Key Idea is necessary"
+- Each Design Point (DP1, DP2, ..., DP4) must address a specific challenge — state which one
+- The loop: Challenges → Root Cause (overview) → Key Idea solves it → Design Point implements the solution → Challenge resolved
+- Reject scattered designs that don't trace back to a challenge. Reject root cause that the Key Idea doesn't address.
+
+At Point 4 (Root Cause), explicitly state: The fundamental bottleneck is <X>. Prior work failed because <reason>.
+At Point 6 (Design Points), explicitly verify: DP1 addresses C<N> by <mechanism>. DP2 addresses C<N> by <mechanism>. ... All challenges covered. All DPs revolve around the Key Idea.
 </HARD-GATE-L0-COHESION>
 
 ## Output
@@ -134,13 +141,11 @@ At Point 6 (Design Points), explicitly verify: DP1 addresses RC<N>/C<N> by <mech
 - C1: <desc> | Data: <evidence> | Severity: <high/medium>
 - C2/C3: ...
 ## 4. Root Cause
-- RC1 → causes C1: <fundamental bottleneck / why prior work failed>
-- RC2 → causes C2: <...>
-- RC3 → causes C3: <...>
+<ONE deeper pattern / fundamental bottleneck underlying ALL challenges. Why prior work failed to solve them.>
 ## 5. Key Idea *(skip if challenge-driven)*
 ## 6. Design Points
-- DP1: <desc> -> addresses RC<N>/C<N> by <mechanism>
-- DP2/DP3: ...
+- DP1: <desc> -> addresses C<N> by <mechanism>
+- DP2/DP3/DP4: ...
 ## 7. System & Experiments
 **System:** <status> | **Benchmarks:** <plan> | **Expected:** <ranges OK>
 ```
