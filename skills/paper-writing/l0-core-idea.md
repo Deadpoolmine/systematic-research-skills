@@ -8,8 +8,8 @@
 
 | Mode | Starting Point | Action |
 |------|---------------|--------|
-| **Write** | No draft | Ask 6-point questions ONE AT A TIME. Judge each before next. Loop each until PASS. |
-| **Polish** | Existing draft | Read draft → extract implicit 6 points → **critical think** (identify 2-3 issues + suggestions) → present issues ONE AT A TIME → discuss each → **write `docs/systematic-research/plans/stream-L0.md`** → commit |
+| **Write** | No draft | Ask 7-point questions ONE AT A TIME. Judge each before next. Loop each until PASS. |
+| **Polish** | Existing draft | Read draft → extract implicit 7 points → **critical think** (identify 2-3 issues + suggestions) → present issues ONE AT A TIME → discuss each → **write `docs/systematic-research/plans/stream-L0.md`** → commit |
 | **Polish (L0 exists)** | Existing `stream-L0.md` | Critical review → **critical think** (2-3 issues + suggestions) → present issues ONE AT A TIME → discuss each → update L0 |
 
 <HARD-GATE-L0-STEPWISE>
@@ -27,10 +27,11 @@
 
 Before presenting to the user, silently review and identify:
 
-1. **Weak points** — which of the 6 points is underdeveloped in the draft?
+1. **Weak points** — which of the 7+ points is underdeveloped in the draft?
 2. **Contradictions** — does the draft make claims that conflict with each other?
 3. **Missing evidence** — where does the draft assert without data?
-4. **Scope mismatch** — does the page budget (from blueprint) support the claimed contributions?
+4. **Missing root cause** — are challenges analysed at symptom level only? What fundamental bottleneck is unexamined?
+5. **Scope mismatch** — does the page budget (from blueprint) support the claimed contributions?
 
 Present issues **ONE AT A TIME**. For each issue: "Issue: [X]. Suggestion: [Y]. Agree?" Wait for user before next issue.
 
@@ -54,11 +55,13 @@ digraph l0_flow {
     "Judge → PASS?" [shape=diamond];
     "Point 3: Challenges" [shape=box];
     "Judge → PASS?" [shape=diamond];
-    "Point 4: Key Idea" [shape=box];
+    "Point 4: Root Cause" [shape=box];
     "Judge → PASS?" [shape=diamond];
-    "Point 5: Design Points" [shape=box];
+    "Point 5: Key Idea" [shape=box];
     "Judge → PASS?" [shape=diamond];
-    "Point 6: System & Exp" [shape=box];
+    "Point 6: Design Points" [shape=box];
+    "Judge → PASS?" [shape=diamond];
+    "Point 7: System & Exp" [shape=box];
     "Judge → PASS?" [shape=diamond];
     "Write L0 doc + commit" [shape=oval];
 
@@ -74,42 +77,48 @@ digraph l0_flow {
     "Judge → PASS?" -> "Point 3: Challenges" [label="yes"];
     "Point 3: Challenges" -> "Judge → PASS?";
     "Judge → PASS?" -> "Point 3: Challenges" [label="no"];
-    "Judge → PASS?" -> "Point 4: Key Idea" [label="yes"];
-    "Point 4: Key Idea" -> "Judge → PASS?";
-    "Judge → PASS?" -> "Point 4: Key Idea" [label="no"];
-    "Judge → PASS?" -> "Point 5: Design Points" [label="yes"];
-    "Point 5: Design Points" -> "Judge → PASS?";
-    "Judge → PASS?" -> "Point 5: Design Points" [label="no"];
-    "Judge → PASS?" -> "Point 6: System & Exp" [label="yes"];
-    "Point 6: System & Exp" -> "Judge → PASS?";
-    "Judge → PASS?" -> "Point 6: System & Exp" [label="no"];
+    "Judge → PASS?" -> "Point 4: Root Cause" [label="yes"];
+    "Point 4: Root Cause" -> "Judge → PASS?";
+    "Judge → PASS?" -> "Point 4: Root Cause" [label="no"];
+    "Judge → PASS?" -> "Point 5: Key Idea" [label="yes"];
+    "Point 5: Key Idea" -> "Judge → PASS?";
+    "Judge → PASS?" -> "Point 5: Key Idea" [label="no"];
+    "Judge → PASS?" -> "Point 6: Design Points" [label="yes"];
+    "Point 6: Design Points" -> "Judge → PASS?";
+    "Judge → PASS?" -> "Point 6: Design Points" [label="no"];
+    "Judge → PASS?" -> "Point 7: System & Exp" [label="yes"];
+    "Point 7: System & Exp" -> "Judge → PASS?";
+    "Judge → PASS?" -> "Point 7: System & Exp" [label="no"];
     "Judge → PASS?" -> "Write L0 doc + commit" [label="yes"];
 }
 ```
 
 ## Core Points
 
-Minimum: points 1-3 + (Key Idea OR Design Points). Key Idea recommended but skip if challenge-driven (3 challenges → 3 designs, no single insight).
+Minimum: points 1-3 + (Key Idea OR Design Points). Root Cause (Point 4) strongly recommended — identifies fundamental bottlenecks behind each challenge. Key Idea recommended but skip if challenge-driven (3 challenges → 3 designs, no single insight).
 
 | # | Point | Req | Question | Reject If |
 |---|-------|-----|----------|-----------|
 | 1 | **Big Background** | Yes | Macro trend / tech shift? | Vague, no academic relevance |
 | 2 | **Small Background** | Yes | Specific domain? | Not concrete, no link to big |
 | 3 | **Existing Challenges (2-3)** | Yes | Problem + data + severity? | No data, trivial, unsubstantiated |
-| 4 | **Key Idea** | Rec | ONE insight that solves all challenges? | Doesn't address each challenge |
-| 5 | **Design Points (2-3)** | Yes* | Each addresses which challenge? | <2 or >3, doesn't map to challenges |
-| 6 | **System & Experiments** | Yes | Built? Experimental plan? | No system AND no plan |
+| 4 | **Root Cause** | Rec | Why does each challenge exist? What's the fundamental bottleneck? | No root cause, symptom-level only |
+| 5 | **Key Idea** | Rec | ONE insight that addresses the root causes? | Doesn't address each root cause |
+| 6 | **Design Points (2-3)** | Yes* | Each addresses which root cause / challenge? | <2 or >3, doesn't map to challenges |
+| 7 | **System & Experiments** | Yes | Built? Experimental plan? | No system AND no plan |
 
 > *Required if no Key Idea. Experiments: plan accepted (prototype + benchmarks + baselines + expected ranges OK).
 
 <HARD-GATE-L0-COHESION>
-**Challenges, Key Idea, and Design Points MUST form a closed loop.**
-- Each challenge (C1, C2, C3) must directly motivate the Key Idea — "because of C1/C2/C3, the Key Idea is necessary"
-- Each Design Point (DP1, DP2, DP3) must address a specific challenge — state which one
-- The loop: Challenge → Key Idea solves it → Design Point implements the solution → Challenge resolved
-- Reject scattered designs that don't trace back to a challenge. Reject challenges that the Key Idea doesn't address.
+**Challenges, Root Causes, Key Idea, and Design Points MUST form a closed loop.**
+- Each challenge (C1, C2, C3) must have a root cause (RC1, RC2, RC3) — "C1 exists because RC1: <fundamental bottleneck>"
+- Each root cause must directly motivate the Key Idea — "because of RC1/RC2/RC3, the Key Idea is necessary"
+- Each Design Point (DP1, DP2, DP3) must address a specific root cause / challenge — state which one
+- The loop: Challenge → Root Cause → Key Idea solves it → Design Point implements the solution → Challenge resolved
+- Reject scattered designs that don't trace back to a challenge. Reject challenges without root cause analysis. Reject root causes that the Key Idea doesn't address.
 
-At Point 5 (Design Points), explicitly verify: DP1 addresses C<N> by <mechanism>. DP2 addresses C<N> by <mechanism>. All challenges covered.
+At Point 4 (Root Cause), explicitly state: RC1 causes C1 because <mechanism>. RC2 causes C2 because <mechanism>.
+At Point 6 (Design Points), explicitly verify: DP1 addresses RC<N>/C<N> by <mechanism>. DP2 addresses RC<N>/C<N> by <mechanism>. All root causes covered.
 </HARD-GATE-L0-COHESION>
 
 ## Output
@@ -122,11 +131,17 @@ At Point 5 (Design Points), explicitly verify: DP1 addresses C<N> by <mechanism>
 ## 1. Big Background
 ## 2. Small Background
 ## 3. Existing Challenges
-## 4. Key Idea *(skip if challenge-driven)*
-## 5. Design Points
-- DP1: <desc> -> addresses <challenge> by <mechanism>
+- C1: <desc> | Data: <evidence> | Severity: <high/medium>
+- C2/C3: ...
+## 4. Root Cause
+- RC1 → causes C1: <fundamental bottleneck / why prior work failed>
+- RC2 → causes C2: <...>
+- RC3 → causes C3: <...>
+## 5. Key Idea *(skip if challenge-driven)*
+## 6. Design Points
+- DP1: <desc> -> addresses RC<N>/C<N> by <mechanism>
 - DP2/DP3: ...
-## 6. System & Experiments
+## 7. System & Experiments
 **System:** <status> | **Benchmarks:** <plan> | **Expected:** <ranges OK>
 ```
 
