@@ -81,6 +81,12 @@ A. <step> → B. <step> → C. <step> → ...
 - Vocabulary: standard academic terms. No obscure words. "we", specific > vague.
 - `[TODO: actual number]` as plain text, never inside `$$`.
 
+**Structural patterns (principles — vary your prose, don't repeat the same frame mechanically):**
+- Challenges: state the mechanism and its consequence. Tight — one sentence if self-evident. No filler words.
+- Core techniques: make the challenge connection clear, so the reader sees which problem each design solves.
+- Bonus techniques: signal as additional ("We also introduce...", "Additionally..."). Don't invent a challenge link.
+- Contribution bullets: one line each. Problem and key-idea are separate bullets — never merge.
+
 **Figures & Tables — read general-writing-guide.md for complete templates. Key rules:**
 - Use `example-image-a` placeholder (mwe package), NEVER a non-existent file path.
 - **Width: always `width=\linewidth`.** Single column → `figure`/`table`. Double column → `figure*`/`table*`. Column choice from L1 spec above.

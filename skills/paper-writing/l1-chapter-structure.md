@@ -111,9 +111,28 @@ Present issues ONE AT A TIME: "Issue: [X]. Suggestion: [Y]. Agree?"
 
 When a Section pairs Challenges with Designs:
 
-- **Derive from Key Idea.** What does the Key Idea break or require? → orthogonal dimensions, each = one challenge.
-- **Pair strictly.** Each Challenge is immediately followed by the Design that solves it. The reader never wonders which solves which.
-- **Cover all.** If only 2 internal challenges, add a 3rd external (memory, consistency, compatibility).
+- **Derive challenges from root cause.** Each challenge must pass the L0 causal test.
+- **Core designs** address specific challenges — make the link explicit.
+- **Bonus designs** are additional contributions, not challenge-driven. Signal them as such.
+- **No forced 1:1 mapping.** The number of designs is determined by contribution, not by matching challenges. Don't invent a challenge to justify a design.
+- **The Introduction clearly separates** core techniques from bonus techniques in the prose.
+
+### Refined Introduction Structure
+
+```
+Para 1: Domain context (what field, what capability)
+Para 2: Existing approaches (categories, best one identified, underlined)
+Para 3: Challenges (only those with strong causal link to root cause)
+Para 4: Root cause + key insight (merged, no mechanical "Instead of X..." triplet)
+Para 5: Core techniques (address challenges) + bonus technique (additional)
+Para 6: System name + headline result
+Para 7: Contributions (itemize, one line each)
+```
+
+**Key structural rules:**
+- Challenges state the mechanism and its consequence — one causal chain each. One sentence if self-evident.
+- Core techniques make the challenge connection clear. Vary sentence structure — don't repeat the same frame.
+- Bonus techniques are signposted as additional ("Moreover, we propose...", "We also introduce...").
 
 ---
 

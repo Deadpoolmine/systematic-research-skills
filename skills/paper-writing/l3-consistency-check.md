@@ -14,7 +14,7 @@ All 7 checks must pass. Checks 1-6 validate **structure**; Check 7 validates **p
 |---|-------|--------|---------------|
 | 1 | **Thesis Trace** | Every Section claim maps to ≥1 L0 core point | No orphan claims |
 | 2 | **Design Coverage** | All L0 design points (#5) appear in L2 | 100% coverage |
-| 3 | **Challenge-Response** | Introduction challenge matches L0 #3 | Exact or equivalent |
+| 3 | **Challenge-Response + Causal** | Introduction challenges match L0 #3 AND each passes the causal test ("would solving the root cause eliminate this?") | Exact match + causal link verified. No orphan challenges |
 | 4 | **Result Consistency** | L2 results match L0 #6 summary | No contradiction; draft mode: setup consistent + [TODO] markers present |
 | 5 | **Section Contract** | Each Section fulfills its L1 A→B→C chain | All chain items addressed |
 | 6 | **Contribution Alignment** | Contributions = L0 design points + key results | No extras, no omissions |
@@ -40,6 +40,7 @@ After sub-checks 7a-7i pass, perform a SECOND dedicated pass for length only: sp
 | **7g. Pronoun clarity** | Every "this", "it", "they" has an unambiguous antecedent in same or previous sentence. | Replace with explicit noun |
 | **7h. Symbol hygiene** | No `---` as causal connector (replace with period + new sentence). No `$\rightarrow$` in prose (use "from A to B, then C"). No internal notation leaking into text (e.g., "(DP1 → C1)" labels). | Rewrite in-place |
 | **7i. List formatting** | Inline enumerations use `First, ... Second, ... Third, ...` with `\textit{italic lowercase}` names. Standalone lists use `\begin{itemize}`, never `\begin{enumerate}`. Contribution bullets are single line — no subordinate clauses. | Reformat in-place |
+| **7j. Causal clarity** | Core techniques clearly linked to their challenges; bonus techniques not forced into challenge-response framing. Problem and key-idea bullets are separate items. | Rewrite in-place |
 
 **Execution:** Read linearly. Fix each issue immediately before moving to next sentence. After full pass, do a dedicated second pass checking ONLY 7a + 7b — split long sentences and paragraphs ruthlessly. Then a third pass for 7h + 7i (symbol hygiene + list formatting). Then re-read once more to verify fixes didn't break flow.
 
@@ -69,10 +70,12 @@ After all issues resolved and report shows zero issues → user approves → com
 
 ### ✅ Structural (Checks 1-6)
 - Check 1: all claims trace to L0
+- Check 3: all challenges pass causal test
 - Check 4: draft mode — setup consistent, [TODO] marked
 
 ### ⚠️ Structural Issues
 - Check 2: DP2 not covered → root: L1 Design chain omitted DP2 → fix L1, re-draft L2
+- Check 3: P2 fails causal test → reclassify as observation or remove
 
 ### ✅ Prose Quality (Check 7)
 - 7a: 5 sentences > 30 words split
@@ -84,6 +87,7 @@ After all issues resolved and report shows zero issues → user approves → com
 - 7g: 6 ambiguous pronouns clarified
 - 7h: 3 em-dash causal links rewritten, 2 arrow chains removed
 - 7i: 2 contribution bullets trimmed to single line
+- 7j: 1 bonus technique mislabeled as core, 1 merged problem+idea bullet split
 ```
 
 ## Transition

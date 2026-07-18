@@ -120,13 +120,27 @@ No buzzwords. No obscurity. A first-year PhD student in the field should grasp e
 **Problems, Root Cause, Key Idea, and Design Points MUST form a self-consistent logical chain.**
 - Root Cause is an overview — one deeper pattern / fundamental bottleneck that explains why ALL problems persist
 - The Root Cause must directly motivate the Key Idea — "because the root cause is <X>, the Key Idea is necessary"
-- Each Design Point (DP1, DP2, ..., DP4) must address a specific problem — state which one
+- Each Core Design Point must address a specific problem — state which one
 - The chain: Problems → Root Cause (overview) → Key Idea solves it → Design Point implements the solution → Problem resolved
 - Reject scattered designs that don't trace back to a problem. Reject root cause that the Key Idea doesn't address.
 
 At Point 4 (Root Cause), explicitly state: The fundamental bottleneck is <X>. Prior work failed because <reason>.
-At Point 6 (Design Points), explicitly verify: DP1 addresses P<N> by <mechanism>. DP2 addresses P<N> by <mechanism>. ... All problems covered. All DPs revolve around the Key Idea.
+At Point 6 (Design Points), explicitly verify: DP1 (core) addresses P<N> by <mechanism>. DP2 (core) addresses P<N> by <mechanism>. ... All problems covered by core designs. Bonus designs are labeled as such — no forced 1:1 mapping.
 </HARD-GATE-L0-COHESION>
+
+<HARD-GATE-L0-CAUSAL>
+**Every challenge MUST have a strong, direct causal link to the root cause.**
+
+For each challenge, apply the test: *"If the root cause were solved, would this challenge disappear?"*
+- YES → keep it.
+- NO or only partially → remove it from the challenge list. It may be a valid observation, but it is not a consequence of this root cause.
+
+**Why this matters:** Weak links accumulate — the root cause stops explaining what it claims to explain. The reader senses the mismatch.
+
+Removed challenges may become bonus designs or discussion points. **Never** force a challenge into the list for symmetry. The number of challenges is determined by evidence.
+
+**If no root cause is identified:** challenges may be listed directly. But keep them cohesive — they should share a common theme (the same sub-area, the same capability gap). Don't scatter across unrelated topics.
+</HARD-GATE-L0-CAUSAL>
 
 ## Output
 
@@ -138,16 +152,25 @@ At Point 6 (Design Points), explicitly verify: DP1 addresses P<N> by <mechanism>
 ## 1. Big Background
 ## 2. Small Background
 ## 3. Existing Problems
-- P1: <desc> | Data: <evidence> | Severity: <high/medium>
+- P1: <desc> | Data: <evidence> | Severity: <high/medium> | Causal test: ✅/❌
 - P2/P3: ...
 ## 4. Root Cause
 <ONE deeper pattern / fundamental bottleneck underlying ALL problems. Why prior work failed to solve them.>
 ## 5. Key Idea *(skip if problem-driven)*
 ## 6. Design Points
-- DP1: <desc> -> addresses P<N> by <mechanism>
-- DP2/DP3/DP4: ...
+- DP1 (core): <desc> → addresses P<N> by <mechanism>
+- DP2 (core): <desc> → addresses P<N> by <mechanism>
+- DP3 (bonus): <desc> → additional contribution, not challenge-driven
 ## 7. System & Experiments
 **System:** <status> | **Benchmarks:** <plan> | **Expected:** <ranges OK>
 ```
 
 Commit: `L0: core idea for <topic>`. Proceed to L1.
+
+## Before Proceeding to L1
+
+- [ ] Every challenge passes the causal test: "would solving the root cause eliminate this?"
+- [ ] Challenges with weak causal links are removed or reclassified as observations
+- [ ] Core designs map to challenges; bonus designs are labeled as such
+- [ ] The number of challenges is determined by evidence, not by symmetry
+- [ ] The number of designs is determined by contribution, not by matching challenges

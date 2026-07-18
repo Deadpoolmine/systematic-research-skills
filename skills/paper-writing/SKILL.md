@@ -67,6 +67,7 @@ Standard flow: L0 → L1 → L2 → L3. Start from ideas, end with paper.
 <HARD-GATE-L0>
 Do NOT proceed to L1 until: target venue determined, 6 core points written to `docs/systematic-research/plans/stream-L0.md`, each point discussed ONE AT A TIME and judged PASS, NOT rejected, user confirmed each point individually.
 Do NOT batch all 6 points into a single message. Ask one → judge → user confirms → next.
+**Every challenge MUST pass the causal test:** "would solving the root cause eliminate this?" Weak links = reject or remove the challenge.
 </HARD-GATE-L0>
 
 <HARD-GATE-L1>
@@ -142,6 +143,8 @@ git commit -m "L3: final for <topic>"       # paper/
 - "We can just make up placeholder numbers without marking them" → stop
 - "One commit at the end is fine" → return to current level
 - "I'll check consistency after the paper is accepted" → return to L3
+- "We need three challenges to match three designs" → return to L0 (challenges are determined by evidence, not symmetry)
+- "This challenge is related to the root cause somehow" → return to L0 (causal link must be direct, strong, and testable)
 
 ## Anti-Patterns
 

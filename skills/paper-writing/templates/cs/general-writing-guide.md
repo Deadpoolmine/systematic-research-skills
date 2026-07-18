@@ -25,23 +25,38 @@
 
 ## Introduction Narrative Order
 
-Strict causal chain — never jump ahead:
+Strict causal chain — never jump ahead. The refined 7-paragraph template:
 
 ```
-Broad domain context
-  → Specific sub-area + existing approaches
-    → Problems observed (symptoms only, no root cause yet)
-      → Root cause (single underlying reason)
-        → Key insight (separate paragraph)
-          → Method preview (how insight is operationalized)
-            → Contributions (one line each)
+Para 1: Domain context (what field, what capability)
+Para 2: Existing approaches (categories, best one identified, underlined)
+Para 3: Challenges (only those with strong causal link to root cause)
+Para 4: Root cause + key insight (merged, no mechanical "Instead of X..." triplet)
+Para 5: Core techniques (address challenges) + bonus technique (additional)
+Para 6: System name + headline result
+Para 7: Contributions (itemize, one line each)
 ```
 
-- Root cause AFTER symptoms. "Three problems arise. We find their root cause is X." — not "X causes three problems."
+**Key structural rules:**
+- Root cause AFTER symptoms. Not "X causes three problems."
 - First paragraph = field context only. No method mentions.
-- Key insight deserves its own paragraph and contribution bullet.
+- Key insight paragraph states the insight, not the mechanisms — those go in the techniques paragraph.
+- Separate core techniques from bonus techniques in the prose. The reader should know which designs answer challenges and which are additional.
+- Key insight gets its own contribution bullet. Problem and idea are separate bullets.
 
 **Abstract:** Start from problem landscape, not solution. One sentence per logical step. Match Introduction's terminology. 5 sentences, hard cap 8. No citations, no undefined acronyms. Cut adjectives — state numbers.
+
+---
+
+## Challenge & Technique Patterns
+
+**Challenges:** Each states a mechanism and its consequence — one causal chain. If one sentence suffices, write one. No filler ("concrete," "specifically").
+
+**Core techniques:** Make the link to the challenge explicit — the reader should see which problem each design solves. But vary your sentence structure; don't repeat the same frame mechanically.
+
+**Bonus techniques:** Signal these as additional contributions, not challenge-driven. "We also introduce..." or "Additionally, we propose..." suffices. Don't force a challenge link that doesn't exist.
+
+**Contribution bullets:** One line each, no subordinate clauses. Problem bullet and key-idea bullet are separate — never merge.
 
 ---
 
@@ -75,7 +90,7 @@ Broad domain context
 
 - **Inline enumeration:** `First, ... Second, ... Third, ...` with `\emph{italic lowercase}` names. Never bold title case. For long items, use `(1)` / `(2)` / `(3)`.
 - **Standalone lists:** `\begin{itemize}`, never `\begin{enumerate}`. No numbers in contribution lists.
-- **Contribution bullets:** One line each. No subordinate clauses. The main text already explained everything — the list is a summary index.
+- **Contribution bullets:** One line each. No subordinate clauses. The main text already explained everything — the list is a summary index. Problem bullet and key-idea bullet are separate — never combine "we identify X and propose Y." Bonus technique appears in the design bullet but does not need its own contribution line unless independently significant.
 - **Cut meaningless lists.** If the sentence works without the enumeration, delete it. "X that A, B, and C" → just "X".
 
 ## Terminology
@@ -158,7 +173,9 @@ Broad domain context
 - [ ] Matches Introduction terminology
 
 ### Introduction
+- [ ] Follows 7-para structure: context → approaches → challenges → root cause+insight → techniques (core+bonus separated) → system+result → contributions
 - [ ] No `---`, no `$\rightarrow$` in prose
 - [ ] No `instantiates` / `plateau` / `a new class of` / `closed loop`
-- [ ] No meaningless enumerations
-- [ ] All lists: `First, ...` + `\emph{lowercase}` or `itemize`
+- [ ] All challenges pass causal test (L0)
+- [ ] Core techniques linked to challenges; bonus techniques not forced
+- [ ] Contribution bullets: one line each, problem and key-idea separate
