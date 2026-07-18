@@ -23,8 +23,8 @@ description: Use when generating or polishing figures for academic papers. Use w
 |-------|------|-----------|
 | **P0** | **Director** — figure intent, type selection, template matching | [p0-director.md](p0-director.md) |
 | **P1** | **Architect** — spatial layout, structured spec + rough draft | [p1-architect.md](p1-architect.md) |
-| **P2** | **Builder** — PPT generation, component population, iterate | [p2-builder.md](p2-builder.md) |
-| **P3** | **Stylist** — color, font, arrows, alignment, cross-check, export | [p3-stylist.md](p3-stylist.md) |
+| **P2** | **Builder** — SVG-first generation (hand-write SVG, browser preview, convert via ppt-master) | [p2-builder.md](p2-builder.md) |
+| **P3** | **Stylist** — 13-point rubric: style (6) + semantics + layout + robustness + reviewer-risk + squint-test + layer-integrity + cross-figure-consistency | [p3-stylist.md](p3-stylist.md) |
 
 **Template-driven discovery:** Figure types predefined (architecture, flowchart, comparison, concept, data-plot). Template slides auto-discovered from `templates/` and matched by structure analysis.
 
@@ -48,7 +48,7 @@ Do NOT proceed to P3 until: all components populated, all connectors drawn, all 
 </HARD-GATE-P2>
 
 <HARD-GATE-P3>
-Figure NOT complete until: 6-point style checklist passed (color, font, arrows, alignment, spacing, width), colors consistent with other figures, PNG 300dpi exported, text-figure component names cross-checked.
+Figure NOT complete until: 13-point verification rubric passed (1.color 2.font 3.arrows 4.alignment 5.spacing 6.width/export 7.semantics 8.layout/anti-overlap 9.robustness 10.reviewer-risk 11.squint-test 12.layer-integrity 13.cross-figure-consistency), all figures consistent with paper-style-lock.md, PNG 300dpi exported, text-figure component names cross-checked. Font MUST be Times New Roman. Squint Test, Layer Integrity Review, and Cross-Figure Consistency are MANDATORY.
 </HARD-GATE-P3>
 
 ## Process Flow
@@ -67,7 +67,7 @@ digraph paper_plot {
     "User OK?" [shape=diamond];
     "Commit P2" [shape=box];
     "P3: Stylist\n[p3-stylist.md]" [shape=box];
-    "6 checks pass?" [shape=diamond];
+    "13 checks pass?" [shape=diamond];
     "Commit final" [shape=box];
     "Done" [shape=oval];
 
@@ -84,9 +84,9 @@ digraph paper_plot {
     "User OK?" -> "P2: Builder\n[p2-builder.md]" [label="no, revise"];
     "User OK?" -> "Commit P2" [label="yes"];
     "Commit P2" -> "P3: Stylist\n[p3-stylist.md]";
-    "P3: Stylist\n[p3-stylist.md]" -> "6 checks pass?";
-    "6 checks pass?" -> "P2: Builder\n[p2-builder.md]" [label="no"];
-    "6 checks pass?" -> "Commit final" [label="yes"];
+    "P3: Stylist\n[p3-stylist.md]" -> "13 checks pass?";
+    "13 checks pass?" -> "P2: Builder\n[p2-builder.md]" [label="no"];
+    "13 checks pass?" -> "Commit final" [label="yes"];
     "Commit final" -> "Done";
 }
 ```
@@ -96,15 +96,15 @@ digraph paper_plot {
 | Level | Output | Key Action | Ref |
 |-------|--------|-----------|-----|
 | P0 | `figures/<name>/figure-intent.md` | Determine type, match template, list elements | [p0](p0-director.md) |
-| P1 | `figures/<name>/figure-layout.md` + draft.pptx | Design spatial layout, generate rough draft | [p1](p1-architect.md) |
-| P2 | `figures/<name>/figure-v{N}.pptx` | Build PPT, iterate with user feedback | [p2](p2-builder.md) |
-| P3 | `figures/<name>/figure-final.pptx` | Polish style, cross-check, export PNG | [p3](p3-stylist.md) |
+| P1 | `figures/<name>/figure-layout.md` + `figure-spec-lock.md` + draft.pptx | Design spatial layout, extract spec lock, generate rough draft | [p1](p1-architect.md) |
+| P2 | `figures/<name>/figure-v{N}.pptx` | Typography-first build, grouping-first code, per-group self-check | [p2](p2-builder.md) |
+| P3 | `figures/<name>/figure-final.pptx` | 13-point rubric: polish style, verify semantics/layout, squint test, layer integrity, cross-figure consistency, export PNG | [p3](p3-stylist.md) |
 
 ## Git
 
 ```bash
 git commit -m "P0: figure intent for <name>"   # figures/<name>/figure-intent.md
-git commit -m "P1: layout for <name>"           # figures/<name>/figure-layout.md
+git commit -m "P1: layout for <name>"           # figures/<name>/figure-layout.md + figure-spec-lock.md
 git commit -m "P2: draft for <name>"            # figures/<name>/figure-v{N}.pptx
 git commit -m "P3: final for <name>"            # figures/<name>/figure-final.pptx
 ```

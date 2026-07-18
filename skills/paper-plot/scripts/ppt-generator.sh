@@ -55,21 +55,29 @@ DEFAULT_STYLE = {
     "colors": {
         "primary": "1565C0", "secondary": "42A5F5", "tertiary": "90CAF9",
         "external": "78909C", "highlight": "FF7043", "success": "66BB6A",
-        "border": "455A64", "text": "212121", "text_secondary": "616161",
-        "connector": "546E7A", "background": "FFFFFF"
+        "border": "455A64", "border_internal": "78909C",
+        "text": "212121", "text_secondary": "616161",
+        "connector": "546E7A", "connector_dashed": "78909C",
+        "connector_dotted": "9E9E9E", "background": "FFFFFF"
     },
     "fonts": {
         "family": "Arial",
         "title_size": 12, "label_size": 10, "sublabel_size": 8,
         "annotation_size": 7
     },
-    "connector_weight": 1.0,
+    "connector_weight": 1.0,          # pt, primary data flow
+    "connector_weight_control": 0.75, # pt, control flow
+    "connector_weight_dashed": 0.5,   # pt, optional/feedback
     "connector_arrow": "triangle",
+    "border_weight": 1.0,             # pt, primary component outlines
+    "border_weight_internal": 0.5,    # pt, sub-component outlines
+    "corner_radius": 0.2,             # cm, rounded rectangle default
     "grid_snap": 0.25,   # cm
     "min_gap": 0.2,       # cm
-    "padding": 0.15,      # cm
+    "padding": 0.15,      # cm, inside shapes
     "group_padding": 0.3, # cm
     "page_margin": 0.3,   # cm
+    "text_margin_pt": 1,  # pt, TxtMargin on all sides
 }
 
 def load_style(style_path):
@@ -115,14 +123,38 @@ def apply_style_to_shape(shape, style, role="primary"):
     shape.fill.solid()
     shape.fill.fore_color.rgb = hex_to_rgb(fill_hex)
 
-    # Border
-    shape.line.color.rgb = hex_to_rgb(colors["border"])
-    shape.line.width = Pt(1.0)
+    # Border — internal vs main
+    is_internal = role in ("tertiary",)
+    border_hex = colors.get("border_internal", colors["border"]) if is_internal else colors["border"]
+    border_weight = style.get("border_weight_internal", 0.5) if is_internal else style.get("border_weight", 1.0)
+    shape.line.color.rgb = hex_to_rgb(border_hex)
+    shape.line.width = Pt(border_weight)
+
+    # Corner radius for rounded rectangles
+    corner_radius = style.get("corner_radius", 0.2)
+    if shape.shape_type == MSO_SHAPE.ROUNDED_RECTANGLE:
+        try:
+            shape.adjustments[0] = corner_radius / 2.0  # approximation
+        except:
+            pass
 
     # Text
     if shape.has_text_frame:
         tf = shape.text_frame
         tf.word_wrap = True
+        # Vertical alignment: middle
+        try:
+            tf.paragraphs[0].alignment = PP_ALIGN.CENTER
+        except:
+            pass
+        try:
+            from pptx.oxml.ns import qn
+            txBody = shape._element.txBody
+            bodyPr = txBody.find(qn('a:bodyPr'))
+            if bodyPr is not None:
+                bodyPr.set('anchor', 'ctr')  # middle
+        except:
+            pass
         for para in tf.paragraphs:
             para.alignment = PP_ALIGN.CENTER
             for run in para.runs:
@@ -141,6 +173,33 @@ def clean_slide(slide):
         sp = shape._element
         sp.getparent().remove(sp)
 
+def reorder_connectors_behind(slide):
+    """Move all connector lines (cxnSp) to the back of z-order so shapes render on top.
+    Connectors obscuring component boxes or text is a critical visual bug."""
+    from pptx.oxml.ns import qn
+    spTree = slide._element.find(qn('p:cSld')).find(qn('p:spTree'))
+    if spTree is None:
+        return
+    children = list(spTree)
+    # Collect connector elements
+    cxn_elements = []
+    for child in children:
+        tag = child.tag.split('}')[-1] if '}' in child.tag else child.tag
+        if tag == 'cxnSp':
+            cxn_elements.append(child)
+    # Remove and re-insert at the beginning (behind all shapes)
+    for elem in cxn_elements:
+        spTree.remove(elem)
+    # Insert after the first non-connector element (typically a group shape or sp)
+    first_idx = 0
+    for i, child in enumerate(list(spTree)):
+        tag = child.tag.split('}')[-1] if '}' in child.tag else child.tag
+        if tag != 'cxnSp':
+            first_idx = i
+            break
+    for elem in reversed(cxn_elements):
+        spTree.insert(first_idx, elem)
+
 def generate_ppt(spec_path, output_path, mode, style):
     with open(spec_path) as f:
         spec = json.load(f)
@@ -151,6 +210,26 @@ def generate_ppt(spec_path, output_path, mode, style):
     components = spec.get("components", [])
     connectors = spec.get("connectors", [])
     groups = spec.get("groups", [])
+    panels = spec.get("panels", [])  # NEW: panel abstraction
+
+    # Build panel lookup
+    panel_map = {}  # name → {x_cm, y_cm, w_cm, h_cm}
+    for panel in panels:
+        panel_map[panel["name"]] = {
+            "x": panel.get("x", 0),
+            "y": panel.get("y", 0),
+            "w": panel.get("w", slide_width_cm),
+            "h": panel.get("h", 4.0),
+            "color": panel.get("color", "panel_bg"),
+            "label": panel.get("label", panel["name"]),
+        }
+
+    # Validate: all panel-referenced components have valid panel names
+    for comp in components:
+        if "panel" in comp:
+            pname = comp["panel"]
+            if pname not in panel_map:
+                raise ValueError(f"Component '{comp['name']}' references unknown panel '{pname}'. Known panels: {list(panel_map.keys())}")
 
     # Load or create presentation
     if template_path and mode != "polish":
@@ -175,18 +254,67 @@ def generate_ppt(spec_path, output_path, mode, style):
     usable_w_cm = slide_width_cm - 2 * style["page_margin"]
 
     created_shapes = {}  # name → shape reference
+    component_panels = {}  # name → panel_name for overlap checking
+
+    # ── Draw panel backgrounds first ──────────────────────────
+    for panel in panels:
+        pname = panel["name"]
+        px = Cm(panel_map[pname]["x"])
+        py = Cm(panel_map[pname]["y"])
+        pw = Cm(panel_map[pname]["w"])
+        ph = Cm(panel_map[pname]["h"])
+        pcolor = panel.get("fill", "F5F7FA")  # very light background
+
+        panel_shape = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, px, py, pw, ph)
+        panel_shape.name = f"panel_{pname}"
+        panel_shape.fill.solid()
+        panel_shape.fill.fore_color.rgb = hex_to_rgb(pcolor)
+        panel_shape.line.color.rgb = hex_to_rgb(style["colors"]["border"])
+        panel_shape.line.width = Pt(0.5)
+        panel_shape.line.dash_style = 2  # dash
+
+        # Panel label at top-left inside
+        tb = slide.shapes.add_textbox(px + Cm(0.1), py + Cm(0.05), Cm(4), Cm(0.5))
+        p = tb.text_frame.paragraphs[0]
+        run = p.add_run()
+        run.text = panel_map[pname]["label"]
+        run.font.name = style["fonts"]["family"]
+        run.font.size = Pt(style["fonts"]["sublabel_size"])
+        run.font.color.rgb = hex_to_rgb(style["colors"]["text_secondary"])
+        run.font.italic = True
 
     # ── Create components ──────────────────────────────────────
     for comp in components:
         name = comp["name"]
-        x = Cm(comp.get("x", 0))
-        y = Cm(comp.get("y", 0))
-        w = Cm(comp.get("w", 2))
-        h = Cm(comp.get("h", 1))
         shape_type = comp.get("shape", "rounded_rect")
         role = comp.get("role", "primary")
         text = comp.get("text", name)
         sub_text = comp.get("subtext", "")
+
+        # Panel-local coordinates: if "panel" specified, use x_rel/y_rel
+        if "panel" in comp:
+            pname = comp["panel"]
+            pinfo = panel_map[pname]
+            px0 = pinfo["x"]
+            py0 = pinfo["y"]
+            pw = pinfo["w"]
+            ph = pinfo["h"]
+            x_rel = comp.get("x_rel", 0)
+            y_rel = comp.get("y_rel", 0)
+            # Absolute position from relative coordinates
+            x_cm = px0 + x_rel * pw
+            y_cm = py0 + y_rel * ph
+            component_panels[name] = pname
+        else:
+            x_cm = comp.get("x", 0)
+            y_cm = comp.get("y", 0)
+        w_cm = comp.get("w", 2)
+        h_cm = comp.get("h", 1)
+
+        x = Cm(x_cm)
+        y = Cm(y_cm)
+        w = Cm(w_cm)
+        h = Cm(h_cm)
 
         ppt_shape_type = get_shape_type(shape_type)
         shape = slide.shapes.add_shape(ppt_shape_type, x, y, w, h)
@@ -223,6 +351,7 @@ def generate_ppt(spec_path, output_path, mode, style):
                     run2.font.name = style["fonts"]["family"]
                     run2.font.size = Pt(style["fonts"]["sublabel_size"])
                     run2.font.color.rgb = hex_to_rgb(style["colors"]["text_secondary"])
+                    run2.font.bold = False
 
         created_shapes[name] = shape
 
@@ -308,6 +437,58 @@ def generate_ppt(spec_path, output_path, mode, style):
             run.font.color.rgb = hex_to_rgb(style["colors"]["text_secondary"])
             run.font.italic = True
 
+    # ── Z-order: connectors behind shapes ────────────────────
+    reorder_connectors_behind(slide)
+
+    # ── Anti-Overlap Verification ─────────────────────────────
+    overlap_errors = []
+
+    # Check 1: children stay within parent panels
+    for name, pname in component_panels.items():
+        if name not in created_shapes:
+            continue
+        shape = created_shapes[name]
+        pinfo = panel_map[pname]
+        px0 = Cm(pinfo["x"])
+        py0 = Cm(pinfo["y"])
+        px1 = px0 + Cm(pinfo["w"])
+        py1 = py0 + Cm(pinfo["h"])
+
+        sx0 = shape.left
+        sy0 = shape.top
+        sx1 = shape.left + shape.width
+        sy1 = shape.top + shape.height
+
+        if sx0 < px0 or sy0 < py0 or sx1 > px1 or sy1 > py1:
+            overlap_errors.append(
+                f"OVERLAP: '{name}' extends outside panel '{pname}'. "
+                f"Shape bounds ({shape.left/360000:.2f},{shape.top/360000:.2f})-"
+                f"({(shape.left+shape.width)/360000:.2f},{(shape.top+shape.height)/360000:.2f}) cm "
+                f"exceed panel ({pinfo['x']},{pinfo['y']})-({pinfo['x']+pinfo['w']},{pinfo['y']+pinfo['h']}) cm"
+            )
+
+    # Check 2: panels don't collide
+    panel_list = list(panel_map.items())
+    for i in range(len(panel_list)):
+        for j in range(i + 1, len(panel_list)):
+            a_name, a = panel_list[i]
+            b_name, b = panel_list[j]
+            ax0, ay0 = a["x"], a["y"]
+            ax1, ay1 = a["x"] + a["w"], a["y"] + a["h"]
+            bx0, by0 = b["x"], b["y"]
+            bx1, by1 = b["x"] + b["w"], b["y"] + b["h"]
+            if ax0 < bx1 and ax1 > bx0 and ay0 < by1 and ay1 > by0:
+                overlap_errors.append(
+                    f"PANEL COLLISION: '{a_name}' and '{b_name}' overlap. "
+                    f"Panel A ({ax0},{ay0})-({ax1},{ay1}), Panel B ({bx0},{by0})-({bx1},{by1})"
+                )
+
+    if overlap_errors:
+        for err in overlap_errors:
+            print(f"WARNING: {err}")
+        print(f"ANTI-OVERLAP: {len(overlap_errors)} violation(s) found.")
+        raise RuntimeError(f"Overlap check failed with {len(overlap_errors)} violation(s). Fix component/panel coordinates before proceeding to P3.")
+
     # ── Adjust slide height ────────────────────────────────────
     if components:
         max_bottom = max(
@@ -336,6 +517,9 @@ def generate_ppt(spec_path, output_path, mode, style):
         "components": len(components),
         "connectors": len(connectors),
         "groups": len(groups),
+        "panels": len(panels),
+        "panel_children": len(component_panels),
+        "overlap_check": "passed",
         "slide_width_cm": slide_width_cm,
         "slide_height_cm": round(prs.slide_height / 360000, 1),
     }
