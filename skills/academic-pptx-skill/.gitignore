@@ -1,0 +1,19 @@
+# Installed dependencies
+assets/frontend/node_modules/
+scripts/export/node_modules/
+
+# Frontend and converter build output
+assets/frontend/dist/
+assets/frontend/dist-slides/
+
+# Local validation output
+scripts/export/browser-smoke/
+scripts/export/audit-*.json
+scripts/export/contact-*.png
+
+# The skill keeps pnpm lockfiles for reproducible installs.
+scripts/export/package-lock.json
+
+# Platform metadata
+.DS_Store
+Thumbs.db

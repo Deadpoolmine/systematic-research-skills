@@ -1,0 +1,4 @@
+interface:
+  display_name: "Academic PPTX"
+  short_description: "Create rigorous academic PPTX decks with PptxGenJS"
+  default_prompt: "Use $pptx-skill to create a rigorous academic presentation from my paper or defense materials."

@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Academic Presentation</title>
+    <style>
+      :root {
+        --primary-color: #16324f;
+        --accent-color-1: #2d6a4f;
+        --accent-color-2: #c65d3a;
+        --neutral-color: #5b6470;
+        --slide-background: #ffffff;
+        --font-title: "Arial", "Noto Sans SC", sans-serif;
+        --font-body: "Arial", "Noto Sans SC", sans-serif;
+      }
+    </style>
+    <script>window.slideDataMap = new Map();</script>
+  </head>
+  <body>
+    <main class="ppt-container">
+      <div class="ppt-viewport" id="ppt-viewport"></div>
+    </main>
+    <button class="nav-btn nav-btn-prev" id="prevBtn" aria-label="Previous slide">&#8592;</button>
+    <button class="nav-btn nav-btn-next" id="nextBtn" aria-label="Next slide">&#8594;</button>
+    <div class="progress-bar"><div class="progress-bar-fill" id="progressBarFill"></div></div>
+    <div class="page-indicator" id="pageIndicator">0 / 0</div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

@@ -33,6 +33,7 @@ Full write mode: **L0 → L1 → L2 → L3**. Polish mode: extract HLS from draf
 |-------|------------|
 | [paper-writing](skills/paper-writing/SKILL.md) | HLS-driven paper writing — from core idea to consistency-checked manuscript |
 | [paper-review](skills/paper-review/SKILL.md) | Persona-driven peer review simulation with interactive QA |
+| [academic-pptx-skill](skills/academic-pptx-skill/SKILL.md) | Evidence-led academic PPTX generation via HTML/Tailwind authoring and PptxGenJS export |
 
 ## Conventions
 

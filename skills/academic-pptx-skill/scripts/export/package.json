@@ -1,0 +1,12 @@
+{
+  "name": "academic-pptx-export-runtime",
+  "private": true,
+  "version": "1.0.0",
+  "dependencies": {
+    "fast-xml-parser": "5.2.5",
+    "jszip": "3.10.1",
+    "playwright": "1.62.0",
+    "pptxgenjs": "4.0.1",
+    "sharp": "0.35.3"
+  }
+}
