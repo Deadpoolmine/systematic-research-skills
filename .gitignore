@@ -25,3 +25,6 @@ coverage/
 
 # Temp files
 temp_*/
+
+# Python
+__pycache__/
