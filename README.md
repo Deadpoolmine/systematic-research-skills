@@ -27,12 +27,50 @@ Full write mode: **L0 → L1 → L2 → L3**. Polish mode: extract HLS from draf
 | Review | 5 subagents review simultaneously (system/AI templates auto-discovered) |
 | Dialogue | QA with specific reviewers in character with memory |
 
+### Paper Extract — Reverse HLS Decomposition
+
+Inverse of paper-writing HLS: decomposes existing papers into HLS components for deep understanding, gap identification, and research positioning.
+
+| Phase | Role | Output |
+|-------|------|--------|
+| **E0** | Extractor | Full text + figures from PDF/LaTeX |
+| **E1** | Decomposer | HLS 7+1 core points with evidence |
+| **E1.5** | Condenser | TLDR from Abstract+Intro only |
+| **E2** | Architect | Section flow chains + dependency graph |
+| **E3** | Critic | Innovation, gaps, positioning assessment |
+
+### Paper Plot — Hierarchical Figure Generation
+
+4-level refinement for academic figures — from high-level intent to visual polish, parallel to paper-writing HLS.
+
+| Level | Role | What It Does |
+|-------|------|-------------|
+| **P0** | Director | Figure intent, type selection, template matching |
+| **P1** | Architect | Spatial layout, structured spec + rough draft |
+| **P2** | Builder | SVG-first generation, browser preview, PPTX export |
+| **P3** | Stylist | 13-point rubric: style, semantics, layout, robustness, consistency |
+
+### Analyze Plot — Skill Improvement via Case Study
+
+Full-loop meta-skill: read paper → generate figure → compare with ground-truth → extract generalizable principles → improve paper-plot. Drives continuous improvement of the paper-plot skill through concrete case studies.
+
+| Phase | Role | Output |
+|-------|------|--------|
+| **A1** | Reader | System architecture from paper text only |
+| **A2** | Generator | Overview figure using current paper-plot principles |
+| **A3** | Analyzer | Quantitative gap analysis vs ground-truth |
+| **A4** | Abstractor | Paper-agnostic generalizable principles |
+| **A5** | Integrator | Skill file diffs to improve paper-plot |
+
 ## Skills
 
 | Skill | Description |
 |-------|------------|
 | [paper-writing](skills/paper-writing/SKILL.md) | HLS-driven paper writing — from core idea to consistency-checked manuscript |
 | [paper-review](skills/paper-review/SKILL.md) | Persona-driven peer review simulation with interactive QA |
+| [paper-extract](skills/paper-extract/SKILL.md) | Reverse HLS decomposition — extract and analyze papers from PDF/LaTeX |
+| [paper-plot](skills/paper-plot/SKILL.md) | Hierarchical figure generation for academic papers (SVG → PPTX) |
+| [analyze-plot](skills/analyze-plot/SKILL.md) | Case-study meta-skill — learn figure design principles from ground-truth examples |
 | [academic-pptx-skill](skills/academic-pptx-skill/SKILL.md) | Evidence-led academic PPTX generation via HTML/Tailwind authoring and PptxGenJS export |
 
 ## Conventions
