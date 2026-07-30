@@ -1,4 +1,8 @@
-﻿<h1 align="center">Systematic Research Skills</h1>
+﻿<p align="center">
+  <img src="assets/BG.png" alt="Systematic Research Skills" />
+</p>
+
+<h1 align="center">Systematic Research Skills</h1>
 
 ---
 
