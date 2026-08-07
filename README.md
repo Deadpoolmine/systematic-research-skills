@@ -119,6 +119,7 @@ No dependencies. Skills are self-contained Markdown + scripts. Copy `skills/<nam
 - [AI-Research-SKILLs](https://github.com/Orchestra-Research/AI-Research-SKILLs/) — Orchestra Research's AI research skill collection
 - [research-writing-skill](https://github.com/alfonso0512/research-writing-skill/) — Alfonso's research writing skill for coding agents
 - [superpowers](https://github.com/obra/superpowers) — Superpowers-level conciseness conventions for AI agent skills
+- [nsfc-agent-skills](https://github.com/njzjz/nsfc-agent-skills/)
 
 ## 7. Contributing
 
