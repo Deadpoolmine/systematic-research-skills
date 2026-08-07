@@ -7,7 +7,9 @@ description: Use when extracting and analyzing academic papers from PDF or LaTeX
 
 ## Overview
 
-Inverse of paper-writing HLS: decomposes a paper into HLS components for deep understanding, gap identification, and research positioning. Where paper-writing builds paper from ideas (L0→L1→L2→L3), paper-extract extracts HLS from an existing paper.
+Inverse of paper-writing HLS: decomposes a paper into HLS components for deep understanding, gap identification, and research positioning. Outputs in **OKF format** (YAML frontmatter + structured Markdown) for knowledge graph integration.
+
+Templates → [templates/](templates/). OKF format → [references/okf-format.md](references/okf-format.md).
 
 ## When to Use
 
@@ -19,13 +21,15 @@ Decision flowchart → [references/decision-flow.md](references/decision-flow.md
 
 ## Process Flow
 
-| Phase | Role | Output |
-|-------|------|--------|
-| **E0** | **Extractor** — text + figures from PDF/LaTeX | `output/analysis/` |
-| **E1** | **Decomposer** — HLS 7+1 core points with evidence | `output/results/hls-L0.md` |
-| **E1.5** | **Condenser** — TLDR, Abstract+Intro only | `output/results/tldr.md` |
-| **E2** | **Architect** — Section flow chains | `output/results/hls-L1.md` |
-| **E3** | **Critic** — innovation, gaps, positioning | `output/analysis/critical-assessment.md` |
+| Phase | Role | Output | Template |
+|-------|------|--------|----------|
+| **E0** | **Extractor** — text + figures from PDF/LaTeX | `output/analysis/` | — |
+| **E1** | **Decomposer** — HLS 7+1 core points with evidence | `l0.md` (OKF) | [templates/l0.md](templates/l0.md) |
+| **E1.5** | **Condenser** — TLDR, Abstract+Intro only | `tldr.md` (OKF) | [templates/tldr.md](templates/tldr.md) |
+| **E2** | **Architect** — Section flow chains | `l1.md` (OKF) | [templates/l1.md](templates/l1.md) |
+| **E3** | **Critic** — innovation, gaps, positioning | `output/analysis/critical-assessment.md` | — |
+
+All E1/E1.5/E2 outputs include OKF YAML frontmatter (`type`, `title`, `description`, `tags`, `status`, `level`, `generated`, `sources`).
 
 Output layout → [references/extraction-guide.md](references/extraction-guide.md).
 
@@ -34,15 +38,18 @@ Output layout → [references/extraction-guide.md](references/extraction-guide.m
 <HARD-GATE-E0>
 Full text + figure PNGs + captions + references extracted. Verify `output/analysis/full-text.md` and `figures/` exist.
 </HARD-GATE-E0>
-
-<HARD-GATE-E1>
-ALL 7+1 points in `hls-L0.md` with evidence citations. Descriptive, not evaluative. Overview ≤5 sentences. Key Idea = 1 sentence.
+l0.md` with OKF frontmatter and evidence citations. Descriptive, not evaluative. Overview ≤5 sentences. Key Idea = 1 sentence.
+Template → [templates/l0.md](templates/l0.md).
 </HARD-GATE-E1>
 
 <HARD-GATE-E1.5>
-TLDR from Abstract+Intro ONLY. Structured sub-points (1)(2)(3) per section, each 1-2 sentences. No citations, no `[MISSING]` flags.
+TLDR from Abstract+Intro ONLY. OKF frontmatter REQUIRED. Structured (1)(2)(3) sub-points, 1-2 sentences each. No `[MISSING]`.
+Template → [templates/tldr.md](templates/tldr.md).
 </HARD-GATE-E1.5>
 
+<HARD-GATE-E2>
+Each Section's A→B→C chain + figure placements + mermaid dependency graph. OKF frontmatter REQUIRED.
+Template → [templates/l1.md](templates/l1.md)
 <HARD-GATE-E2>
 Each Section's A→B→C chain + figure placements + dependency graph. User confirms.
 </HARD-GATE-E2>
