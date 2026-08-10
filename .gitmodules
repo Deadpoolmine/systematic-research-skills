@@ -1,0 +1,3 @@
+[submodule "tools/group"]
+	path = tools/group
+	url = https://github.com/CsCN-CBJ/botmux.git
