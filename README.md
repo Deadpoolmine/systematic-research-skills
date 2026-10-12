@@ -91,6 +91,7 @@ Full-loop meta-skill: read paper → generate figure → compare with ground-tru
 | [paper-plot](skills/paper-plot/SKILL.md) | Hierarchical figure generation for academic papers (SVG → PPTX) |
 | [analyze-plot](skills/analyze-plot/SKILL.md) | Case-study meta-skill — learn figure design principles from ground-truth examples |
 | [academic-pptx-skill](skills/academic-pptx-skill/SKILL.md) | Evidence-led academic PPTX generation via HTML/Tailwind authoring and PptxGenJS export |
+| [paper-orchestrator](skills/paper-orchestrator/SKILL.md) | Orchestrate paper projects — inspect state, route to the right specialist, and recheck downstream work |
 
 ## 4. Conventions
 
