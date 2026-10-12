@@ -9,8 +9,9 @@ Usage:
     python search-usenix.py osdi --year 2026 --output <dir>
     python search-usenix.py osdi --year 2026,2025,2024 --output <dir>
     python search-usenix.py atc --year 2025 --limit 50 --output <dir>
+    python search-usenix.py fast --year 2025 --query snapshot --output <dir>
 
-Dependencies: pip install requests beautifulsoup4
+Dependencies: beautifulsoup4 (see skill requirements.txt)
 """
 
 import sys
@@ -19,13 +20,11 @@ import re
 import time
 from pathlib import Path
 from datetime import datetime, timezone
+from urllib.request import Request
 
-try:
-    import requests
-    from bs4 import BeautifulSoup
-except ImportError:
-    print("Missing dependencies. Install: pip install requests beautifulsoup4")
-    sys.exit(1)
+SKILL_ROOT = Path(__file__).resolve().parents[3]
+sys.path.insert(0, str(SKILL_ROOT / 'scripts'))
+from search_support import read_url, SearchError, search_failed, search_succeeded
 
 # Supported USENIX conferences and their URL prefixes
 USENIX_CONFERENCES = {
@@ -59,21 +58,16 @@ def build_url(conf: str, year: int | str) -> str:
 def fetch_page(url: str, max_retries: int = 3) -> str | None:
     """Fetch page content with retry logic."""
     headers = {"User-Agent": USER_AGENT}
-    for attempt in range(max_retries):
-        try:
-            resp = requests.get(url, headers=headers, timeout=30)
-            resp.raise_for_status()
-            return resp.text
-        except requests.RequestException as e:
-            if attempt < max_retries - 1:
-                time.sleep(2 * (attempt + 1))
-                continue
-            print(f"  [ERROR] Failed to fetch {url}: {e}", file=sys.stderr)
-            return None
+    return read_url(Request(url, headers=headers), attempts=max_retries).decode('utf-8')
 
 
 def parse_papers(html: str, conf: str, year: str) -> list[dict]:
     """Parse paper listings from USENIX technical-sessions HTML."""
+    try:
+        from bs4 import BeautifulSoup
+    except ImportError as error:
+        raise SearchError('Install optional engines with: python -m pip install -r ' +
+                          str(SKILL_ROOT / 'requirements.txt')) from error
     soup = BeautifulSoup(html, "html.parser")
     papers = []
     seen = set()
@@ -133,6 +127,9 @@ def parse_papers(html: str, conf: str, year: str) -> list[dict]:
 
 
 def main():
+    if '--help' in sys.argv or '-h' in sys.argv:
+        print(__doc__)
+        return
     if len(sys.argv) < 2:
         print("Usage: python search-usenix.py <conference> --year <years> [--output <dir>] [--limit N]")
         print(f"  Conferences: {', '.join(USENIX_CONFERENCES.keys())}")
@@ -158,17 +155,29 @@ def main():
     if "--limit" in sys.argv:
         idx = sys.argv.index("--limit")
         limit = int(sys.argv[idx + 1])
+    if not years or any(not re.fullmatch(r'\d{4}', year) for year in years):
+        print('Supply --year with four-digit years, e.g. --year 2026,2025', file=sys.stderr)
+        sys.exit(2)
+    if limit is not None and limit < 1:
+        print('--limit must be positive', file=sys.stderr)
+        sys.exit(2)
+    query = ''
+    if '--query' in sys.argv:
+        query = sys.argv[sys.argv.index('--query') + 1]
 
     all_papers = []
     for year in years:
         url = build_url(conf, year)
         print(f"Fetching {USENIX_CONFERENCES[conf]} '{year}: {url}")
-        html = fetch_page(url)
-        if not html:
-            print(f"  [SKIP] {conf}{year} — page not found or inaccessible")
-            continue
-
-        papers = parse_papers(html, conf, year)
+        try:
+            html = fetch_page(url)
+            papers = parse_papers(html, conf, year)
+            if not papers:
+                raise SearchError('No presentation links parsed; check conference/year or page format')
+        except Exception as error:
+            search_failed(output_dir, 'usenix', f'{conf}:{",".join(years)} {query}', error)
+            print(f'Search failed: {error}', file=sys.stderr)
+            sys.exit(1)
         print(f"  Found {len(papers)} papers")
         all_papers.extend(papers)
 
@@ -176,6 +185,10 @@ def main():
         if len(years) > 1:
             time.sleep(1)
 
+    if query:
+        terms = query.lower().split()
+        all_papers = [paper for paper in all_papers
+                      if all(term in paper['title'].lower() for term in terms)]
     if limit:
         all_papers = all_papers[:limit]
 
@@ -193,7 +206,7 @@ def main():
     }
 
     output_path = output_dir / "results.json"
-    output_path.write_text(json.dumps(output, indent=2, ensure_ascii=False), encoding="utf-8")
+    search_succeeded(output_dir, 'results.json', output)
     print(f"\nDone: {len(all_papers)} papers → {output_path}")
 
 

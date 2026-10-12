@@ -1,0 +1,21 @@
+name: Research search regression tests
+on:
+  push:
+    paths: ['skills/systematic-research/**', 'tests/test_research_search.py', '.github/workflows/research-search-tests.yml']
+  pull_request:
+    paths: ['skills/systematic-research/**', 'tests/test_research_search.py', '.github/workflows/research-search-tests.yml']
+jobs:
+  offline-tests:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python: ['3.10', '3.12']
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: python -m unittest discover -s tests -v
+        env:
+          PYTHONUTF8: '1'

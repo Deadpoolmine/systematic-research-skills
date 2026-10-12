@@ -2,7 +2,7 @@
 """
 Source-API Cross-Verification — verify results.json entries against the original source API.
 
-For each entry in results.json, queries the source API (arXiv, CrossRef DOI, or OpenAlex)
+For each arXiv entry in a COPY of results.json, queries the arXiv source API
 and compares authors, title, and summary. Flags mismatches and can auto-fix from API data.
 
 Usage:
@@ -26,10 +26,11 @@ import urllib.parse
 from pathlib import Path
 from datetime import datetime, timezone
 from xml.etree import ElementTree as ET
+from search_support import read_url
 
 
 USER_AGENT = "systematic-research-verify/1.0 (mailto:research@example.com)"
-ARXIV_API = "http://export.arxiv.org/api/query"
+ARXIV_API = "https://export.arxiv.org/api/query"
 
 
 def extract_arxiv_id(entry: dict) -> str | None:
@@ -38,25 +39,23 @@ def extract_arxiv_id(entry: dict) -> str | None:
         val = entry.get(field, "")
         if val:
             # Strip version suffix: 1908.10740v1 → 1908.10740
-            m = re.match(r"^(\d{4}\.\d{4,5})", val)
+            m = re.fullmatch(r"(\d{4}\.\d{4,5}|[a-z-]+(?:\.[A-Z]{2})?/\d{7})(?:v\d+)?", val)
             if m:
                 return m.group(1)
-            return val
     # Try from URL
     url = entry.get("url", "")
     m = re.search(r"arxiv\.org/abs/(\d{4}\.\d{4,5})", url)
     if m:
-        return m.group(1).rstrip("v0123456789")
+        return m.group(1)
     return None
 
 
 def query_arxiv(arxiv_id: str) -> dict | None:
     """Query arXiv API for a paper and return structured data."""
     try:
-        url = f"{ARXIV_API}?id_list={arxiv_id}"
+        url = f"{ARXIV_API}?{urllib.parse.urlencode({'id_list': arxiv_id})}"
         req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
-        resp = urllib.request.urlopen(req, timeout=30)
-        data = resp.read().decode("utf-8")
+        data = read_url(req).decode("utf-8")
         root = ET.fromstring(data)
 
         ns = {
@@ -154,6 +153,7 @@ def verify_entry(entry: dict, index: int, fix_mode: bool = False) -> dict:
 
     entry["verified"] = True
     entry["verified_at"] = datetime.now(timezone.utc).isoformat()
+    entry.pop('verify_error', None)
 
     # Check title
     if not titles_match(entry.get("title", ""), api_data["title"]):
@@ -186,6 +186,7 @@ def verify_entry(entry: dict, index: int, fix_mode: bool = False) -> dict:
         if fix_mode:
             entry["summary"] = api_data["summary"]
 
+    entry['verified'] = not issues or fix_mode
     # Fix arxiv_id version if different
     if fix_mode and api_data.get("arxiv_id"):
         entry["arxiv_id"] = api_data["arxiv_id"]
@@ -224,7 +225,7 @@ def main():
 
         updated, issues = verify_entry(entry, i, fix_mode=fix_mode)
 
-        if updated.get("verified") is False:
+        if updated.get("verified") is False and not any('MISMATCH' in issue for issue in issues):
             print(f"  ⚠ SKIP: {updated.get('verify_error', 'unknown')}")
             api_errors += 1
             continue
@@ -241,10 +242,10 @@ def main():
 
         time.sleep(0.3)  # Rate limit
 
-    # Save if fixed
-    if fix_mode and fixed > 0:
+    # Persist outcomes on the caller's verification copy, including failures.
+    if fix_mode:
         data["results"] = results
-        data["verified_against_source"] = True
+        data["verified_against_source"] = api_errors == 0
         data["verification_timestamp"] = datetime.now(timezone.utc).isoformat()
         results_path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
         print(f"\n✓ Fixed {fixed} issue(s) in {results_path}")
@@ -252,7 +253,7 @@ def main():
     print(f"\n{'=' * 50}")
     print(f"Summary: {total_issues} mismatches, {api_errors} API errors, {fixed} auto-fixed")
 
-    if api_errors > 0 and total_issues == 0:
+    if api_errors > 0:
         print("WARNING: Some entries could not be verified (API errors)")
         sys.exit(2)
     elif total_issues > 0 and not fix_mode:
