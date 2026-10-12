@@ -2,9 +2,8 @@
 """
 Academic Search — search OpenAlex API for academic papers.
 
-Prioritizes peer-reviewed publications from top venues.
-Defaults to journal-article + proceedings-article types only
-to exclude preprints, book chapters, and non-peer-reviewed content.
+Searches article/review candidates using the current OpenAlex vocabulary.
+Publication type alone does not establish peer review; verify venue/status.
 
 Usage:
     python search-academic.py "<query>" [--limit N] [--year-from YYYY] [--output <dir>]
@@ -21,12 +20,13 @@ from datetime import datetime, timezone
 from urllib.request import urlopen, Request
 from urllib.parse import quote, urlencode
 from pathlib import Path
+from search_support import read_url, SearchError, search_failed, search_succeeded
 
 
 OPENALEX_WORKS = "https://api.openalex.org/works"
 
-# Only peer-reviewed types by default
-PEER_REVIEWED_TYPES = "journal-article|proceedings-article"
+# Current OpenAlex work types (not Crossref's journal/proceedings vocabulary).
+ARTICLE_TYPES = "article|review"
 
 
 def search_academic(
@@ -39,7 +39,7 @@ def search_academic(
     """Search OpenAlex API and return structured results.
 
     Quality levels:
-      - normal: peer-reviewed only (journal + proceedings), sorted by citations
+      - normal: articles/reviews, sorted by citations; confirm publication status
       - strict: normal + cited_by >= 1 (exclude uncited papers)
     """
     params = {
@@ -48,7 +48,8 @@ def search_academic(
         "sort": "cited_by_count:desc",
     }
 
-    filters = [f"type:{PEER_REVIEWED_TYPES}"]
+    # OpenAlex uses its own vocabulary, not Crossref's publication types.
+    filters = [f"type:{ARTICLE_TYPES}"]
 
     if year_from:
         filters.append(f"publication_year:>{year_from - 1}")
@@ -65,17 +66,20 @@ def search_academic(
     results = []
 
     try:
-        req = Request(url, headers={
-            "User-Agent": "systematic-research-skill/1.0 (mailto:research@example.com)"
-        })
-        with urlopen(req, timeout=30) as resp:
-            data = json.loads(resp.read().decode("utf-8"))
+        headers = {"User-Agent": "systematic-research-skill/1.0"}
+        if os.environ.get('OPENALEX_API_KEY'):
+            headers['Authorization'] = 'Bearer ' + os.environ['OPENALEX_API_KEY']
+        req = Request(url, headers=headers)
+        data = json.loads(read_url(req).decode("utf-8"))
+        if not isinstance(data, dict) or not isinstance(data.get('results'), list):
+            raise SearchError('OpenAlex response is missing a results list')
 
         for work in data.get("results", [])[:limit]:
             authorship = work.get("authorships", [])
             authors = [a.get("author", {}).get("display_name", "") for a in authorship[:5]]
 
-            source = work.get("primary_location", {}).get("source", {}) or {}
+            location = work.get("primary_location") or {}
+            source = location.get("source") or {}
             source_display = source.get("display_name", "")
             source_type = source.get("type", "")
 
@@ -87,14 +91,14 @@ def search_academic(
                 "doi": work.get("doi", ""),
                 "cited_by_count": work.get("cited_by_count", 0),
                 "abstract": _truncate(work.get("abstract_inverted_index"), 500),
-                "url": work.get("primary_location", {}).get("landing_page_url", ""),
+                "url": location.get("landing_page_url") or work.get('doi') or work.get('id') or '',
                 "openalex_id": work.get("id", ""),
                 "type": work.get("type", ""),
                 "source_type": source_type,
                 "retrieved": datetime.now(timezone.utc).isoformat()
             })
     except Exception as e:
-        print(f"Search error: {e}", file=sys.stderr)
+        raise SearchError(f'OpenAlex search failed: {e}') from e
 
     return results
 
@@ -120,7 +124,7 @@ def main():
         print("  --limit N          Max results (default: 20)")
         print("  --year-from YYYY   Filter by publication year")
         print("  --quality MODE     normal | strict")
-        print("                       normal = peer-reviewed journals + proceedings")
+        print("                       normal = article/review candidates (verify publication status)")
         print("                       strict = normal + cited_by > 0")
         print("  --skip-low-cited N Exclude papers with < N citations")
         print("  --output DIR       Output directory (default: knowledge/)")
@@ -158,7 +162,14 @@ def main():
     desc += f", min_cited={skip_low_cited}" if skip_low_cited else ""
     desc += ")"
     print(desc)
-    results = search_academic(query, limit, year_from, quality, skip_low_cited)
+    try:
+        if limit < 1 or quality not in ('normal', 'strict'):
+            raise ValueError('Use a positive --limit and --quality normal|strict')
+        results = search_academic(query, limit, year_from, quality, skip_low_cited)
+    except Exception as error:
+        search_failed(output_dir, 'academic', query, error)
+        print(f'Search failed: {error}', file=sys.stderr)
+        sys.exit(1)
 
     os.makedirs(output_dir, exist_ok=True)
     out_path = os.path.join(output_dir, "search-results.json")
@@ -170,8 +181,7 @@ def main():
         "results": results,
     }
 
-    with open(out_path, "w", encoding="utf-8") as f:
-        json.dump(output, f, ensure_ascii=False, indent=2)
+    search_succeeded(output_dir, 'search-results.json', output)
 
     print(f"Saved {len(results)} results to {out_path}")
 

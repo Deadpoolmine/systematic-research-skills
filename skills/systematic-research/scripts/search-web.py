@@ -13,18 +13,21 @@ import os
 import json
 from datetime import datetime, timezone
 from pathlib import Path
-
-try:
-    from duckduckgo_search import DDGS
-except ImportError:
-    print("Error: duckduckgo-search not installed. Run: pip install duckduckgo-search")
-    sys.exit(1)
+from search_support import SearchError, search_failed, search_succeeded
 
 
 def search_web(query: str, limit: int = 10) -> list[dict]:
     """Search DuckDuckGo and return structured results."""
     results = []
     try:
+        try:
+            from ddgs import DDGS
+        except ImportError:
+            try:
+                from duckduckgo_search import DDGS
+            except ImportError as error:
+                raise SearchError('Install optional engines with: python -m pip install -r ' +
+                                  str(Path(__file__).resolve().parents[1] / 'requirements.txt')) from error
         with DDGS() as ddgs:
             for r in ddgs.text(query, max_results=limit):
                 results.append({
@@ -34,7 +37,7 @@ def search_web(query: str, limit: int = 10) -> list[dict]:
                     "retrieved": datetime.now(timezone.utc).isoformat()
                 })
     except Exception as e:
-        print(f"Search error: {e}", file=sys.stderr)
+        raise SearchError(f'Web search failed: {e}') from e
     return results
 
 
@@ -63,7 +66,14 @@ def main():
             i += 1
 
     print(f"Searching: {query} (limit={limit})")
-    results = search_web(query, limit)
+    try:
+        if limit < 1:
+            raise ValueError('--limit must be positive')
+        results = search_web(query, limit)
+    except Exception as error:
+        search_failed(output_dir, 'web', query, error)
+        print(f'Search failed: {error}', file=sys.stderr)
+        sys.exit(1)
 
     os.makedirs(output_dir, exist_ok=True)
     out_path = os.path.join(output_dir, "search-results.json")
@@ -74,8 +84,7 @@ def main():
         "results": results
     }
 
-    with open(out_path, "w", encoding="utf-8") as f:
-        json.dump(output, f, ensure_ascii=False, indent=2)
+    search_succeeded(output_dir, 'search-results.json', output)
 
     print(f"Saved {len(results)} results to {out_path}")
     for i, r in enumerate(results, 1):

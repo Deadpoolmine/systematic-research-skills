@@ -22,13 +22,16 @@ Rate limit: polite delays; avoid bursts. Max results per call: depends on query.
 import sys
 import json
 import time
+import shlex
+import re
 import urllib.request
 import urllib.parse
 import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
 from pathlib import Path
+from search_support import read_url, SearchError, search_failed, search_succeeded
 
-ARXIV_API = "http://export.arxiv.org/api/query"
+ARXIV_API = "https://export.arxiv.org/api/query"
 
 # Common arXiv CS categories
 ARXIV_CATEGORIES = {
@@ -56,10 +59,15 @@ NS = {"atom": "http://www.w3.org/2005/Atom", "arxiv": "http://arxiv.org/schemas/
 
 def build_query(search_terms: str, category: str = None) -> str:
     """Build arXiv API search query string."""
-    terms = search_terms.replace(" ", "+")
+    # urlencode is the only encoding step. Retain explicit arXiv field syntax.
+    if re.search(r'\b(?:all|ti|au|abs|cat|id|submittedDate|lastUpdatedDate):', search_terms):
+        terms = search_terms
+    else:
+        tokens = shlex.split(search_terms)
+        terms = ' AND '.join('all:' + (f'"{term}"' if ' ' in term else term) for term in tokens)
     if category:
-        return f"cat:{category}+AND+all:{terms}"
-    return f"all:{terms}"
+        return f"cat:{category} AND ({terms})"
+    return terms
 
 
 def search_arxiv(
@@ -86,17 +94,19 @@ def search_arxiv(
             url,
             headers={"User-Agent": "systematic-research-skill/1.0"},
         )
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            xml_data = resp.read().decode("utf-8")
+        xml_data = read_url(req).decode("utf-8")
     except Exception as e:
-        print(f"arXiv API error: {e}", file=sys.stderr)
-        return []
+        raise SearchError(f"arXiv API error: {e}") from e
 
     # Parse ATOM XML
     root = ET.fromstring(xml_data)
+    if root.tag != '{http://www.w3.org/2005/Atom}feed':
+        raise SearchError('arXiv returned a non-Atom response')
     results = []
 
     for entry in root.findall("atom:entry", NS):
+        if 'api/errors' in entry.findtext('atom:id', default='', namespaces=NS):
+            raise SearchError(entry.findtext('atom:summary', default='arXiv query error', namespaces=NS))
         title_el = entry.find("atom:title", NS)
         title = title_el.text.strip().replace("\n", " ") if title_el is not None else ""
 
@@ -223,11 +233,15 @@ def main():
             i += 1
 
     print(f"Searching arXiv for: {query}")
-    results = search_arxiv(query, limit=limit, year_from=year_from, category=category)
-
-    if not results:
-        print("No results found.")
-        sys.exit(0)
+    try:
+        if limit < 1:
+            raise ValueError('--limit must be positive')
+        results = search_arxiv(query, limit=limit, year_from=year_from, category=category,
+                               published_only=published_only)
+    except Exception as error:
+        search_failed(output_dir, 'arxiv', query, error)
+        print(f'Search failed: {error}', file=sys.stderr)
+        sys.exit(1)
 
     output_path = Path(output_dir)
     output_path.mkdir(parents=True, exist_ok=True)
@@ -242,7 +256,7 @@ def main():
     }
 
     result_file = output_path / "results.json"
-    result_file.write_text(json.dumps(output, indent=2, ensure_ascii=False), encoding="utf-8")
+    search_succeeded(output_dir, 'results.json', output)
     print(f"Done: {len(results)} papers → {result_file}")
 
 
