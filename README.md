@@ -85,6 +85,7 @@ Full-loop meta-skill: read paper → generate figure → compare with ground-tru
 
 | Skill | Description |
 |-------|------------|
+| [systematic-research](skills/systematic-research/SKILL.md) | Canonical suite entrypoint — inspect research state, route specialists, and revalidate dependent work |
 | [paper-writing](skills/paper-writing/SKILL.md) | HLS-driven paper writing — from core idea to consistency-checked manuscript |
 | [paper-review](skills/paper-review/SKILL.md) | Persona-driven peer review simulation with interactive QA |
 | [paper-extract](skills/paper-extract/SKILL.md) | Reverse HLS decomposition — extract and analyze papers from PDF/LaTeX |
